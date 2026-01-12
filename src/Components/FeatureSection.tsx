@@ -45,7 +45,7 @@ export default function FeaturesSection(): JSX.Element {
                 Product features
             </h2>
 
-            <div className="mx-auto max-w-350 w-10/12 px-4">
+            <div className="mx-auto max-w-350 w-11/12 px-2 lg:px-0 lg:w-10/12  ">
                 <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
                     {features.map((feature) => (
                         <li

@@ -51,7 +51,7 @@ export default function Header() {
             </div>
 
             {/* Main header */}
-            <div className="shadow  w-full ">
+            <div className="   w-full ">
                 <div className="py-2.5 ">
                     <div className="flex max-w-350 w-10/12 h-16 justify-between mx-auto items-center ">
                         {/* Mobile menu button */}
