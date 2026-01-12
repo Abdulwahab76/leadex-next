@@ -80,7 +80,7 @@ export default function Header() {
                                 aria-label="Leadax homepage"
                                 className="text-xl font-bold text-primary-500"
                             >
-                                <Image src='/Bodenlink.jpg' width={150} height={150} alt="logo" />
+                                <Image src='/images/Bodenlink.png' width={150} height={150} alt="logo" />
                             </Link>
                         </div>
 
