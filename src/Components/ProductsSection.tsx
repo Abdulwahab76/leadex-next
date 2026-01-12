@@ -73,7 +73,7 @@ export default function ProductsSection(): JSX.Element {
 
                             {/* Button */}
                             <button
-                                className="mt-6 rounded-full cursor-pointer border border-gray-300 px-5 py-2 text-xs lg:text-sm font-light   transition  bg-gray-50 shadow-lg"
+                                className="mt-6 rounded-full cursor-pointer border border-gray-300 px-5 py-2.5 text-xs lg:text-xs font-light   transition  bg-gray-100 shadow-[0_0_10px_0_rgb(0,0,0,0.16)]"
                                 aria-label={`Read more about ${product.title}`}
                             >
                                 Read more
