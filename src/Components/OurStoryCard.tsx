@@ -27,7 +27,7 @@ export default function OurStoryCard() {
                             partners.
                         </p>
 
-                        <button className="mt-6 w-fit rounded-full border border-gray-300   px-5 cursor-pointer py-3 text-xs font-normal  transition  bg-gray-100  shadow-lg">
+                        <button className="mt-6 w-fit shadow-[0_0_10px_0_rgb(0,0,0,0.16)] rounded-full border border-gray-300   px-5 cursor-pointer py-3 text-xs font-normal  transition  bg-gray-100">
                             Read more
                         </button>
                     </div>
