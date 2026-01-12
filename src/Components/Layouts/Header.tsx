@@ -18,11 +18,10 @@ export default function Header() {
 
     const mainNavLinks = [
         { href: "/products", label: "Products" },
-        { href: "/professionals", label: "For professionals" },
-        { href: "/applications", label: "Applications" },
-        { href: "/projects", label: "Projects" },
+        { href: "/pricing", label: "Pricing" },
+        { href: "/sustainability", label: "Sustainability" },
         { href: "/blog", label: "Blog" },
-        { href: "/our-story", label: "Our story" },
+        { href: "/about", label: "About" },
     ];
 
     return (
