@@ -38,22 +38,22 @@ export default function FeaturesSection(): JSX.Element {
     return (
         <section
             aria-labelledby="features-heading"
-            className="bg-gray-100 py-11"
+            className="bg-[#EEEEEE] py-11"
         >
             {/* Accessible heading */}
             <h2 id="features-heading" className="sr-only">
                 Product features
             </h2>
 
-            <div className="mx-auto max-w-350 w-10/12">
-                <ul className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mx-auto max-w-350 w-10/12 px-4">
+                <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
                     {features.map((feature) => (
                         <li
                             key={feature.title}
                             className="flex flex-col items-center text-center"
                         >
                             {/* Icon */}
-                            <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl  ">
+                            <div className="mb-2 flex h-14 w-14 items-center justify-center rounded-xl  ">
                                 <Image
                                     src={feature.icon}
                                     alt=""
@@ -69,7 +69,7 @@ export default function FeaturesSection(): JSX.Element {
                             </h4>
 
                             {/* Description */}
-                            <h5 className="mt-3 text-xs lg:text-sm font-normal w-10/12 leading-relaxed ">
+                            <h5 className="mt-3 text-xs   lg:font-light w-8/12  leading-relaxed  ">
                                 {feature.description}
                             </h5>
                         </li>
