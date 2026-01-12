@@ -11,12 +11,12 @@ const products: Product[] = [
     {
         title: "Leadax Flashing",
         description: "Lead replacement. Quick and easy to apply.",
-        image: "/images/leadax-box.webp",
+        image: "https://leadex-next.vercel.app/images/Leadax-box.webp",
     },
     {
         title: "Leadax Roof",
         description: "Roofing for flat and pitched roofs.",
-        image: "/images/leadax-Roof.webp",
+        image: "https://leadex-next.vercel.app/images/Leadax-Roof.webp",
     },
     {
         title: "Tools & accessories",
