@@ -1,13 +1,15 @@
 import FeaturesSection from "@/Components/FeatureSection";
 import FreeSamplesSection from "@/Components/FreeSamplesSection";
 import GetInspiredSection from "@/Components/GetInspiredSection";
+import OurStoryCard from "@/Components/OurStoryCard";
+import PartnersLogos from "@/Components/PartnersLogos";
 import ProductsSection from "@/Components/ProductsSection";
 import Image from "next/image";
 
 export default function Home() {
   return (
-    <main>
-      <section className="relative h-[72vh] w-full">
+    <main  >
+      <section className="relative h-[73vh] w-full">
         {/* Background Image */}
         <Image
           src="/slider-bg.webp"
@@ -18,20 +20,20 @@ export default function Home() {
         />
 
         {/* Overlay (optional dark layer for readability) */}
-        <div className="absolute inset-0 bg-black/10" />
 
         {/* Content */}
-        <div className=" relative z-10 flex h-full  max-w-7xl mx-auto flex-col justify-center   text-white">
-          <h1 className="max-w-2xl text-4xl font-bold leading-tight md:text-5xl">
+        <div className=" relative z-10 flex h-full  max-w-350 w-10/12 mx-auto flex-col justify-center gap-y-4   text-white">
+          <h1 className="max-w-2xl text-2xl font-bold text-shadow-black  text-shadow-[3px_1px_7px_#000000] md:text-4xl">
             The revolutionary sustainable roofing
             and lead replacement
           </h1>
 
-          <p className="mt-4  text-lg text-white/90">
+          <p className="  text-sm font-extralight ">
             Circular waterproofing products that are easy to apply
           </p>
 
-          <button className="mt-8 w-fit rounded-full cursor-pointer bg-blue-600 px-6 py-3 font-semibold text-white hover:bg-blue-500 transition">
+          <button className="bg-primary-600 hover:bg-primary-400 text-white font-light py-2 px-4 text-xs rounded-full transition w-fit"
+          >
             Free Samples
           </button>
         </div>
@@ -39,8 +41,10 @@ export default function Home() {
 
       <FeaturesSection />
       <ProductsSection />
-      <FreeSamplesSection />
+      <OurStoryCard />
       <GetInspiredSection />
+      <PartnersLogos />
+      <FreeSamplesSection />
     </main>
   );
 }

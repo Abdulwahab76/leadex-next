@@ -30,7 +30,7 @@ export default function Header() {
             <div className="bg-gray-100 text-sm text-gray-700  h-10  ">
                 <nav
                     aria-label="Utility navigation"
-                    className="max-w-7xl mx-auto  justify-end sm: pt-3 flex items-center   "
+                    className="max-w-350 mx-auto w-10/12  justify-end sm: pt-3 flex items-center   "
                 >
                     <ul className="flex justify-center items-center space-x-6    ">
                         {topNavLinks.map(({ href, label, icon }) => (
@@ -51,9 +51,9 @@ export default function Header() {
             </div>
 
             {/* Main header */}
-            <div className=" shadow   w-full px-4">
-                <div className="py-6   sm:px-6 lg:px-8  ">
-                    <div className=" flex max-w-7xl h-16 justify-between mx-auto items-center">
+            <div className="shadow  w-full ">
+                <div className="py-2.5 ">
+                    <div className="flex max-w-350 w-10/12 h-16 justify-between mx-auto items-center">
                         {/* Logo */}
                         <div  >
                             <Link
@@ -70,22 +70,24 @@ export default function Header() {
                             aria-label="Primary navigation"
                             className="hidden md:flex space-x-8  "
                         >
-                            {mainNavLinks.map(({ href, label }) => (
-                                <Link
-                                    key={href}
-                                    href={href}
-                                    className="text-gray-700 hover:text-primary-500 font-medium"
-                                >
-                                    {label}
-                                </Link>
-                            ))}
+                            <ul className="flex gap-x-14">
+                                {mainNavLinks.map(({ href, label }) => (
+                                    <Link
+                                        key={href}
+                                        href={href}
+                                        className="  hover:text-primary-500 font-normal"
+                                    >
+                                        {label}
+                                    </Link>
+                                ))}
+                            </ul>
                         </nav>
 
                         {/* CTA button desktop */}
                         <div className="hidden md:flex  ">
                             <Link
                                 href="/find-dealer"
-                                className="bg-primary-600 hover:bg-primary-400 text-white font-semibold py-2 px-5 rounded-full transition"
+                                className="bg-primary-600 hover:bg-primary-400 text-white font-light py-2 px-4 text-xs rounded-full transition"
                             >
                                 Free Samples
                             </Link>

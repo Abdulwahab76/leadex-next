@@ -1,10 +1,25 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
+@font-face {
+  font-family: 'neo-sans';
+  src: url('./fonts/Neo_Sans_Light.ttf') format('tff');
+  font-weight: 400;
+}
+
+body {
+  @apply font-sans;
+}
+
+
 
 /* Light Theme */
 @theme {
   /* Brand / Primary */
+  --font-sans: var(--font-neo);
+  /* Neo Sans as default */
+  --font-heading: var(--font-open-sans);
+  /* Open Sans for headings */
   --color-primary-50: #f4f7fb;
   --color-primary-100: #e6eef6;
   --color-primary-200: #c6d5e3;
@@ -20,12 +35,20 @@
   /* Surface / Background */
   --color-background: #ffffff;
   --color-surface: #f4f7fb;
-
+  --color-light-background: #FAFAFA;
   /* Text */
   --color-foreground: #0f172a;
   --color-muted: #64748b;
 
   /* Borders */
   --color-border: #e2e8f0;
-  --text-5xl: 44px
+  --text-5xl: 44px;
+  --max-w-350: 1400px;
+  --text-sm: 16px;
+  --text-xs: 14px;
+
+}
+
+body {
+  font-family: var(--font-neo);
 }
