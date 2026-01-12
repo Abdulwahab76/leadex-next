@@ -36,7 +36,7 @@ export default function FreeSamplesSection(): JSX.Element {
                         </ul>
 
                         <button
-                            className=" w-fit rounded-full bg-white px-4 py-2 cursor-pointer text-base font-normal text-black shadow-2xl transition hover:bg-gray-100"
+                            className=" w-fit rounded-full bg-white px-4 py-2 cursor-pointer text-xs font-normal text-black shadow-2xl transition hover:bg-gray-100"
                             aria-label="Get free samples"
                         >
                             Get samples

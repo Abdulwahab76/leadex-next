@@ -28,11 +28,11 @@ export default function Home() {
             and lead replacement
           </h1>
 
-          <p className="  text-sm font-extralight ">
+          <p className="  text-lg font-extralight ">
             Circular waterproofing products that are easy to apply
           </p>
 
-          <button className="bg-primary-600 hover:bg-primary-400 text-white font-light py-2 px-4 text-xs rounded-full transition w-fit"
+          <button className="bg-primary-600 hover:bg-primary-400 text-white font-light py-2.5 px-4 text-xs rounded-full transition w-fit"
           >
             Free Samples
           </button>
