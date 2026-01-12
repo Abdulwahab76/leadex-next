@@ -94,7 +94,7 @@ export default function Header() {
                                     <Link
                                         key={href}
                                         href={href}
-                                        className="  hover:text-primary-500 font-normal"
+                                        className="  hover:text-primary-500 font-normal text-xs"
                                     >
                                         {label}
                                     </Link>
@@ -127,7 +127,7 @@ export default function Header() {
                                 <li key={href}>
                                     <Link
                                         href={href}
-                                        className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-primary-100 hover:text-primary-600"
+                                        className="block px-3 py-2 rounded-md text-xs font-normal    "
                                         onClick={() => setMobileMenuOpen(false)}
                                     >
                                         {label}
@@ -139,7 +139,7 @@ export default function Header() {
                             <li>
                                 <Link
                                     href="/find-dealer"
-                                    className="block text-center bg-primary-400 hover:bg-primary-500 text-white font-semibold py-2 px-5 rounded-full mt-3"
+                                    className="block text-center bg-primary-500  text-white font-normal text-xs py-2 px-5 w-fit rounded-full mt-3"
                                     onClick={() => setMobileMenuOpen(false)}
                                 >
                                     Free Samples
