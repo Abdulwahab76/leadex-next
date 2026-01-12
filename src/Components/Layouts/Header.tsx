@@ -1,6 +1,6 @@
 "use client";
 
-import { TextAlignEnd, X } from "lucide-react";
+import { Earth, TextAlignJustify, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -13,7 +13,7 @@ export default function Header() {
         { href: "/jobs", label: "Jobs" },
         { href: "/faq", label: "FAQ" },
         { href: "/contact", label: "Contact" },
-        { href: "/language", label: "Language", icon: "🌐" },
+        { href: "/language", label: "Language", icon: <Earth size={16} /> },
     ];
 
     const mainNavLinks = [
@@ -27,17 +27,17 @@ export default function Header() {
     return (
         <header className="sticky top-0 z-50 bg-white  ">
             {/* Top bar */}
-            <div className="bg-gray-100 text-sm text-gray-700  h-10  ">
+            <div className="bg-gray-100 text-sm text-gray-700  h-10  hidden lg:flex ">
                 <nav
                     aria-label="Utility navigation"
-                    className="max-w-350 mx-auto w-10/12  justify-end sm: pt-3 flex items-center   "
+                    className="max-w-350 mx-auto w-10/12  justify-end  flex items-center "
                 >
-                    <ul className="flex justify-center items-center space-x-6    ">
+                    <ul className="flex justify-center items-center space-x-3    ">
                         {topNavLinks.map(({ href, label, icon }) => (
                             <li key={href}>
                                 <Link
                                     href={href}
-                                    className="hover:underline flex items-center space-x-1  "
+                                    className=" hover:text-blue-500 flex items-center text-xs "
                                     aria-label={icon ? label : undefined}
                                 >
                                     {icon && <span aria-hidden="true">{icon}</span>}
@@ -53,7 +53,26 @@ export default function Header() {
             {/* Main header */}
             <div className="shadow  w-full ">
                 <div className="py-2.5 ">
-                    <div className="flex max-w-350 w-10/12 h-16 justify-between mx-auto items-center">
+                    <div className="flex max-w-350 w-10/12 h-16 justify-between mx-auto items-center ">
+                        {/* Mobile menu button */}
+                        <div className="md:hidden">
+                            <button
+                                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                                aria-expanded={mobileMenuOpen}
+                                aria-controls="mobile-menu"
+                                aria-label="Toggle menu"
+                                className="text-gray-700 hover:text-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-400 rounded"
+                                type="button"
+                            >
+                                {mobileMenuOpen ? (
+                                    // X icon
+                                    <X />
+                                ) : (
+                                    // Hamburger icon
+                                    <TextAlignJustify />
+                                )}
+                            </button>
+                        </div>
                         {/* Logo */}
                         <div  >
                             <Link
@@ -61,7 +80,7 @@ export default function Header() {
                                 aria-label="Leadax homepage"
                                 className="text-xl font-bold text-primary-500"
                             >
-                                <Image src='/Bodenlink.jpg' width={120} height={120} alt="logo" />
+                                <Image src='/Bodenlink.jpg' width={150} height={150} alt="logo" />
                             </Link>
                         </div>
 
@@ -82,7 +101,7 @@ export default function Header() {
                                 ))}
                             </ul>
                         </nav>
-
+                        <Earth className="text-gray-600 lg:hidden block" />
                         {/* CTA button desktop */}
                         <div className="hidden md:flex  ">
                             <Link
@@ -92,27 +111,8 @@ export default function Header() {
                                 Free Samples
                             </Link>
                         </div>
-
-                        {/* Mobile menu button */}
-                        <div className="md:hidden">
-                            <button
-                                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                                aria-expanded={mobileMenuOpen}
-                                aria-controls="mobile-menu"
-                                aria-label="Toggle menu"
-                                className="text-gray-700 hover:text-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-400 rounded"
-                                type="button"
-                            >
-                                {mobileMenuOpen ? (
-                                    // X icon
-                                    <X />
-                                ) : (
-                                    // Hamburger icon
-                                    <TextAlignEnd />
-                                )}
-                            </button>
-                        </div>
                     </div>
+
                 </div>
 
                 {/* Mobile menu panel */}

@@ -9,7 +9,7 @@ import Image from "next/image";
 export default function Home() {
   return (
     <main  >
-      <section className="relative h-[73vh] w-full">
+      <section className="relative h-[82vh] lg:h-[73vh] w-full">
         {/* Background Image */}
         <Image
           src="/slider-bg.webp"
@@ -22,13 +22,13 @@ export default function Home() {
         {/* Overlay (optional dark layer for readability) */}
 
         {/* Content */}
-        <div className=" relative z-10 flex h-full  max-w-350 w-10/12 mx-auto flex-col justify-center gap-y-4   text-white">
-          <h1 className="max-w-2xl text-2xl font-bold text-shadow-black  text-shadow-[3px_1px_7px_#000000] md:text-4xl">
+        <div className=" relative z-10 flex h-full   max-w-350 w-11/12 px-2 lg:px-0 lg:w-10/12 mx-auto flex-col justify-center gap-y-4   text-white">
+          <h1 className="max-w-2xl text-[27px] leading-tight font-bold text-shadow-black  text-shadow-[3px_1px_7px_#000000] md:text-4xl">
             The revolutionary sustainable roofing
             and lead replacement
           </h1>
 
-          <p className="  text-lg font-extralight ">
+          <p className="  font-normal text-2xl lg:text-lg lg:font-extralight ">
             Circular waterproofing products that are easy to apply
           </p>
 

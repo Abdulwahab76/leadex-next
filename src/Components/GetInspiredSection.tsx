@@ -1,6 +1,7 @@
-import { Clock2 } from "lucide-react";
+'use client'
+import { ChevronLeft, ChevronRight, Clock2 } from "lucide-react";
 import Image from "next/image";
-import { JSX } from "react";
+import { JSX, useEffect, useState } from "react";
 
 type Project = {
     title: string;
@@ -30,65 +31,94 @@ const projects: Project[] = [
 ];
 
 export default function GetInspiredSection(): JSX.Element {
+    const [current, setCurrent] = useState(0);
+    const total = projects.length;
+
+    // Auto slide (mobile only)
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrent((prev) => (prev + 1) % total);
+        }, 4000);
+
+        return () => clearInterval(interval);
+    }, [total]);
+
+    const prevSlide = () => {
+        setCurrent((prev) => (prev - 1 + total) % total);
+    };
+
+    const nextSlide = () => {
+        setCurrent((prev) => (prev + 1) % total);
+    };
+
     return (
         <section
             aria-labelledby="inspired-heading"
-            className="bg-light-background py-16"
+            className="bg-light-background py-8 lg:py-16"
         >
-            <div className="mx-auto max-w-350 w-10/12">
+            <div className="mx-auto  w-11/12 px-2 lg:px-0 lg:w-10/12 max-w-350">
+
                 {/* Header */}
                 <div className="mb-8 flex items-center justify-between">
-                    <h2
-                        id="inspired-heading"
-                        className="text-3xl font-medium  "
-                    >
-                        Get inspired
-                    </h2>
+                    <div className="flex flex-wrap justify-between w-full">
+                        <h2
+                            id="inspired-heading"
+                            className="text-2xl lg:text-3xl font-medium"
+                        >
+                            Get inspired
+                        </h2>
 
-                    <a
-                        href="#"
-                        className="text-xs font-normal text-blue-600 "
-                    >
-                        View all projects
-                    </a>
+                        {/* Desktop link */}
+                        <a
+                            href="#"
+                            className="  text-xs font-normal text-blue-600  "
+                        >
+                            View all projects
+                        </a>
+                    </div>
+
+
+                    {/* Mobile navigation */}
+                    <div className="flex items-center gap-2 lg:hidden">
+                        <button
+                            onClick={prevSlide}
+                            aria-label="Previous"
+                            className="rounded-full   p-3 hover:bg-gray-100 shadow-[0_0_30px_0_rgb(0,0,0,0.16)] "
+                        >
+                            <ChevronLeft className="h-6 w-6" />
+                        </button>
+                        <button
+                            onClick={nextSlide}
+                            aria-label="Next"
+                            className="rounded-full   p-3 hover:bg-gray-100 bg-white shadow-[0_0_30px_0_rgb(0,0,0,0.16)]"
+                        >
+                            <ChevronRight className="h-6 w-6" />
+                        </button>
+                    </div>
                 </div>
 
-                {/* Cards */}
-                <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                {/* MOBILE SLIDER */}
+                <div className="relative overflow-hidden lg:hidden">
+                    <ul
+                        className="flex transition-transform duration-500 ease-in-out"
+                        style={{ transform: `translateX(-${current * 100}%)` }}
+                    >
+                        {projects.map((project) => (
+                            <li
+                                key={project.title}
+                                className="min-w-full px-1"
+                            >
+                                <Card project={project} />
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+
+                {/* DESKTOP GRID */}
+                <ul className="hidden   gap-8 lg:grid-cols-3 lg:grid">
                     {projects.map((project) => (
-                        <li
-                            key={project.title}
-                            className="flex h-full flex-col overflow-hidden rounded-tr-2xl rounded-tl-2xl bg-white shadow-[0_0_30px_0_rgb(0,0,0,0.16)] transition"
-                        >
-                            {/* Image */}
-                            <div className="relative h-49 w-full">
-                                <Image
-                                    src={project.image}
-                                    alt={project.title}
-                                    fill
-                                    className="object-cover"
-                                />
-                            </div>
-
-                            {/* Content */}
-                            <div className="flex flex-1 flex-col px-7 p-6">
-                                <h3 className="text-lg font-bold text-gray-900">
-                                    {project.title}
-                                </h3>
-
-                                <p className="mt-3 text-xs leading-relaxed font-normal">
-                                    {project.description}
-                                </p>
-
-                                {/* Read more always at bottom */}
-                                <a
-                                    href="#"
-                                    className="mt-auto inline-flex items-center gap-2 pt-4 text-xs font-normal text-blue-600 hover:underline"
-                                >
-                                    <Clock2 className="h-3 w-3 text-gray-400" />
-                                    Read more
-                                </a>
-                            </div>
+                        <li key={project.title}>
+                            <Card project={project} />
                         </li>
                     ))}
                 </ul>
@@ -97,3 +127,40 @@ export default function GetInspiredSection(): JSX.Element {
         </section>
     );
 }
+
+
+function Card({ project }: any) {
+    return (
+        <div className="flex h-full flex-col overflow-hidden rounded-tr-2xl rounded-tl-2xl bg-white lg:shadow-[0_0_30px_0_rgb(0,0,0,0.16)]">
+            {/* Image */}
+            <div className="relative h-49 w-full">
+                <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover"
+                />
+            </div>
+
+            {/* Content */}
+            <div className="flex flex-1 flex-col px-7 p-6">
+                <h3 className="text-lg font-bold text-gray-900">
+                    {project.title}
+                </h3>
+
+                <p className="mt-3 text-xs font-normal leading-relaxed">
+                    {project.description}
+                </p>
+
+                <a
+                    href="#"
+                    className="mt-auto inline-flex items-center gap-2 pt-4 text-xs font-normal text-blue-600 hover:underline"
+                >
+                    <Clock2 className="h-3 w-3 text-gray-400" />
+                    Read more
+                </a>
+            </div>
+        </div>
+    );
+}
+

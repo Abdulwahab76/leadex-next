@@ -2,13 +2,13 @@ import Image from "next/image";
 
 export default function OurStoryCard() {
     return (
-        <section className=" bg-light-background py-16">
-            <div className="mx-auto max-w-7xl    w-10/12">
-                <div className="flex items-center gap-10 rounded-2xl p-16 py-10 bg-white   shadow-[0_0_30px_0_rgb(0,0,0,0.16)]">
+        <section className=" bg-light-background py-8 lg:py-16">
+            <div className="mx-auto max-w-7xl    w-11/12 px-2 lg:px-0 lg:w-10/12">
+                <div className="flex items-center flex-col lg:flex-row gap-10 rounded-2xl lg:p-16 lg:py-10 lg:bg-white   lg:shadow-[0_0_30px_0_rgb(0,0,0,0.16)]">
 
                     {/* Text Content */}
-                    <div className="flex flex-col flex-5/12">
-                        <h2 className="text-3xl font-medium tracking-tight ">
+                    <div className="flex flex-col lg:flex-5/12">
+                        <h2 className="text-2xl lg:text-3xl  font-medium tracking-tight ">
                             Our story
                         </h2>
 
@@ -27,13 +27,13 @@ export default function OurStoryCard() {
                             partners.
                         </p>
 
-                        <button className="mt-6 w-fit rounded-full border border-gray-300 bg-white px-4 cursor-pointer py-2 text-xs font-normal  shadow-sm transition hover:bg-gray-50 hover:shadow-md">
+                        <button className="mt-6 w-fit rounded-full border border-gray-300   px-5 cursor-pointer py-3 text-xs font-normal  transition  bg-gray-100  shadow-lg">
                             Read more
                         </button>
                     </div>
 
                     {/* Image */}
-                    <div className="relative mx-auto h-60 w-full max-w-md sm:h-72 lg:h-80 flex flex-1">
+                    <div className="relative mx-auto h-60 w-full max-w-md sm:h-72 lg:h-80 flex lg:flex-1">
                         <Image
                             src="/images/Leadax-kantoor.jpg"
                             alt="Company illustration"

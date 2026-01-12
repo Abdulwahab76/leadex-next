@@ -31,10 +31,10 @@ export default function ProductsSection(): JSX.Element {
             aria-labelledby="products-heading"
             className="bg-light-background py-20 pb-28"
         >
-            <div className="mx-auto max-w-350 w-10/12 ">
+            <div className="mx-auto max-w-350  w-11/12 px-2 lg:px-0 lg:w-10/12 ">
                 {/* Visible heading + intro */}
-                <div className="mb-16 max-w-2xl">
-                    <h3 className="text-3xl  font-medium  text-gray-900">
+                <div className="mb-16 max-w-2xl  ">
+                    <h3 className="text-2xl lg:text-3xl  font-medium  text-gray-900">
                         Our products
                     </h3>
                     <p className="mt-4 text-sm font-extralight">
@@ -44,11 +44,11 @@ export default function ProductsSection(): JSX.Element {
                     </p>
                 </div>
 
-                <ul className="grid  gap-x-8 sm:grid-cols-2 lg:grid-cols-3   ">
+                <ul className="grid gap-y-8 gap-x-8 sm:grid-cols-2 lg:grid-cols-3   ">
                     {products.map((product) => (
                         <li
                             key={product.title}
-                            className="flex flex-col items-center shadow-[0_0_30px_0_rgb(0,0,0,0.16)] rounded-2xl bg-white p-11 text-center transition"
+                            className="flex flex-col items-center shadow-[0_0_30px_0_rgb(0,0,0,0.16)] rounded-2xl bg-white p-4 py-10 lg:p-11 text-center transition"
                         >
 
                             {/* Title */}
@@ -73,7 +73,7 @@ export default function ProductsSection(): JSX.Element {
 
                             {/* Button */}
                             <button
-                                className="mt-6 rounded-full cursor-pointer border border-gray-300 px-5 py-2 text-sm font-light   transition hover:bg-gray-100"
+                                className="mt-6 rounded-full cursor-pointer border border-gray-300 px-5 py-2 text-xs lg:text-sm font-light   transition  bg-gray-50 shadow-lg"
                                 aria-label={`Read more about ${product.title}`}
                             >
                                 Read more

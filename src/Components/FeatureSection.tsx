@@ -57,8 +57,8 @@ export default function FeaturesSection(): JSX.Element {
                                 <Image
                                     src={feature.icon}
                                     alt=""
-                                    width={60}
-                                    height={60}
+                                    width={120}
+                                    height={120}
                                     className="object-contain"
                                 />
                             </div>
@@ -69,7 +69,7 @@ export default function FeaturesSection(): JSX.Element {
                             </h4>
 
                             {/* Description */}
-                            <h5 className="mt-3 text-sm font-normal w-10/12 leading-relaxed ">
+                            <h5 className="mt-3 text-xs lg:text-sm font-normal w-10/12 leading-relaxed ">
                                 {feature.description}
                             </h5>
                         </li>

@@ -5,30 +5,30 @@ export default function FreeSamplesSection(): JSX.Element {
     return (
         <section
             aria-labelledby="samples-heading"
-            className="relative overflow-visible bg-primary-400  "
+            className="relative overflow-visible bg-primary-500  lg:py-0 pt-10"
         >
             <div className="mx-auto max-w-350 w-10/12   ">
                 <div className="grid items-center gap-12 lg:grid-cols-2">
                     {/* LEFT CONTENT */}
-                    <div className="flex flex-col gap-y-6">
+                    <div className="flex flex-col gap-y-8">
                         <h2
                             id="samples-heading"
-                            className="text-lg font-medium tracking-tight text-black sm:text-4xl"
+                            className="text-2xl font-medium tracking-tight text-white sm:text-4xl"
                         >
                             Get your free samples now!
                         </h2>
 
-                        <ul className=" *:text-xs space-y-0 text-lg text-black">
+                        <ul className=" *:text-xs space-y-0 text-lg text-white">
                             <li className="flex items-start gap-3">
-                                <span className="text-green-600">✓</span>
+                                <span className="text-green-800">✓</span>
                                 <span>No strings attached. You're not tied down to anything.</span>
                             </li>
                             <li className="flex items-start gap-3">
-                                <span className="text-green-600">✓</span>
+                                <span className="text-green-800">✓</span>
                                 <span>Free delivery, everywhere in the world.</span>
                             </li>
                             <li className="flex items-start gap-3">
-                                <span className="text-green-600">✓</span>
+                                <span className="text-green-800">✓</span>
                                 <span>
                                     Samples of our lead replacement and roofing membrane.
                                 </span>
@@ -36,7 +36,7 @@ export default function FreeSamplesSection(): JSX.Element {
                         </ul>
 
                         <button
-                            className=" w-fit rounded-full bg-white px-4 py-2 cursor-pointer text-xs font-normal text-black shadow-2xl transition hover:bg-gray-100"
+                            className=" w-fit rounded-full bg-white px-5 py-2.5 cursor-pointer text-xs font-normal text-black shadow-2xl transition hover:bg-gray-100"
                             aria-label="Get free samples"
                         >
                             Get samples

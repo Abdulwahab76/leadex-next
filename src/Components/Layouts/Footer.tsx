@@ -5,10 +5,10 @@ export default function Footer() {
     return (
         <footer className="bg-gray-100 text-gray-900">
             {/* Top Section */}
-            <section className="mx-auto max-w-350 w-10/12  py-16">
+            <section className="mx-auto max-w-350 w-11/12 px-2 lg:px-0 lg:w-10/12  py-16">
                 <div className="grid gap-12 md:grid-cols-2">
                     {/* Left */}
-                    <div>
+                    <div >
                         <h3 className="text-xl font-medium">
                             Don&apos;t miss out on anything Leadax
                         </h3>
@@ -97,7 +97,7 @@ export default function Footer() {
                     </address>
                 </div>
             </nav>
-            <div className="flex py-6 bg-primary-800 justify-between items-center flex-col md:flex-row px-26">
+            <div className="flex py-6 bg-primary-800 justify-between items-center flex-col md:flex-row lg:px-26">
                 {/* Bottom Bar */}
                 <div className=" py-4 text-center text-sm text-white">
                     © 2026 Leadax B.V.
