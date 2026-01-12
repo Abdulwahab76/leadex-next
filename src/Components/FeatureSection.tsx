@@ -38,14 +38,14 @@ export default function FeaturesSection(): JSX.Element {
     return (
         <section
             aria-labelledby="features-heading"
-            className="bg-gray-100 py-16"
+            className="bg-gray-100 py-11"
         >
             {/* Accessible heading */}
             <h2 id="features-heading" className="sr-only">
                 Product features
             </h2>
 
-            <div className="mx-auto max-w-7xl px-6">
+            <div className="mx-auto max-w-350 w-10/12">
                 <ul className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
                     {features.map((feature) => (
                         <li
@@ -64,14 +64,14 @@ export default function FeaturesSection(): JSX.Element {
                             </div>
 
                             {/* Title */}
-                            <h3 className="text-xl font-bold text-gray-900">
+                            <h4 className="text-lg font-medium text-gray-900">
                                 {feature.title}
-                            </h3>
+                            </h4>
 
                             {/* Description */}
-                            <p className="mt-3   w-10/12 text-lg leading-relaxed text-gray-600">
+                            <h5 className="mt-3 text-sm font-normal w-10/12 leading-relaxed ">
                                 {feature.description}
-                            </p>
+                            </h5>
                         </li>
                     ))}
                 </ul>

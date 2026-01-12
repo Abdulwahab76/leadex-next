@@ -1,3 +1,4 @@
+import { Clock2 } from "lucide-react";
 import Image from "next/image";
 import { JSX } from "react";
 
@@ -32,21 +33,21 @@ export default function GetInspiredSection(): JSX.Element {
     return (
         <section
             aria-labelledby="inspired-heading"
-            className="bg-white py-16"
+            className="bg-light-background py-16"
         >
-            <div className="mx-auto max-w-7xl px-6">
+            <div className="mx-auto max-w-350 w-10/12">
                 {/* Header */}
-                <div className="mb-12 flex items-center justify-between">
+                <div className="mb-8 flex items-center justify-between">
                     <h2
                         id="inspired-heading"
-                        className="text-3xl font-bold text-gray-900"
+                        className="text-3xl font-medium  "
                     >
                         Get inspired
                     </h2>
 
                     <a
                         href="#"
-                        className="text-sm font-medium text-blue-600 hover:underline"
+                        className="text-xs font-normal text-blue-600 "
                     >
                         View all projects
                     </a>
@@ -57,10 +58,10 @@ export default function GetInspiredSection(): JSX.Element {
                     {projects.map((project) => (
                         <li
                             key={project.title}
-                            className="overflow-hidden rounded-2xl bg-white shadow-sm transition hover:shadow-md"
+                            className="flex h-full flex-col overflow-hidden rounded-tr-2xl rounded-tl-2xl bg-white shadow-[0_0_30px_0_rgb(0,0,0,0.16)] transition"
                         >
                             {/* Image */}
-                            <div className="relative h-56 w-full">
+                            <div className="relative h-49 w-full">
                                 <Image
                                     src={project.image}
                                     alt={project.title}
@@ -70,28 +71,28 @@ export default function GetInspiredSection(): JSX.Element {
                             </div>
 
                             {/* Content */}
-                            <div className="p-6">
+                            <div className="flex flex-1 flex-col px-7 p-6">
                                 <h3 className="text-lg font-bold text-gray-900">
                                     {project.title}
                                 </h3>
 
-                                <p className="mt-3 text-sm leading-relaxed text-gray-600">
+                                <p className="mt-3 text-xs leading-relaxed font-normal">
                                     {project.description}
                                 </p>
 
+                                {/* Read more always at bottom */}
                                 <a
                                     href="#"
-                                    className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-blue-600 hover:underline"
+                                    className="mt-auto inline-flex items-center gap-2 pt-4 text-xs font-normal text-blue-600 hover:underline"
                                 >
-                                    <span className="inline-flex h-4 w-4 items-center justify-center rounded-full border border-blue-600 text-xs">
-                                        →
-                                    </span>
+                                    <Clock2 className="h-3 w-3 text-gray-400" />
                                     Read more
                                 </a>
                             </div>
                         </li>
                     ))}
                 </ul>
+
             </div>
         </section>
     );

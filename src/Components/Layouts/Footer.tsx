@@ -5,7 +5,7 @@ export default function Footer() {
     return (
         <footer className="bg-gray-100 text-gray-900">
             {/* Top Section */}
-            <section className="mx-auto max-w-7xl px-6 py-16">
+            <section className="mx-auto max-w-350  py-16">
                 <div className="grid gap-12 md:grid-cols-2">
                     {/* Left */}
                     <div>
@@ -37,7 +37,7 @@ export default function Footer() {
                             />
                             <button
                                 type="submit"
-                                className="rounded-full bg-white px-6 py-3 text-sm font-medium shadow hover:bg-gray-200 transition"
+                                className="rounded-full bg-white  py-3 text-sm font-medium shadow hover:bg-gray-200 transition"
                             >
                                 Sign up
                             </button>
@@ -47,7 +47,7 @@ export default function Footer() {
             </section>
 
             {/* Links Section */}
-            <nav className="mx-auto max-w-7xl px-6 py-12">
+            <nav className="mx-auto max-w-350  py-12">
                 <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-4 text-sm">
                     {/* Column 1 */}
                     <div>

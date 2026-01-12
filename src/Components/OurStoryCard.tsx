@@ -1,0 +1,50 @@
+import Image from "next/image";
+
+export default function OurStoryCard() {
+    return (
+        <section className=" bg-light-background py-16">
+            <div className="mx-auto max-w-7xl    w-10/12">
+                <div className="flex items-center gap-10 rounded-2xl p-16 py-10 bg-white   shadow-[0_0_30px_0_rgb(0,0,0,0.16)]">
+
+                    {/* Text Content */}
+                    <div className="flex flex-col flex-5/12">
+                        <h2 className="text-3xl font-medium tracking-tight ">
+                            Our story
+                        </h2>
+
+                        <p className="mt-4 text-xs leading-relaxed font-light  ">
+                            Using today’s waste to prevent global waste forever: that is our mission.
+                            Therefore we are committed to the United Nations Sustainable Development Goals.
+                            With our circular and sustainable waterproofing products we are on a mission
+                            to change the world for the better.
+                        </p>
+
+                        <p className="mt-4 text-xs leading-relaxed font-light">
+                            What started as an idea, quickly developed into the circular products we make
+                            today. We work towards a global impact in reduction of CO2 emissions, an
+                            increase of autonomy of fossil resources, a large reduction of waste and
+                            creating jobs worldwide in the Cleantech area, together with our worldwide
+                            partners.
+                        </p>
+
+                        <button className="mt-6 w-fit rounded-full border border-gray-300 bg-white px-4 cursor-pointer py-2 text-xs font-normal  shadow-sm transition hover:bg-gray-50 hover:shadow-md">
+                            Read more
+                        </button>
+                    </div>
+
+                    {/* Image */}
+                    <div className="relative mx-auto h-60 w-full max-w-md sm:h-72 lg:h-80 flex flex-1">
+                        <Image
+                            src="/images/Leadax-kantoor.jpg"
+                            alt="Company illustration"
+                            fill
+                            className="object-contain"
+                            priority
+                        />
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    );
+}
