@@ -17,7 +17,7 @@ export default function Footer() {
             <div className="border-t border-white/10" />
 
             {/* Main footer */}
-            <section className="mx-auto max-w-7xl px-6 py-16">
+            <section className="max-w-350 w-11/12 px-2 lg:px-0 lg:w-10/12  mx-auto py-16 ">
                 <div className="grid gap-12 md:grid-cols-4">
 
                     {/* Brand */}
@@ -72,7 +72,7 @@ export default function Footer() {
 
             {/* Bottom links */}
             <div className="border-t border-white/10">
-                <div className="mx-auto max-w-7xl px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
+                <div className="mx-auto   max-w-350 w-11/12 px-2 lg:px-0 lg:w-10/12   py-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
 
                     {/* Legal */}
                     <div className="flex flex-wrap gap-4">
