@@ -5,7 +5,7 @@ export default function FreeSamplesSection(): JSX.Element {
     return (
         <section
             aria-labelledby="samples-heading"
-            className="relative overflow-visible bg-primary-500  lg:py-0 pt-10"
+            className="relative overflow-visible bg-primary-500  lg:py-0 pt-10 "
         >
             <div className="mx-auto max-w-350 w-10/12   ">
                 <div className="grid items-center gap-12 lg:grid-cols-2">
@@ -63,8 +63,6 @@ export default function FreeSamplesSection(): JSX.Element {
                 </div>
             </div>
 
-            {/* Bottom divider */}
-            <div className="absolute bottom-0 left-0 h-2 w-full bg-white" />
         </section>
     );
 }

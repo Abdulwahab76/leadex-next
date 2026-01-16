@@ -38,11 +38,10 @@ export default function Home() {
           </button>
         </div>
       </section>
-
-      <FeaturesSection />
-      <ProductsSection />
-      <OurStoryCard />
       <GetInspiredSection />
+      {/* <FeaturesSection /> */}
+      <ProductsSection />
+      {/* <OurStoryCard /> */}
       <PartnersLogos />
       <FreeSamplesSection />
     </main>

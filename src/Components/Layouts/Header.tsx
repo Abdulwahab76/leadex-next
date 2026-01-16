@@ -1,13 +1,13 @@
 "use client";
 
-import { Earth, TextAlignJustify, X } from "lucide-react";
+import { Earth, TextAlignJustify, X, ChevronRight, ChevronDown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
 export default function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
+    const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
     const topNavLinks = [
         { href: "/sustainability", label: "Sustainability" },
         { href: "/jobs", label: "Jobs" },
@@ -15,18 +15,47 @@ export default function Header() {
         { href: "/contact", label: "Contact" },
         { href: "/language", label: "Language", icon: <Earth size={16} /> },
     ];
-
     const mainNavLinks = [
-        { href: "/products", label: "Products" },
-        { href: "/pricing", label: "Pricing" },
-        { href: "/sustainability", label: "Sustainability" },
-        { href: "/blogs", label: "Blogs" },
-        { href: "/about", label: "About" },
+        {
+            label: "About",
+            href: "/about",
+        },
+        {
+            label: "Solutions",
+            submenu: [
+                { label: "Roofing Waterproofing", href: "/solutions/roofing-waterproofing" },
+                { label: "Flashing Systems", href: "/solutions/flashing-systems" },
+                { label: "Building Envelope", href: "/solutions/building-envelope" },
+                { label: "Industrial Sealing", href: "/solutions/industrial-sealing" },
+            ],
+        },
+        {
+            label: "Products",
+            submenu: [
+                { label: "Roof Repair", href: "/products/roof-repair" },
+                { label: "Waterproof Sealing", href: "/products/waterproof-sealing" },
+                { label: "Sound Deadening", href: "/products/sound-deadening" },
+                { label: "All Products →", href: "/products", highlight: true },
+            ],
+        },
+        {
+            label: "Resources",
+            submenu: [
+                { label: "Insights", href: "/resources/insights" },
+                { label: "Installation Guides", href: "/resources/installation-guides" },
+                { label: "Technical Library", href: "/resources/technical-library" },
+                { label: "Case Studies", href: "/resources/case-studies" },
+                { label: "Videos", href: "/resources/videos" },
+            ],
+        },
+        {
+            label: "Contact Us",
+            href: "/contact",
+        },
     ];
 
     return (
         <header className="sticky top-0 z-50 bg-white  ">
-            {/* Top bar */}
             <div className="bg-gray-100 text-sm text-gray-700  h-10  hidden lg:flex ">
                 <nav
                     aria-label="Utility navigation"
@@ -49,106 +78,158 @@ export default function Header() {
                     </ul>
                 </nav>
             </div>
+            <div className="max-w-350 w-10/12 mx-auto h-16 flex items-center justify-between">
 
-            {/* Main header */}
-            <div className="   w-full ">
-                <div className="py-2.5 ">
-                    <div className="flex max-w-350 w-10/12 h-16 justify-between mx-auto items-center ">
-                        {/* Mobile menu button */}
-                        <div className="md:hidden">
-                            <button
-                                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                                aria-expanded={mobileMenuOpen}
-                                aria-controls="mobile-menu"
-                                aria-label="Toggle menu"
-                                className="text-gray-700 hover:text-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-400 rounded"
-                                type="button"
-                            >
-                                {mobileMenuOpen ? (
-                                    // X icon
-                                    <X />
-                                ) : (
-                                    // Hamburger icon
-                                    <TextAlignJustify />
-                                )}
-                            </button>
-                        </div>
-                        {/* Logo */}
-                        <div  >
-                            <Link
-                                href="/"
-                                aria-label="Leadax homepage"
-                                className="text-xl font-bold text-primary-500"
-                            >
-                                <Image src='/images/Bodenlink.png' width={150} height={150} alt="logo" />
-                            </Link>
-                        </div>
+                {/* Mobile Menu Button */}
+                <button
+                    className="md:hidden"
+                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                    aria-label="Toggle Menu"
+                >
+                    {mobileMenuOpen ? <X /> : <TextAlignJustify />}
+                </button>
 
-                        {/* Desktop nav */}
-                        <nav
-                            aria-label="Primary navigation"
-                            className="hidden md:flex space-x-8  "
-                        >
-                            <ul className="flex gap-x-14">
-                                {mainNavLinks.map(({ href, label }) => (
+                {/* Logo */}
+                <Link href="/" aria-label="Homepage">
+                    <Image
+                        src="/images/Bodenlink.png"
+                        width={150}
+                        height={50}
+                        alt="Logo"
+                    />
+                </Link>
+
+                {/* Desktop Navigation */}
+                <nav className="hidden md:flex">
+                    <ul className="flex gap-x-12">
+                        {mainNavLinks.map((item) => (
+                            <li key={item.label} className="relative group">
+                                {item.href ? (
                                     <Link
-                                        key={href}
-                                        href={href}
-                                        className="  hover:text-primary-500 font-normal text-xs"
+                                        href={item.href}
+                                        className="flex items-center gap-1 text-xs hover:text-primary-500"
                                     >
-                                        {label}
+                                        {item.label}
                                     </Link>
-                                ))}
-                            </ul>
-                        </nav>
-                        <Earth className="text-gray-600 lg:hidden block" />
-                        {/* CTA button desktop */}
-                        <div className="hidden md:flex  ">
+                                ) : (
+                                    <span className="flex items-center gap-1 cursor-pointer text-xs hover:text-primary-500">
+                                        {item.label}
+                                        <ChevronDown
+                                            size={14}
+                                            className="transition-transform duration-200 "
+                                        />
+                                    </span>
+                                )}
+
+                                {/* Dropdown */}
+                                {item.submenu && (
+                                    <div className="absolute left-0 top-full mt-3 w-64 rounded-md bg-white shadow-lg
+                    opacity-0 invisible translate-y-2
+                    group-hover:opacity-100 group-hover:visible group-hover:translate-y-0
+                    transition-all duration-200 ease-out"
+                                    >
+                                        <ul className="py-2">
+                                            {item.submenu.map((sub) => (
+                                                <li key={sub.label}>
+                                                    <Link
+                                                        href={sub.href}
+                                                        className={`block px-4 py-2 text-xs hover:bg-gray-100 ${sub.highlight
+                                                            ? "font-semibold text-primary-600"
+                                                            : ""
+                                                            }`}
+                                                    >
+                                                        {sub.label}
+                                                    </Link>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+                            </li>
+                        ))}
+                    </ul>
+                </nav>
+
+                {/* CTA */}
+                <div className="hidden md:flex">
+                    <Link
+                        href="/find-dealer"
+                        className="bg-primary-600 hover:bg-primary-500 text-white text-xs px-5 py-2 rounded-full transition"
+                    >
+                        Free Samples
+                    </Link>
+                </div>
+
+                <Earth className="md:hidden text-gray-600" />
+            </div>
+
+            {/* Mobile Menu */}
+            {mobileMenuOpen && (
+                <nav className="md:hidden  bg-white">
+                    <ul className="px-4 py-4 space-y-2">
+                        {mainNavLinks.map((item) => (
+                            <li key={item.label}>
+                                {item.submenu ? (
+                                    <>
+                                        <button
+                                            className="w-full flex justify-between items-center text-xs py-2"
+                                            onClick={() =>
+                                                setOpenSubmenu(
+                                                    openSubmenu === item.label ? null : item.label
+                                                )
+                                            }
+                                        >
+                                            {item.label}
+                                            <ChevronRight
+                                                size={14}
+                                                className={`transition-transform ${openSubmenu === item.label ? "rotate-90" : ""
+                                                    }`}
+                                            />
+                                        </button>
+
+                                        <div
+                                            className={`overflow-hidden transition-all duration-300 ${openSubmenu === item.label ? "max-h-96" : "max-h-0"
+                                                }`}
+                                        >
+                                            <ul className="pl-4 space-y-1">
+                                                {item.submenu.map((sub) => (
+                                                    <li key={sub.label}>
+                                                        <Link
+                                                            href={sub.href}
+                                                            className="block py-1 text-xs text-gray-600"
+                                                            onClick={() => setMobileMenuOpen(false)}
+                                                        >
+                                                            {sub.label}
+                                                        </Link>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <Link
+                                        href={item.href!}
+                                        className="block py-2 text-xs"
+                                        onClick={() => setMobileMenuOpen(false)}
+                                    >
+                                        {item.label}
+                                    </Link>
+                                )}
+                            </li>
+                        ))}
+
+                        <li className="pt-4">
                             <Link
                                 href="/find-dealer"
-                                className="bg-primary-600 hover:bg-primary-400 text-white font-light py-2 px-4 text-xs rounded-full transition"
+                                className="inline-block bg-primary-500 text-white text-xs px-5 py-2 rounded-full"
+                                onClick={() => setMobileMenuOpen(false)}
                             >
                                 Free Samples
                             </Link>
-                        </div>
-                    </div>
-
-                </div>
-
-                {/* Mobile menu panel */}
-                {mobileMenuOpen && (
-                    <nav
-                        id="mobile-menu"
-                        aria-label="Mobile primary navigation"
-                        className="md:hidden bg-white border-t border-gray-200"
-                    >
-                        <ul className="space-y-1 px-4 pt-2 pb-4">
-                            {mainNavLinks.map(({ href, label }) => (
-                                <li key={href}>
-                                    <Link
-                                        href={href}
-                                        className="block px-3 py-2 rounded-md text-xs font-normal    "
-                                        onClick={() => setMobileMenuOpen(false)}
-                                    >
-                                        {label}
-                                    </Link>
-                                </li>
-                            ))}
-
-                            {/* CTA button mobile */}
-                            <li>
-                                <Link
-                                    href="/find-dealer"
-                                    className="block text-center bg-primary-500  text-white font-normal text-xs py-2 px-5 w-fit rounded-full mt-3"
-                                    onClick={() => setMobileMenuOpen(false)}
-                                >
-                                    Free Samples
-                                </Link>
-                            </li>
-                        </ul>
-                    </nav>
-                )}
-            </div>
+                        </li>
+                    </ul>
+                </nav>
+            )}
         </header>
     );
 }
