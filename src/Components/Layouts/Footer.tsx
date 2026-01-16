@@ -76,9 +76,9 @@ export default function Footer() {
 
                     {/* Legal */}
                     <div className="flex flex-wrap gap-4">
-                        {mainNavLinks.map((item) =>
+                        {mainNavLinks.map((item, index) =>
 
-                            <Link href={item.href}>{item.label}</Link>
+                            <Link key={index} href={item.href}>{item.label}</Link>
                         )}
                     </div>
 

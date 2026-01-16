@@ -9,10 +9,8 @@ export default function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
     const topNavLinks = [
-        { href: "/sustainability", label: "Sustainability" },
-        { href: "/jobs", label: "Jobs" },
-        { href: "/faq", label: "FAQ" },
-        { href: "/contact", label: "Contact" },
+
+        { href: "/shop", label: "Shop" },
         { href: "/language", label: "Language", icon: <Earth size={16} /> },
     ];
     const mainNavLinks = [
