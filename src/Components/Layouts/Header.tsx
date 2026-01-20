@@ -8,11 +8,12 @@ import { useState } from "react";
 export default function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
-    const topNavLinks = [
 
+    const topNavLinks = [
         { href: "/shop", label: "Shop" },
         { href: "/language", label: "Language", icon: <Earth size={16} /> },
     ];
+
     const mainNavLinks = [
         {
             label: "About",
@@ -21,18 +22,38 @@ export default function Header() {
         {
             label: "Solutions",
             submenu: [
-                { label: "Roofing Waterproofing", href: "/solutions/roofing-waterproofing" },
-                { label: "Flashing Systems", href: "/solutions/flashing-systems" },
-                { label: "Building Envelope", href: "/solutions/building-envelope" },
-                { label: "Industrial Sealing", href: "/solutions/industrial-sealing" },
+                { label: "Roofing Waterproofing Systems", href: "/solutions/roofing-waterproofing-systems" },
+                { label: "Fire Protection & Fireproofing", href: "/solutions/flashing-protection-fireproofing" },
+                { label: "Butyl Waterproofing & Sealing", href: "/solutions/butyle-Waterproofing-sealing" },
+                { label: "Automotive Noise & Vibration Control", href: "/solutions/automotive-noise-vibration-control" },
             ],
         },
         {
             label: "Products",
             submenu: [
-                { label: "Roof Repair", href: "/products/roof-repair" },
-                { label: "Waterproof Sealing", href: "/products/waterproof-sealing" },
-                { label: "Sound Deadening", href: "/products/sound-deadening" },
+                {
+                    label: "BuildCore",
+                    isCategory: true,
+                    items: [
+                        { label: "RoofBond™ Waterproofing", href: "/products/buildcore/roofbond" },
+                        { label: "FrameFlash™ Waterproof & Sealing", href: "/products/buildcore/frameflash" },
+                        { label: "ThermaSnap Super Seal", href: "/products/buildcore/thermasnap" },
+                    ]
+                },
+                {
+                    label: "AutoShield",
+                    isCategory: true,
+                    items: [
+                        { label: "AutoShield™ NVH Control", href: "/products/autoshield/nvh-control" },
+                    ]
+                },
+                {
+                    label: "Domevo",
+                    isCategory: true,
+                    items: [
+                        { label: "Domevo SafeKitchen", href: "/products/domevo/safekitchen" },
+                    ]
+                },
                 { label: "All Products →", href: "/products", highlight: true },
             ],
         },
@@ -53,18 +74,18 @@ export default function Header() {
     ];
 
     return (
-        <header className="sticky top-0 z-50 bg-white  ">
-            <div className="bg-gray-100 text-sm text-gray-700  h-10  hidden lg:flex ">
+        <header className="sticky top-0 z-50 bg-white">
+            <div className="bg-gray-100 text-sm text-gray-700 h-10 hidden lg:flex">
                 <nav
                     aria-label="Utility navigation"
-                    className="max-w-350 mx-auto w-10/12  justify-end  flex items-center "
+                    className="max-w-350 mx-auto w-10/12 justify-end flex items-center"
                 >
-                    <ul className="flex justify-center items-center space-x-3    ">
+                    <ul className="flex justify-center items-center space-x-3">
                         {topNavLinks.map(({ href, label, icon }) => (
                             <li key={href}>
                                 <Link
                                     href={href}
-                                    className=" hover:text-blue-500 flex items-center text-xs "
+                                    className="hover:text-blue-500 flex items-center text-xs"
                                     aria-label={icon ? label : undefined}
                                 >
                                     {icon && <span aria-hidden="true">{icon}</span>}
@@ -76,8 +97,8 @@ export default function Header() {
                     </ul>
                 </nav>
             </div>
-            <div className="max-w-350 w-10/12 mx-auto h-16 flex items-center justify-between">
 
+            <div className="max-w-350 w-10/12 mx-auto h-16 flex items-center justify-between">
                 {/* Mobile Menu Button */}
                 <button
                     className="md:hidden"
@@ -114,30 +135,52 @@ export default function Header() {
                                         {item.label}
                                         <ChevronDown
                                             size={14}
-                                            className="transition-transform duration-200 "
+                                            className="transition-transform duration-200"
                                         />
                                     </span>
                                 )}
 
-                                {/* Dropdown */}
+                                {/* Dropdown - Updated for nested structure */}
                                 {item.submenu && (
-                                    <div className="absolute left-0 top-full mt-3 w-64 rounded-md bg-white shadow-lg
-                    opacity-0 invisible translate-y-2
-                    group-hover:opacity-100 group-hover:visible group-hover:translate-y-0
-                    transition-all duration-200 ease-out"
+                                    <div className="absolute left-0 top-full mt-3 w-80 rounded-md bg-white shadow-lg
+                                        opacity-0 invisible translate-y-2
+                                        group-hover:opacity-100 group-hover:visible group-hover:translate-y-0
+                                        transition-all duration-200 ease-out"
                                     >
                                         <ul className="py-2">
-                                            {item.submenu.map((sub) => (
+                                            {item.submenu.map((sub: any) => (
                                                 <li key={sub.label}>
-                                                    <Link
-                                                        href={sub.href}
-                                                        className={`block px-4 py-2 text-xs hover:bg-gray-100 ${sub.highlight
-                                                            ? "font-semibold text-primary-600"
-                                                            : ""
-                                                            }`}
-                                                    >
-                                                        {sub.label}
-                                                    </Link>
+                                                    {sub.isCategory ? (
+                                                        // Category with nested items
+                                                        <div className="px-4 py-2">
+                                                            <div className="font-semibold text-xs text-gray-800 mb-1">
+                                                                {sub.label}
+                                                            </div>
+                                                            <ul className="pl-3 space-y-1">
+                                                                {sub.items.map((nestedItem: any) => (
+                                                                    <li key={nestedItem.label}>
+                                                                        <Link
+                                                                            href={nestedItem.href}
+                                                                            className="block py-1 text-xs text-gray-600 hover:text-primary-600 hover:bg-gray-50 px-2 rounded"
+                                                                        >
+                                                                            {nestedItem.label}
+                                                                        </Link>
+                                                                    </li>
+                                                                ))}
+                                                            </ul>
+                                                        </div>
+                                                    ) : (
+                                                        // Regular link
+                                                        <Link
+                                                            href={sub.href}
+                                                            className={`block px-4 py-2 text-xs hover:bg-gray-100 ${sub.highlight
+                                                                    ? "font-semibold text-primary-600"
+                                                                    : ""
+                                                                }`}
+                                                        >
+                                                            {sub.label}
+                                                        </Link>
+                                                    )}
                                                 </li>
                                             ))}
                                         </ul>
@@ -161,9 +204,9 @@ export default function Header() {
                 <Earth className="md:hidden text-gray-600" />
             </div>
 
-            {/* Mobile Menu */}
+            {/* Mobile Menu - Updated for nested structure */}
             {mobileMenuOpen && (
-                <nav className="md:hidden  bg-white">
+                <nav className="md:hidden bg-white">
                     <ul className="px-4 py-4 space-y-2">
                         {mainNavLinks.map((item) => (
                             <li key={item.label}>
@@ -186,19 +229,45 @@ export default function Header() {
                                         </button>
 
                                         <div
-                                            className={`overflow-hidden transition-all duration-300 ${openSubmenu === item.label ? "max-h-96" : "max-h-0"
+                                            className={`overflow-hidden transition-all duration-300 ${openSubmenu === item.label ? "max-h-[600px]" : "max-h-0"
                                                 }`}
                                         >
                                             <ul className="pl-4 space-y-1">
-                                                {item.submenu.map((sub) => (
+                                                {item.submenu.map((sub: any) => (
                                                     <li key={sub.label}>
-                                                        <Link
-                                                            href={sub.href}
-                                                            className="block py-1 text-xs text-gray-600"
-                                                            onClick={() => setMobileMenuOpen(false)}
-                                                        >
-                                                            {sub.label}
-                                                        </Link>
+                                                        {sub.isCategory ? (
+                                                            // Category with nested items (mobile)
+                                                            <div className="py-2">
+                                                                <div className="font-semibold text-xs text-gray-800 mb-2">
+                                                                    {sub.label}
+                                                                </div>
+                                                                <ul className="pl-3 space-y-1">
+                                                                    {sub.items.map((nestedItem: any) => (
+                                                                        <li key={nestedItem.label}>
+                                                                            <Link
+                                                                                href={nestedItem.href}
+                                                                                className="block py-1 text-xs text-gray-600"
+                                                                                onClick={() => setMobileMenuOpen(false)}
+                                                                            >
+                                                                                {nestedItem.label}
+                                                                            </Link>
+                                                                        </li>
+                                                                    ))}
+                                                                </ul>
+                                                            </div>
+                                                        ) : (
+                                                            // Regular link (mobile)
+                                                            <Link
+                                                                href={sub.href}
+                                                                className={`block py-1 text-xs ${sub.highlight
+                                                                        ? "font-semibold text-primary-600"
+                                                                        : "text-gray-600"
+                                                                    }`}
+                                                                onClick={() => setMobileMenuOpen(false)}
+                                                            >
+                                                                {sub.label}
+                                                            </Link>
+                                                        )}
                                                     </li>
                                                 ))}
                                             </ul>

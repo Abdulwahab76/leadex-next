@@ -1,6 +1,7 @@
 import { roofFlashingProducts } from "@/data";
 import ProductGallery from "./ProductGallery";
 import Breadcrumb from "@/Components/Breadcrumb";
+import ProductPage from "@/Components/SingleProduct";
 
 type Props = {
     params: { slug: string };
@@ -20,11 +21,11 @@ export default async function ProductDetailPage({ params }: Props) {
                     <Breadcrumb current={product.slug} />
                 </div>
             </section>
-            <section className="max-w-350 w-11/12 px-2 lg:px-0 lg:w-10/12 mx-auto   py-20">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+            <section className="max-w-350 w-11/12 px-2 lg:px-0 lg:w-10/12 mx-auto  py-10">
+                <div className=" ">
 
                     {/* LEFT CONTENT */}
-                    <div>
+                    {/* <div>
                         <h1 className="text-2xl font-medium mb-6">
                             {product.name}
                         </h1>
@@ -46,10 +47,11 @@ export default async function ProductDetailPage({ params }: Props) {
                         >
                             Find a Stocklist
                         </button>
-                    </div>
+                    </div> */}
 
                     {/* RIGHT IMAGE SLIDER (CLIENT) */}
-                    <ProductGallery images={product.image} />
+                    {/* <ProductGallery images={product.image} /> */}
+                    <ProductPage />
                 </div>
             </section>
         </div>

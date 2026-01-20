@@ -65,7 +65,7 @@ export default function GetInspiredSection(): JSX.Element {
                             id="inspired-heading"
                             className="text-2xl lg:text-3xl font-medium"
                         >
-                            Get inspired
+                            Our Solutions
                         </h2>
 
                         {/* Desktop link */}
