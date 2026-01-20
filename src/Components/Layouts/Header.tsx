@@ -35,7 +35,7 @@ export default function Header() {
                     label: "BuildCore",
                     isCategory: true,
                     items: [
-                        { label: "RoofBond™ Waterproofing", href: "/products/buildcore/roofbond" },
+                        { label: "RoofBond™ Waterproofing", href: "/products/roof-repair/flexoflash" },
                         { label: "FrameFlash™ Waterproof & Sealing", href: "/products/buildcore/frameflash" },
                         { label: "ThermaSnap Super Seal", href: "/products/buildcore/thermasnap" },
                     ]
@@ -174,8 +174,8 @@ export default function Header() {
                                                         <Link
                                                             href={sub.href}
                                                             className={`block px-4 py-2 text-xs hover:bg-gray-100 ${sub.highlight
-                                                                    ? "font-semibold text-primary-600"
-                                                                    : ""
+                                                                ? "font-semibold text-primary-600"
+                                                                : ""
                                                                 }`}
                                                         >
                                                             {sub.label}
@@ -260,8 +260,8 @@ export default function Header() {
                                                             <Link
                                                                 href={sub.href}
                                                                 className={`block py-1 text-xs ${sub.highlight
-                                                                        ? "font-semibold text-primary-600"
-                                                                        : "text-gray-600"
+                                                                    ? "font-semibold text-primary-600"
+                                                                    : "text-gray-600"
                                                                     }`}
                                                                 onClick={() => setMobileMenuOpen(false)}
                                                             >
