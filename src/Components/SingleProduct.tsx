@@ -25,7 +25,6 @@ export default function ProductPage() {
                 {/* PRODUCT GRID */}
                 <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-10 lg:gap-8  ">
 
-                    {/* ================= IMAGES (70–75%) ================= */}
                     <div className="space-y-5">
                         {/* Main Image */}
                         <div className="relative w-full aspect-square">

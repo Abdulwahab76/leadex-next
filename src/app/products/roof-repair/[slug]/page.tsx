@@ -2,6 +2,7 @@ import { roofFlashingProducts } from "@/data";
 import ProductGallery from "./ProductGallery";
 import Breadcrumb from "@/Components/Breadcrumb";
 import ProductPage from "@/Components/SingleProduct";
+import LeadaxFlashingPage from "@/Components/productPage";
 
 type Props = {
     params: { slug: string };
@@ -51,7 +52,8 @@ export default async function ProductDetailPage({ params }: Props) {
 
                     {/* RIGHT IMAGE SLIDER (CLIENT) */}
                     {/* <ProductGallery images={product.image} /> */}
-                    <ProductPage />
+                    {/* <ProductPage /> */}
+                    <LeadaxFlashingPage />
                 </div>
             </section>
         </div>
