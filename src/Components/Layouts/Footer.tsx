@@ -4,12 +4,45 @@ import Image from "next/image";
 
 export default function Footer() {
     const mainNavLinks = [
-        { href: "/products", label: "Products" },
-        { href: "/pricing", label: "Pricing" },
-        { href: "/sustainability", label: "Sustainability" },
+        { href: "/terms-of-services ", label: "Terms of Services " },
+        { href: "/privacy-policy", label: "Privacy Policy" },
         { href: "/blogs", label: "Blogs" },
+        { href: "/sustainability  ", label: "Sustainability  " },
         { href: "/about", label: "About" },
     ];
+    const subMenu = [
+        { label: "Roofing Waterproofing Systems", href: "/solutions/roofing-waterproofing-systems" },
+        { label: "Fire Protection & Fireproofing", href: "/solutions/flashing-protection-fireproofing" },
+        { label: "Butyl Waterproofing & Sealing", href: "/solutions/butyle-Waterproofing-sealing" },
+        { label: "Automotive Noise & Vibration Control", href: "/solutions/automotive-noise-vibration-control" }
+    ]
+
+    const subMenuProduct = [
+        {
+            label: "BuildCore",
+            isCategory: true,
+            items: [
+                { label: "RoofBond™ Waterproofing", href: "/products/roof-repair/flexoflash" },
+                { label: "FrameFlash™ Waterproof & Sealing", href: "/products/buildcore/frameflash" },
+                { label: "ThermaSnap Super Seal", href: "/products/buildcore/thermasnap" },
+            ]
+        },
+        {
+            label: "AutoShield",
+            isCategory: true,
+            items: [
+                { label: "AutoShield™ NVH Control", href: "/products/autoshield/nvh-control" },
+            ]
+        },
+        {
+            label: "Domevo",
+            isCategory: true,
+            items: [
+                { label: "Domevo SafeKitchen", href: "/products/domevo/safekitchen" },
+            ]
+        },
+        { label: "All Products →", href: "/products", highlight: true },
+    ]
     return (
         <footer className="bg-linear-to-b from-[#1b1f2a] to-[#151822] text-gray-400">
 
@@ -25,7 +58,7 @@ export default function Footer() {
                         <Image src='/images/Bodenlink.png' width={150} height={150} alt="logo" />
 
                         <p className="mt-4 text-sm leading-relaxed">
-                            Engineered butyl solutions for long-term protection and performance.
+                            We Propect, We Perform, We Innovate
                         </p>
                     </div>
 
@@ -34,11 +67,9 @@ export default function Footer() {
                         <h4 className="text-white text-sm font-medium mb-4">
                             Solutions
                         </h4>
-                        <ul className="space-y-2 text-sm">
-                            <li><Link href="#">Roofing Waterproofing</Link></li>
-                            <li><Link href="#">Flashing Systems</Link></li>
-                            <li><Link href="#">Building Envelope</Link></li>
-                            <li><Link href="#">Industrial Sealing</Link></li>
+                        <ul className="space-y-2 text-sm *:hover:text-blue-500 transition-colors">
+                            {subMenu.map((item, ind) => <li key={ind}><Link href={item.href}>{item.label}</Link></li>)}
+
                         </ul>
                     </div>
 
@@ -47,11 +78,10 @@ export default function Footer() {
                         <h4 className="text-white text-sm font-medium mb-4">
                             Products
                         </h4>
-                        <ul className="space-y-2 text-sm">
-                            <li><Link href="#">Roof Repair</Link></li>
-                            <li><Link href="#">Waterproof Sealing</Link></li>
-                            <li><Link href="#">Sound Deadening</Link></li>
-                            <li><Link href="#">All Products</Link></li>
+                        <ul className="space-y-2 text-sm *:hover:text-blue-500 transition-colors">
+                            {subMenuProduct.map((item) =>
+                                item.items?.map((subItem, index) => <li key={index}><Link href="#">{subItem.label}</Link></li>))}
+
                         </ul>
                     </div>
 
@@ -60,7 +90,7 @@ export default function Footer() {
                         <h4 className="text-white text-sm font-medium mb-4">
                             Resources
                         </h4>
-                        <ul className="space-y-2 text-sm">
+                        <ul className="space-y-2 text-sm *:hover:text-blue-500 transition-colors">
                             <li><Link href="#">Insights</Link></li>
                             <li><Link href="#">Installation Guides</Link></li>
                             <li><Link href="#">Technical Library</Link></li>
