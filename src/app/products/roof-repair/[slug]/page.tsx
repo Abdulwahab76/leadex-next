@@ -3,10 +3,35 @@ import ProductGallery from "./ProductGallery";
 import Breadcrumb from "@/Components/Breadcrumb";
 import ProductPage from "@/Components/SingleProduct";
 import LeadaxFlashingPage from "@/Components/productPage";
+import { Metadata, ResolvingMetadata } from "next";
 
 type Props = {
     params: { slug: string };
 };
+export async function generateMetadata(
+    { params }: Props,
+    parent: ResolvingMetadata
+): Promise<Metadata> {
+    const slug = (await params).slug
+
+    const product = roofFlashingProducts.find((p) => p.slug === slug);
+    if (!product) {
+        return {
+            title: 'Product Not Found',
+            description: 'The requested product does not exist.',
+        }
+    }
+    return {
+        title: product.name,
+        description: product.description,
+        openGraph: {
+            title: product.name,
+            description: product.description || "",
+            images: product.image,
+        },
+    }
+}
+
 
 export default async function ProductDetailPage({ params }: Props) {
     const { slug } = await params;
