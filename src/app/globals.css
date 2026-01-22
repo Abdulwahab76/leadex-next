@@ -46,6 +46,8 @@ body {
   --max-w-350: 1400px;
   --text-sm: 16px;
   --text-xs: 14px;
+  --animate-wiggle: wiggle 1s ease-in-out infinite;
+
 
 }
 
@@ -53,6 +55,32 @@ body {
   font-family: var(--font-neo);
 }
 
+@keyframes wiggle {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  20% {
+    transform: translateX(-4px);
+  }
+
+  40% {
+    transform: translateX(4px);
+  }
+
+  60% {
+    transform: translateX(-3px);
+  }
+
+  80% {
+    transform: translateX(3px);
+  }
+}
+
 .wrapper {
   @apply max-w-350 w-11/12 px-2 lg:px-0 lg:w-10/12 mx-auto
 }
+
+/* globals.css */
