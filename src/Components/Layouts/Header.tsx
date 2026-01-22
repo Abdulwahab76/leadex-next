@@ -15,10 +15,7 @@ export default function Header() {
     ];
 
     const mainNavLinks = [
-        {
-            label: "About",
-            href: "/about",
-        },
+
         {
             label: "Solutions",
             submenu: [
@@ -58,6 +55,10 @@ export default function Header() {
             ],
         },
         {
+            label: "About",
+            href: "/about",
+        },
+        {
             label: "Resources",
             submenu: [
                 { label: "Insights", href: "/resources/insights" },
@@ -75,7 +76,7 @@ export default function Header() {
 
     return (
         <header className="sticky top-0 z-50 bg-white">
-            <div className="bg-gray-100 text-sm text-gray-700 h-10 hidden lg:flex">
+            <div className="bg-gray-100 text-sm text-gray-700 h-9 hidden lg:flex">
                 <nav
                     aria-label="Utility navigation"
                     className="max-w-350 mx-auto w-10/12 justify-end flex items-center"
@@ -98,7 +99,7 @@ export default function Header() {
                 </nav>
             </div>
 
-            <div className="max-w-350 w-10/12 mx-auto h-16 flex items-center justify-between">
+            <div className="max-w-350 w-10/12 mx-auto h-21 flex items-center justify-between">
                 {/* Mobile Menu Button */}
                 <button
                     className="md:hidden"
@@ -126,7 +127,7 @@ export default function Header() {
                                 {item.href ? (
                                     <Link
                                         href={item.href}
-                                        className="flex items-center gap-1 text-xs hover:text-primary-500"
+                                        className="flex items-center gap-1 text-xs font-extralight hover:text-primary-500"
                                     >
                                         {item.label}
                                     </Link>
@@ -195,7 +196,7 @@ export default function Header() {
                 <div className="hidden md:flex">
                     <Link
                         href="/find-dealer"
-                        className="bg-primary-600 hover:bg-primary-500 text-white text-xs px-5 py-2 rounded-full transition"
+                        className="bg-primary-600 w-27.5 hover:bg-primary-400 text-white font-light py-2.5   text-xs rounded-full transition text-center "
                     >
                         Free Samples
                     </Link>
@@ -288,7 +289,7 @@ export default function Header() {
                         <li className="pt-4">
                             <Link
                                 href="/find-dealer"
-                                className="inline-block bg-primary-500 text-white text-xs px-5 py-2 rounded-full"
+                                className="bg-primary-600 w-27.5 hover:bg-primary-400 text-white font-light py-2.5   text-xs rounded-full transition  "
                                 onClick={() => setMobileMenuOpen(false)}
                             >
                                 Free Samples
