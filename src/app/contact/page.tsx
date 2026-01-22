@@ -31,7 +31,7 @@ export default function ContactPage() {
                 }}
             />
 
-            <section className="max-w-350 w-11/12 px-2 lg:px-0 lg:w-10/12 mx-auto py-8">
+            <section className="wrapper py-8">
                 <h1 className="text-3xl font-bold mb-8">Contact Us</h1>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12">

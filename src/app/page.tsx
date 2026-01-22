@@ -22,7 +22,7 @@ export default function Home() {
         {/* Overlay (optional dark layer for readability) */}
 
         {/* Content */}
-        <div className=" relative z-10 flex h-full pt-14 lg:pt-30  max-w-350 w-11/12 px-2 lg:px-0 lg:w-10/12 mx-auto flex-col   gap-y-3   text-white">
+        <div className=" relative z-10 flex h-full pt-14 lg:pt-30  wrapper flex-col   gap-y-3   text-white">
           <h1 className="max-w-2xl text-[27px] leading-11 font-bold text-shadow-[3px_2px_5px_#000000] md:text-4xl">
             The revolutionary sustainable roofing
             and lead replacement

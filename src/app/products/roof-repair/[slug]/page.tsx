@@ -42,12 +42,12 @@ export default async function ProductDetailPage({ params }: Props) {
     return (
         <div>
             <section className="bg-primary-500 text-white py-10">
-                <div className="max-w-350 w-11/12 px-2 lg:px-0 lg:w-10/12 mx-auto flex  flex-col md:flex-row gap-y-3  justify-between items-center">
+                <div className="wrapper flex  flex-col md:flex-row gap-y-3  justify-between items-center">
                     <h1 className="text-xl font-medium">{product.name}</h1>
                     <Breadcrumb current={product.slug} />
                 </div>
             </section>
-            <section className="max-w-350 w-11/12 px-2 lg:px-0 lg:w-10/12 mx-auto  py-10">
+            <section className="wrapper  py-10">
                 <div className=" ">
 
                     {/* LEFT CONTENT */}
