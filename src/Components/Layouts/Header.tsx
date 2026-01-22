@@ -32,7 +32,7 @@ export default function Header() {
                     label: "BuildCore",
                     isCategory: true,
                     items: [
-                        { label: "RoofBond™ Waterproofing", href: "/products/roof-repair/flexoflash" },
+                        { label: "RoofBond™ Waterproofing", href: "/products/roofbond-flx" },
                         { label: "FrameFlash™ Waterproof & Sealing", href: "/products/buildcore/frameflash" },
                         { label: "ThermaSnap Super Seal", href: "/products/buildcore/thermasnap" },
                     ]
