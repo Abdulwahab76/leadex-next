@@ -63,7 +63,7 @@ const Solution = () => {
                     <ValleySection
                         title="Valley"
                         description="Lead covering is a perfect alternative if your valley gutter. One of the advantages lead’s replacement has over using zinc is its natural produced patina formed in the weathering process. This means that the production complies with European Regulation. In addition lead valleys give a 60–100 year lifespan, which means that you have to make fewer replacements. This saves time and cost."
-                        sideImage="/images/valley-application-3.webp"
+                        sideImage="/images/valley-3.webp"
                         examples={[
                             "/images/valley-1.webp",
                             "/images/valley-2.webp",
@@ -73,7 +73,7 @@ const Solution = () => {
                     <ValleySection
                         title="Chimney"
                         description="Lead covering is a perfect alternative if your valley gutter. One of the advantages lead’s replacement has over using zinc is its natural produced patina formed in the weathering process. This means that the production complies with European Regulation. In addition lead valleys give a 60–100 year lifespan, which means that you have to make fewer replacements. This saves time and cost."
-                        sideImage="/images/valley-application-3.webp"
+                        sideImage="/images/valley-3.webp"
                         examples={[
                             "/images/valley-1.webp",
                             "/images/valley-2.webp",
@@ -83,7 +83,7 @@ const Solution = () => {
                     <ValleySection
                         title="Dormer"
                         description="Lead covering is a perfect alternative if your valley gutter. One of the advantages lead’s replacement has over using zinc is its natural produced patina formed in the weathering process. This means that the production complies with European Regulation. In addition lead valleys give a 60–100 year lifespan, which means that you have to make fewer replacements. This saves time and cost."
-                        sideImage="/images/valley-application-3.webp"
+                        sideImage="/images/valley-3.webp"
                         examples={[
                             "/images/valley-1.webp",
                             "/images/valley-2.webp",
@@ -94,7 +94,7 @@ const Solution = () => {
                     <ValleySection
                         title="Cavity walls and window frames"
                         description="Lead covering is a perfect alternative if your valley gutter. One of the advantages lead’s replacement has over using zinc is its natural produced patina formed in the weathering process. This means that the production complies with European Regulation. In addition lead valleys give a 60–100 year lifespan, which means that you have to make fewer replacements. This saves time and cost."
-                        sideImage="/images/valley-application-3.webp"
+                        sideImage="/images/valley-3.webp"
                         examples={[
                             "/images/valley-1.webp",
                             "/images/valley-2.webp",
