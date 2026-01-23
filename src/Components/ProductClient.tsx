@@ -173,6 +173,41 @@ export default function ProductClient({ product, slideImages }: { product: Produ
                         ))}
                     </ul>
                 )} */}
+                <div className="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+                    {/* LEFT — PHYSICAL PROPERTIES */}
+                    <div>
+                        <h2 className="text-xl font-medium mb-6">
+                            Physical Properties
+                        </h2>
+
+                        <div className="space-y-4">
+                            {product.physicalProperties.map((item, i) => (
+                                <div
+                                    key={i}
+                                    className="flex justify-between border-b border-gray-400 pb-2 text-sm"
+                                >
+                                    <span className="text-black">
+                                        {item.label}
+                                    </span>
+                                    <span className="font-medium text-gray-900">
+                                        {item.value}
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* RIGHT — IMAGE */}
+                    <div className="flex justify-center">
+                        <img
+                            src="/images/valley-1.webp" // replace with your real image
+                            alt="RoofBond Physical Properties"
+                            className="max-w-sm w-full object-contain"
+                        />
+                    </div>
+
+                </div>
                 <div className="mt-16">
                     <h2 className="text-xl font-medium mb-6">
                         Material Composition
@@ -260,41 +295,7 @@ export default function ProductClient({ product, slideImages }: { product: Produ
                     </p>
                 </div>
 
-                <div className="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
-                    {/* LEFT — PHYSICAL PROPERTIES */}
-                    <div>
-                        <h2 className="text-xl font-medium mb-6">
-                            Physical Properties
-                        </h2>
-
-                        <div className="space-y-4">
-                            {product.physicalProperties.map((item, i) => (
-                                <div
-                                    key={i}
-                                    className="flex justify-between border-b border-gray-400 pb-2 text-sm"
-                                >
-                                    <span className="text-black">
-                                        {item.label}
-                                    </span>
-                                    <span className="font-medium text-gray-900">
-                                        {item.value}
-                                    </span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* RIGHT — IMAGE */}
-                    <div className="flex justify-center">
-                        <img
-                            src="/images/valley-1.webp" // replace with your real image
-                            alt="RoofBond Physical Properties"
-                            className="max-w-sm w-full object-contain"
-                        />
-                    </div>
-
-                </div>
                 <div className="mt-16">
                     <h2 className="text-xl font-medium mb-6">
                         Ideal Applications

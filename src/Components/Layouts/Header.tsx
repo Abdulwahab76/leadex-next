@@ -15,6 +15,10 @@ export default function Header() {
     ];
 
     const mainNavLinks = [
+        {
+            label: "About",
+            href: "/about",
+        },
 
         {
             label: "Solutions",
@@ -54,10 +58,7 @@ export default function Header() {
                 { label: "All Products →", href: "/products", highlight: true },
             ],
         },
-        {
-            label: "About",
-            href: "/about",
-        },
+
         {
             label: "Resources",
             submenu: [
@@ -127,7 +128,7 @@ export default function Header() {
                                 {item.href ? (
                                     <Link
                                         href={item.href}
-                                        className="flex items-center gap-1 text-xs font-extralight hover:text-primary-500"
+                                        className="flex items-center gap-1 text-xs hover:text-primary-500"
                                     >
                                         {item.label}
                                     </Link>
