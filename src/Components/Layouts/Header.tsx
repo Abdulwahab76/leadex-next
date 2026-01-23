@@ -33,8 +33,8 @@ export default function Header() {
                     isCategory: true,
                     items: [
                         { label: "RoofBond™ Waterproofing", href: "/products/roofbond-flx" },
-                        { label: "FrameFlash™ Waterproof & Sealing", href: "/products/buildcore/frameflash" },
-                        { label: "ThermaSnap Super Seal", href: "/products/buildcore/thermasnap" },
+                        { label: "FrameFlash™ Waterproof & Sealing", href: "/products/frameflash" },
+                        { label: "ThermaSnap Super Seal", href: "/products/thermasnap" },
                     ]
                 },
                 {

@@ -16,7 +16,7 @@ export default function ProductSlider({ slideImages }: { slideImages?: string[] 
                     alt="Product image"
                     fill
                     priority
-                    className="object-contain "
+                    className="object-contain"
                 />
             </div>
 
