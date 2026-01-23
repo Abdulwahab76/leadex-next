@@ -1,6 +1,6 @@
 import DocumentsForm from "@/Components/DocumentsForm"
 import FreeSamplesSection from "@/Components/FreeSamplesSection"
-import valleySection from "@/Components/VallySection"
+import ValleySection from "@/Components/VallySection"
 import VideoGridSection from "@/Components/VideoGridSection"
 import Image from "next/image"
 
@@ -60,8 +60,8 @@ const Solution = () => {
                         Successfully apply Leadax Original
                     </h2>
 
-                    <valleySection
-                        title="valley"
+                    <ValleySection
+                        title="Valley"
                         description="Lead covering is a perfect alternative if your valley gutter. One of the advantages lead’s replacement has over using zinc is its natural produced patina formed in the weathering process. This means that the production complies with European Regulation. In addition lead valleys give a 60–100 year lifespan, which means that you have to make fewer replacements. This saves time and cost."
                         sideImage="/images/valley-application-3.webp"
                         examples={[
@@ -70,7 +70,7 @@ const Solution = () => {
                             "/images/valley-3.webp",
                         ]}
                     />
-                    <valleySection
+                    <ValleySection
                         title="Chimney"
                         description="Lead covering is a perfect alternative if your valley gutter. One of the advantages lead’s replacement has over using zinc is its natural produced patina formed in the weathering process. This means that the production complies with European Regulation. In addition lead valleys give a 60–100 year lifespan, which means that you have to make fewer replacements. This saves time and cost."
                         sideImage="/images/valley-application-3.webp"
@@ -80,7 +80,7 @@ const Solution = () => {
                             "/images/valley-3.webp",
                         ]}
                     />
-                    <valleySection
+                    <ValleySection
                         title="Dormer"
                         description="Lead covering is a perfect alternative if your valley gutter. One of the advantages lead’s replacement has over using zinc is its natural produced patina formed in the weathering process. This means that the production complies with European Regulation. In addition lead valleys give a 60–100 year lifespan, which means that you have to make fewer replacements. This saves time and cost."
                         sideImage="/images/valley-application-3.webp"
@@ -91,7 +91,7 @@ const Solution = () => {
                         ]}
                     />
 
-                    <valleySection
+                    <ValleySection
                         title="Cavity walls and window frames"
                         description="Lead covering is a perfect alternative if your valley gutter. One of the advantages lead’s replacement has over using zinc is its natural produced patina formed in the weathering process. This means that the production complies with European Regulation. In addition lead valleys give a 60–100 year lifespan, which means that you have to make fewer replacements. This saves time and cost."
                         sideImage="/images/valley-application-3.webp"
