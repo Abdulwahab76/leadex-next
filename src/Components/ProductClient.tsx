@@ -201,7 +201,7 @@ export default function ProductClient({ product, slideImages }: { product: Produ
                     {/* RIGHT — IMAGE */}
                     <div className="flex justify-center">
                         <img
-                            src="/images/placeholderimage-1.webp" // replace with your real image
+                            src="/images/valley-1.webp" // replace with your real image
                             alt="RoofBond Physical Properties"
                             className="max-w-sm w-full object-contain"
                         />

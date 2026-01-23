@@ -234,9 +234,9 @@ export default async function ProductPage() {
     return (
         <main className="wrapper px-4 py-8">
             <ProductClient product={product} slideImages={[
-                "/images/placeholderimage-1.webp",
-                "/images/placeholderimage-2.webp",
-                "/images/placeholderimage-3.webp",
+                "/images/valley-1.webp",
+                "/images/valley-2.webp",
+                "/images/valley-3.webp",
             ]} />
         </main>
     )

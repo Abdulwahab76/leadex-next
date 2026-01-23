@@ -4,19 +4,19 @@ import { ArrowLeft, ChevronLeft, ChevronRight, LeafIcon } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
-interface placeholderimageSectionProps {
+interface valleySectionProps {
     title: string;
     description: string;
     sideImage: string;
     examples: string[];
 }
 
-export default function placeholderimageSection({
+export default function valleySection({
     title,
     description,
     sideImage,
     examples,
-}: placeholderimageSectionProps) {
+}: valleySectionProps) {
     const [current, setCurrent] = useState(0);
 
     const prevSlide = () => {
