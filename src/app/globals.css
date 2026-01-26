@@ -47,12 +47,22 @@ body {
   --text-sm: 16px;
   --text-xs: 14px;
   --animate-wiggle: wiggle 1s ease-in-out infinite;
-
+  --animate-slideIn: slideIn 0.3s ease-out;
 
 }
 
 body {
   font-family: var(--font-neo);
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
 }
 
 @keyframes wiggle {

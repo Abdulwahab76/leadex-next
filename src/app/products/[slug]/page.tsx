@@ -1,4 +1,5 @@
 import ProductClient, { Product } from "@/Components/ProductClient"
+import ProductClientNew from "@/Components/ProductClientNew"
 
 
 export default async function ProductPage() {
@@ -7,9 +8,6 @@ export default async function ProductPage() {
         title:
             'Polyester Cotton Cargo Work Pants With Detachable Tool Pockets & Knee Reinforcement B128',
         price: 55,
-        colors: ['Black', 'Grey', 'Navy'],
-        waistSizes: ['W30', 'W32', 'W34', 'W36'],
-        lengths: ['L28', 'L30', 'L32'],
         information: 'Bodenlink RoofBond is a premium, self-adhesive waterproof flashing membrane designed as the ultimate alternative to traditional lead or aluminum panels.This flexible ribbonmaterial features a high- performance three-layer construction consisting of a UV - resistant top layer, an expandable aluminum mesh core, and a powerful butyl adhesive backing.',
         description: [
             'Rapid Installation: 40–60% faster than traditional methods',
@@ -233,7 +231,7 @@ export default async function ProductPage() {
 
     return (
         <main className="wrapper px-4 py-8">
-            <ProductClient product={product} slideImages={[
+            <ProductClientNew product={product} slideImages={[
                 "/images/valley-1.webp",
                 "/images/valley-2.webp",
                 "/images/valley-3.webp",
