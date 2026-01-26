@@ -65,9 +65,9 @@ export default function ProductClientNew({
                         <Link
                             href="https://bodenlinkshop.com"
                             target="_blank"
-                            className="block text-center bg-primary-600 text-white py-3 font-medium"
+                            className="block text-center hover:bg-white hover:text-primary-600 transition-colors delay-75 border border-primary-600 bg-primary-600 text-white py-3 font-medium"
                         >
-                            Buy with Shop
+                            Order Now
                         </Link>
 
                         <div className="pt-6 border-t border-gray-300 divide-y">
