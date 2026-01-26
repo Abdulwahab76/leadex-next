@@ -48,6 +48,7 @@ body {
   --text-xs: 14px;
   --animate-wiggle: wiggle 1s ease-in-out infinite;
   --animate-slideIn: slideIn 0.3s ease-out;
+  --animate-slideInUp: slideInUp 0.3s ease-out;
 
 }
 
@@ -62,6 +63,16 @@ body {
 
   to {
     transform: translateX(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
   }
 }
 

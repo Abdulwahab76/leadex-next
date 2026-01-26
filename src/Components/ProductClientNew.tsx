@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ChevronDown, Star, X } from 'lucide-react'
 import { Product } from './ProductClient'
+import ProductSlider from './ProductSlider'
 
 type PanelType =
     | 'description'
@@ -26,10 +27,8 @@ export default function ProductClientNew({
         <>
             {/* MAIN PRODUCT SECTION */}
             <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-
                 {/* LEFT – IMAGE GALLERY */}
-                {/* LEFT – IMAGE GALLERY (drives scroll) */}
-                <div className="space-y-8">
+                <div className="space-y-8 lg:block hidden">
                     {slideImages.map((img, index) => (
                         <Image
                             key={index}
@@ -43,12 +42,14 @@ export default function ProductClientNew({
                     ))}
                 </div>
 
+                {<div className='lg:hidden block'><ProductSlider slideImages={slideImages} /></div>}
+
 
                 {/* RIGHT – STICKY CONTENT */}
                 <div className="relative self-start">
                     <div className=" sticky lg:top-24 space-y-4">
 
-                        <h1 className="text-2xl font-semibold">{product.title}</h1>
+                        <h1 className="text-2xl font-medium">{product.title}</h1>
                         <p className="text-xl font-medium">${product.price}.00 USD</p>
 
                         <div className="flex items-center gap-2">
@@ -123,15 +124,44 @@ function RightDrawer({
     onClose: () => void
 }) {
     return (
-        <div className="fixed inset-0 z-50 flex justify-end">
-            <div onClick={onClose} className="absolute inset-0 bg-black/40" />
-            <div className="relative w-full max-w-md bg-white h-full overflow-y-auto p-6 animate-slideIn">
-                <button onClick={onClose} className="absolute top-4 right-4 text-lg"><X /></button>
+        <div className="fixed inset-0 z-50">
+            {/* Overlay */}
+            <div
+                onClick={onClose}
+                className="absolute inset-0 bg-black/40"
+            />
+
+            {/* Drawer */}
+            <div
+                className="
+                    fixed
+                    bottom-0
+                    right-0
+                    w-full
+                    h-screen
+                    bg-white
+                    overflow-y-auto
+                    p-6
+                   animate-slideInUp
+                    lg:top-0
+                    lg:h-full
+                    lg:max-w-md
+                    lg:animate-slideIn
+                "
+            >
+                <button
+                    onClick={onClose}
+                    className="absolute top-4 right-4 text-lg"
+                >
+                    <X />
+                </button>
+
                 {children}
             </div>
         </div>
     )
 }
+
 
 function DescriptionPanel({ product }: { product: Product }) {
 
