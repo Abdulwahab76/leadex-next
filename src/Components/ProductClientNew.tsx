@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { ChevronDown, Star, X } from 'lucide-react'
 import { Product } from './ProductClient'
 import ProductSlider from './ProductSlider'
+import FeaturesSection from './FeatureSection'
 
 type PanelType =
     | 'description'
@@ -24,9 +25,9 @@ export default function ProductClientNew({
     const [activePanel, setActivePanel] = useState<PanelType>(null)
 
     return (
-        <>
+        <div className='flex flex-col gap-y-10'>
             {/* MAIN PRODUCT SECTION */}
-            <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            <section className="wrapper grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
                 {/* LEFT – IMAGE GALLERY */}
                 <div className="space-y-8 lg:block hidden">
                     {slideImages.map((img, index) => (
@@ -50,8 +51,6 @@ export default function ProductClientNew({
                     <div className=" sticky lg:top-24 space-y-4">
 
                         <h1 className="text-2xl font-medium">{product.title}</h1>
-                        <p className="text-xl font-medium">${product.price}.00 USD</p>
-
                         <div className="flex items-center gap-2">
                             {Array.from({ length: 5 }).map((_, i) => (
                                 <Star
@@ -81,7 +80,8 @@ export default function ProductClientNew({
                 </div>
 
             </section>
-
+            {/*Product feature  */}
+            <FeaturesSection />
             {/* RIGHT SLIDE DRAWER */}
             {activePanel && (
                 <RightDrawer onClose={() => setActivePanel(null)}>
@@ -93,14 +93,14 @@ export default function ProductClientNew({
             )}
 
             {/* FAQ SECTION (FEATURES AS FAQ) */}
-            <section className="mt-20 max-w-350 mx-auto">
+            <section className="wrapper  max-w-350 mx-auto">
                 <h2 className="text-xl font-medium mb-6">FAQ</h2>
 
                 {product.features.map((f, i) => (
                     <FaqAccordion key={i} title={f.title} content={f.content} />
                 ))}
             </section>
-        </>
+        </div>
     )
 }
 
@@ -108,7 +108,7 @@ function SlideItem({ label, onClick }: { label: string; onClick: () => void }) {
     return (
         <button
             onClick={onClick}
-            className="w-full flex justify-between items-center py-4 text-sm font-medium"
+            className="w-full cursor-pointer flex justify-between items-center py-4 text-sm font-medium"
         >
             {label}
             <ChevronDown size={18} />

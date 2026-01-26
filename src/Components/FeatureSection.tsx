@@ -11,25 +11,25 @@ const features: Feature[] = [
     {
         title: "Circular",
         description:
-            "After our products lifetime, they can be recycled and reused again as new Leadax products.",
+            "Made of recycled PVB, the safety foil that’s formerly used in laminated glass.",
         icon: "/icons/circular.webp",
     },
     {
-        title: "Easy to use",
+        title: "Longer roll lengths",
         description:
-            "You can quickly and easily apply our products, saving you time and materials.",
-        icon: "/icons/easy.webp",
-    },
-    {
-        title: "Award-winning",
-        description:
-            "Our products are award-winning in the categories innovativeness, circularity and sustainability.",
-        icon: "/icons/award.webp",
+            "With BodenLink Original you don’t need to make an overlap every meter.",
+        icon: "/icons/longroll.webp",
     },
     {
         title: "Non-toxic",
         description:
-            "Leadax’s waterproofing products are not harmful for people and the environment.",
+            "No harmful effect on people and planet.",
+        icon: "/icons/award.webp",
+    },
+    {
+        title: "Lightweight",
+        description:
+            "It weighs 3,85 kg p/m², which is 85% lighter than code 25 lead.",
         icon: "/icons/nontoxic.webp",
     },
 ];
@@ -38,14 +38,15 @@ export default function FeaturesSection(): JSX.Element {
     return (
         <section
             aria-labelledby="features-heading"
-            className="bg-[#EEEEEE] py-11"
+            className=" py-10    bg-gray-100"
         >
-            {/* Accessible heading */}
-            <h2 id="features-heading" className="sr-only">
-                Product features
-            </h2>
 
-            <div className="mx-auto max-w-350 w-11/12 px-2 lg:px-0 lg:w-10/12  ">
+
+            <div className="  wrapper  ">
+                {/* Accessible heading */}
+                <h2 id="features-heading" className="sr-only">
+                    Product features
+                </h2>
                 <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
                     {features.map((feature) => (
                         <li
