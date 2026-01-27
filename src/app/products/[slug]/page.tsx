@@ -231,7 +231,6 @@ export default async function ProductPage() {
 
     return (
         <main className="py-8">
-            <h3 className="text-3xl font-medium py-5  wrapper">Product Details</h3>
             <ProductClientNew product={product} slideImages={[
                 "/images/valley-1.webp",
                 "/images/valley-2.webp",

@@ -25,11 +25,13 @@ export default function ProductClientNew({
     const [activePanel, setActivePanel] = useState<PanelType>(null)
 
     return (
-        <div className='flex flex-col gap-y-10'>
+        <div className="flex flex-col gap-y-10">
+
             {/* MAIN PRODUCT SECTION */}
             <section className="wrapper grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-                {/* LEFT – IMAGE GALLERY */}
-                <div className="space-y-8 lg:block hidden">
+
+                {/* LEFT – IMAGE GALLERY (DESKTOP) */}
+                <div className="space-y-8 hidden lg:block">
                     {slideImages.map((img, index) => (
                         <Image
                             key={index}
@@ -43,34 +45,48 @@ export default function ProductClientNew({
                     ))}
                 </div>
 
-                {<div className='lg:hidden block'><ProductSlider slideImages={slideImages} /></div>}
+                {/* LEFT – SLIDER (MOBILE) */}
+                <div className="block lg:hidden">
+                    <ProductSlider slideImages={slideImages} />
+                </div>
 
-
-                {/* RIGHT – STICKY CONTENT */}
+                {/* RIGHT – CONTENT */}
                 <div className="relative self-start">
-                    <div className=" sticky lg:top-24 space-y-4">
-
-                        <h1 className="text-2xl font-medium">{product.title}</h1>
-                        <div className="flex items-center gap-2">
-                            {Array.from({ length: 5 }).map((_, i) => (
-                                <Star
-                                    key={i}
-                                    size={14}
-                                    className="text-amber-500 fill-amber-500"
-                                />
-                            ))}
-                            <span className="text-xs text-gray-600">10 Reviews</span>
+                    <div className="sticky lg:top-24 flex flex-col gap-4">
+                        {/* TITLE + RATING */}
+                        <div>
+                            <h1 className="text-2xl font-medium">{product.title}</h1>
+                            <div className="flex items-center gap-2">
+                                {Array.from({ length: 5 }).map((_, i) => (
+                                    <Star
+                                        key={i}
+                                        size={14}
+                                        className="text-amber-500 fill-amber-500"
+                                    />
+                                ))}
+                                <span className="text-xs text-gray-600">10 Reviews</span>
+                            </div>
                         </div>
-
                         <Link
                             href="https://bodenlinkshop.com"
                             target="_blank"
-                            className="block text-center hover:bg-white hover:text-primary-600 transition-colors delay-75 border border-primary-600 bg-primary-600 text-white py-3 font-medium"
+                            className="block text-center border border-primary-600 bg-primary-600 text-white py-3 font-medium hover:bg-white hover:text-primary-600 transition"
                         >
                             Order Now
                         </Link>
+                        {/* FEATURES — MOBILE (FULL WIDTH) */}
+                        <div className="lg:hidden -mx-[calc((100vw-100%)/2)]">
+                            <FeaturesSection />
+                        </div>
 
+                        {/* ORDER BUTTON */}
+
+
+                        {/* PRODUCT DETAILS */}
                         <div className="pt-6 border-t border-gray-300 divide-y">
+                            <h3 className="text-2xl lg:text-3xl font-medium pb-6">
+                                Product Details
+                            </h3>
                             <SlideItem label="Description" onClick={() => setActivePanel('description')} />
                             <SlideItem label="Specification" onClick={() => setActivePanel('specification')} />
                             <SlideItem label="Application" onClick={() => setActivePanel('application')} />
@@ -80,27 +96,35 @@ export default function ProductClientNew({
                 </div>
 
             </section>
-            {/*Product feature  */}
-            <FeaturesSection />
+
+            {/* FEATURES — DESKTOP (FULL WIDTH) */}
+            <div className="hidden lg:block">
+                <FeaturesSection />
+            </div>
+
             {/* RIGHT SLIDE DRAWER */}
             {activePanel && (
                 <RightDrawer onClose={() => setActivePanel(null)}>
                     {activePanel === 'description' && <DescriptionPanel product={product} />}
                     {activePanel === 'specification' && <SpecificationPanel product={product} />}
                     {activePanel === 'application' && <ApplicationPanel product={product} />}
-
                 </RightDrawer>
             )}
 
-            {/* FAQ SECTION (FEATURES AS FAQ) */}
-            <section className="wrapper  max-w-350 mx-auto">
+            {/* FAQ SECTION */}
+            <section className="wrapper max-w-350 mx-auto">
                 <h2 className="text-xl font-medium mb-6">FAQ</h2>
-
                 {product.features.map((f, i) => (
-                    <FaqAccordion key={i} title={f.title} content={f.content} />
+                    <FaqAccordion
+                        key={i}
+                        title={f.title}
+                        content={f.content}
+                    />
                 ))}
             </section>
+
         </div>
+
     )
 }
 
