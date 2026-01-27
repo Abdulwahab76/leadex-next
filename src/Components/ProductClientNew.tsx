@@ -54,8 +54,8 @@ export default function ProductClientNew({
                 <div className="relative self-start">
                     <div className="sticky lg:top-24 flex flex-col gap-4">
                         {/* TITLE + RATING */}
-                        <div>
-                            <h1 className="text-2xl font-medium">{product.title}</h1>
+                        <div className='flex flex-col gap-y-4'>
+                            <h1 className="text-2xl lg:text-3xl font-medium">{product.title}</h1>
                             <div className="flex items-center gap-2">
                                 {Array.from({ length: 5 }).map((_, i) => (
                                     <Star
@@ -68,7 +68,7 @@ export default function ProductClientNew({
                             </div>
                         </div>
                         <Link
-                            href="https://bodenlinkshop.com"
+                            href="https://bodenlinkshop.com/products/roofbond-flx?variant=50834099306781"
                             target="_blank"
                             className="block text-center border border-primary-600 bg-primary-600 text-white py-3 font-medium hover:bg-white hover:text-primary-600 transition"
                         >
