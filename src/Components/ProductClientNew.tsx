@@ -217,7 +217,7 @@ function CustomerReviews() {
                         </div>
 
                         {/* REVIEW */}
-                        <p className="text-sm text-gray-700 leading-relaxed">
+                        <p className="text-sm   leading-relaxed">
                             Loved it. Would make only one change. Back pockets should be closer
                             to the sides for easy reach.
                         </p>
