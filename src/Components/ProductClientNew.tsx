@@ -203,17 +203,25 @@ function CustomerReviews() {
                         {/* NAME */}
 
                         {/* STARS + META */}
-                        <div className="flex items-center gap-2 mb-2">
-                            {Array.from({ length: 4 }).map((_, i) => (
-                                <Star
-                                    key={i}
-                                    size={14}
-                                    className="text-amber-500 fill-amber-500"
-                                />
-                            ))}
-                            <span className="text-xs text-gray-500">
-                                Verified buyer · 06/12/24
-                            </span>
+                        <div className="flex items-center gap-4 mb-2 justify-start lg:justify-between">
+
+                            <div className='flex items-start'>
+                                {Array.from({ length: 4 }).map((_, i) => (
+                                    <Star
+                                        key={i}
+                                        size={18}
+                                        className="text-amber-500 fill-amber-500"
+                                    />
+                                ))}
+                            </div>
+                            <div className='flex gap-x-4 items-center'>
+                                <span className='text-white p-2 bg-primary-600 text-xs rounded-lg'>
+                                    Verified buyer
+                                </span>
+                                <span className="text-sm  ">
+                                    06/12/24
+                                </span>
+                            </div>
                         </div>
 
                         {/* REVIEW */}
@@ -230,7 +238,7 @@ function CustomerReviews() {
 
 function RequestQuote() {
     return (
-        <div className="  pt-10">
+        <div className="border-t border-gray-200 pt-4 ">
             <h2 className="text-xl font-medium mb-4">Request a Quote</h2>
             <p className="text-sm text-black mb-6">
                 Need bulk pricing or project-specific quantities? Request a custom quote.
