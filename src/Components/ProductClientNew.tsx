@@ -8,12 +8,7 @@ import { Product } from './ProductClient'
 import ProductSlider from './ProductSlider'
 import FeaturesSection from './FeatureSection'
 
-type PanelType =
-    | 'description'
-    | 'specification'
-    | 'application'
-
-    | null
+type PanelType = 'description' | 'specification' | 'application' | null
 
 export default function ProductClientNew({
     product,
@@ -25,84 +20,83 @@ export default function ProductClientNew({
     const [activePanel, setActivePanel] = useState<PanelType>(null)
 
     return (
-        <div className="flex flex-col gap-y-10">
+        <div className="flex flex-col gap-y-12">
 
-            {/* MAIN PRODUCT SECTION */}
+            {/* MAIN PRODUCT */}
             <section className="wrapper grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
 
-                {/* LEFT – IMAGE GALLERY (DESKTOP) */}
-                <div className="space-y-8 hidden lg:block">
-                    {slideImages.map((img, index) => (
+                {/* LEFT IMAGES */}
+                <div className="hidden lg:block space-y-8">
+                    {slideImages.map((img, i) => (
                         <Image
-                            key={index}
+                            key={i}
                             src={img}
-                            alt={`${product.title} ${index + 1}`}
+                            alt={`${product.title} ${i + 1}`}
                             width={900}
                             height={1100}
-                            priority={index === 0}
-                            className="w-full h-auto object-contain"
+                            priority={i === 0}
+                            className="w-full object-contain"
                         />
                     ))}
                 </div>
 
-                {/* LEFT – SLIDER (MOBILE) */}
-                <div className="block lg:hidden">
+                <div className="lg:hidden">
                     <ProductSlider slideImages={slideImages} />
                 </div>
 
-                {/* RIGHT – CONTENT */}
+                {/* RIGHT */}
                 <div className="relative self-start">
-                    <div className="sticky lg:top-24 flex flex-col gap-4">
-                        {/* TITLE + RATING */}
-                        <div className='flex flex-col gap-y-4'>
-                            <h1 className="text-2xl lg:text-3xl font-medium">{product.title}</h1>
-                            <div className="flex items-center gap-2">
-                                {Array.from({ length: 5 }).map((_, i) => (
-                                    <Star
-                                        key={i}
-                                        size={14}
-                                        className="text-amber-500 fill-amber-500"
-                                    />
-                                ))}
-                                <span className="text-xs text-gray-600">10 Reviews</span>
-                            </div>
+                    <div className="sticky top-24 flex flex-col gap-4">
+
+                        <h1 className="text-2xl lg:text-3xl font-medium">{product.title}</h1>
+
+                        <div className="flex items-center gap-2">
+                            {Array.from({ length: 5 }).map((_, i) => (
+                                <Star key={i} size={14} className="text-amber-500 fill-amber-500" />
+                            ))}
+                            <span className="text-xs text-gray-600">10 Reviews</span>
                         </div>
+
                         <Link
-                            href="https://bodenlinkshop.com/products/roofbond-flx?variant=50834099306781"
+                            href="https://bodenlinkshop.com/products/roofbond-flx"
                             target="_blank"
-                            className="block text-center border border-primary-600 bg-primary-600 text-white py-3 font-medium hover:bg-white hover:text-primary-600 transition"
+                            className="bg-primary-600 text-white text-center py-3 font-medium border border-primary-600 hover:bg-white hover:text-primary-600 transition"
                         >
                             Order Now
                         </Link>
-                        {/* FEATURES — MOBILE (FULL WIDTH) */}
-                        <div className="lg:hidden -mx-[calc((100vw-100%)/2)]">
-                            <FeaturesSection />
-                        </div>
 
-                        {/* ORDER BUTTON */}
-
-
-                        {/* PRODUCT DETAILS */}
-                        <div className="pt-6 border-t border-gray-300 divide-y">
-                            <h3 className="text-2xl lg:text-3xl font-medium pb-6">
-                                Product Details
-                            </h3>
+                        <div className="pt-6 border-t divide-y">
+                            <h3 className="text-2xl font-medium pb-6">Product Details</h3>
                             <SlideItem label="Description" onClick={() => setActivePanel('description')} />
                             <SlideItem label="Specification" onClick={() => setActivePanel('specification')} />
                             <SlideItem label="Application" onClick={() => setActivePanel('application')} />
                         </div>
-
                     </div>
                 </div>
-
             </section>
 
-            {/* FEATURES — DESKTOP (FULL WIDTH) */}
-            <div className="hidden lg:block">
-                <FeaturesSection />
-            </div>
+            {/* FEATURES */}
+            <FeaturesSection />
 
-            {/* RIGHT SLIDE DRAWER */}
+            {/* CUSTOMER REVIEWS */}
+            <section className="wrapper">
+                <CustomerReviews />
+            </section>
+
+            {/* REQUEST A QUOTE */}
+            <section className="wrapper">
+                <RequestQuote />
+            </section>
+
+            {/* FAQ */}
+            <section className="wrapper max-w-3xl">
+                <h2 className="text-xl font-medium mb-6">FAQ</h2>
+                {product.features.map((f, i) => (
+                    <FaqAccordion key={i} title={f.title} content={f.content} />
+                ))}
+            </section>
+
+            {/* DRAWER */}
             {activePanel && (
                 <RightDrawer onClose={() => setActivePanel(null)}>
                     {activePanel === 'description' && <DescriptionPanel product={product} />}
@@ -110,102 +104,177 @@ export default function ProductClientNew({
                     {activePanel === 'application' && <ApplicationPanel product={product} />}
                 </RightDrawer>
             )}
-
-            {/* FAQ SECTION */}
-            <section className="wrapper max-w-350 mx-auto">
-                <h2 className="text-xl font-medium mb-6">FAQ</h2>
-                {product.features.map((f, i) => (
-                    <FaqAccordion
-                        key={i}
-                        title={f.title}
-                        content={f.content}
-                    />
-                ))}
-            </section>
-
         </div>
-
     )
 }
 
+
+function CustomerReviews() {
+    const ratings = [
+        { stars: 5, count: 0 },
+        { stars: 4, count: 1 },
+        { stars: 3, count: 0 },
+        { stars: 2, count: 0 },
+        { stars: 1, count: 0 },
+    ]
+
+
+    const totalReviews = 1
+    const avgRating = 4
+
+
+    return (
+        <div className=" pt-10">
+            <h2 className="text-xl font-medium mb-8">Customer Reviews</h2>
+
+
+            {/* TOP SUMMARY */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+
+
+                {/* LEFT — AVG RATING */}
+                <div className="flex items-center gap-4">
+                    <div className="text-5xl font-semibold">{avgRating}</div>
+                    <div>
+                        <div className="flex">
+                            {Array.from({ length: 5 }).map((_, i) => (
+                                <Star
+                                    key={i}
+                                    size={18}
+                                    className={i < avgRating ? 'text-amber-500 fill-amber-500' : 'text-gray-300'}
+                                />
+                            ))}
+                        </div>
+                        <p className="text-sm text-gray-600">
+                            Based on {totalReviews} review
+                        </p>
+                    </div>
+                </div>
+
+                {/* MIDDLE — RATING BARS */}
+                <div className="space-y-2 ">
+                    {ratings.map(r => (
+                        <div key={r.stars} className="flex items-center gap-2 text-sm">
+                            <span className="w-4">{r.stars}</span>
+                            <Star size={12} className="text-amber-500 fill-amber-500" />
+                            <div className="flex-1 h-2 bg-gray-200 rounded">
+                                <div
+                                    className="h-2 bg-primary-600 rounded"
+                                    style={{
+                                        width: totalReviews
+                                            ? `${(r.count / totalReviews) * 100}%`
+                                            : '0%',
+                                    }}
+                                />
+                            </div>
+                            <span className="w-6 text-right text-gray-600">{r.count}</span>
+                        </div>
+                    ))}
+                </div>
+
+
+                {/* RIGHT — CTA */}
+                <div className="lg:text-right">
+                    <button className="inline-flex items-center justify-center border border-primary-600 text-primary-600 px-6 py-3 text-sm font-medium hover:bg-primary-600 hover:text-white transition">
+                        Write a review
+                    </button>
+                </div>
+            </div>
+
+
+            {/* REVIEW LIST */}
+            <div className="mt-10   pt-6">
+                <div className="flex items-start lg:flex-row flex-col gap-x-10">
+                    <div className='flex items-center gap-x-3'>
+                        {/* AVATAR */}
+                        <div className="h-10 w-10 shrink-0 rounded-full bg-gray-200 flex items-center justify-center text-sm font-medium">
+                            A
+                        </div>
+                        <p className="text-sm font-medium mb-1">Ana</p>
+
+
+                    </div>
+
+
+
+                    {/* CONTENT */}
+                    <div className="flex-1 my-4 lg:my-0">
+
+                        {/* NAME */}
+
+                        {/* STARS + META */}
+                        <div className="flex items-center gap-2 mb-2">
+                            {Array.from({ length: 4 }).map((_, i) => (
+                                <Star
+                                    key={i}
+                                    size={14}
+                                    className="text-amber-500 fill-amber-500"
+                                />
+                            ))}
+                            <span className="text-xs text-gray-500">
+                                Verified buyer · 06/12/24
+                            </span>
+                        </div>
+
+                        {/* REVIEW */}
+                        <p className="text-sm text-gray-700 leading-relaxed">
+                            Loved it. Would make only one change. Back pockets should be closer
+                            to the sides for easy reach.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+function RequestQuote() {
+    return (
+        <div className="  pt-10">
+            <h2 className="text-xl font-medium mb-4">Request a Quote</h2>
+            <p className="text-sm text-black mb-6">
+                Need bulk pricing or project-specific quantities? Request a custom quote.
+            </p>
+
+            <Link
+                href="/contact"
+                className="inline-block border  bg-primary-600 text-white px-6 py-3 text-sm font-medium    transition"
+            >
+                Request a Quote
+            </Link>
+        </div>
+    )
+}
+
+
 function SlideItem({ label, onClick }: { label: string; onClick: () => void }) {
     return (
-        <button
-            onClick={onClick}
-            className="w-full cursor-pointer flex justify-between items-center py-4 text-sm font-medium"
-        >
+        <button onClick={onClick} className="w-full flex justify-between py-4 text-sm font-medium">
             {label}
             <ChevronDown size={18} />
         </button>
     )
 }
 
-function RightDrawer({
-    children,
-    onClose,
-}: {
-    children: React.ReactNode
-    onClose: () => void
-}) {
+function RightDrawer({ children, onClose }: { children: React.ReactNode; onClose: () => void }) {
     return (
         <div className="fixed inset-0 z-50">
-            {/* Overlay */}
-            <div
-                onClick={onClose}
-                className="absolute inset-0 bg-black/40"
-            />
-
-            {/* Drawer */}
-            <div
-                className="
-                    fixed
-                    bottom-0
-                    right-0
-                    w-full
-                    h-screen
-                    bg-white
-                    overflow-y-auto
-                    p-6
-                   animate-slideInUp
-                    lg:top-0
-                    lg:h-full
-                    lg:max-w-md
-                    lg:animate-slideIn
-                "
-            >
-                <button
-                    onClick={onClose}
-                    className="absolute top-4 right-4 text-lg"
-                >
+            <div onClick={onClose} className="absolute inset-0 bg-black/40" />
+            <div className="fixed right-0 top-0 h-full w-full max-w-md bg-white p-6 overflow-y-auto">
+                <button onClick={onClose} className="absolute top-4 right-4">
                     <X />
                 </button>
-
                 {children}
             </div>
         </div>
     )
 }
 
-
 function DescriptionPanel({ product }: { product: Product }) {
-
     return (
         <>
             <h2 className="text-lg font-semibold mb-4">Description</h2>
-            <p className="text-sm text-gray-700 mb-4">{product.information}</p>
-            <ul className="space-y-2 text-sm">
-                {product.description.map((item, i) => {
-                    const [title, rest] = item.split(":");
-                    return (
-                        <li key={i} className="flex gap-2 md:text-lg text-xs">
-                            <span className="text-green-600">✔</span>
-                            <span>
-                                <strong className=''>{title}:</strong>{rest}
-                            </span>
-                        </li>
-                    );
-                })}
-            </ul>
+            <p className="text-sm mb-4">{product.information}</p>
         </>
     )
 }
@@ -232,8 +301,8 @@ function ApplicationPanel({ product }: { product: Product }) {
             <h2 className="text-lg font-semibold mb-4">Application</h2>
             {product.idealApplications.map(app => (
                 <div key={app.title} className="mb-4">
-                    <p className="font-medium text-sm mb-1">{app.title}</p>
-                    <ul className="text-sm space-y-1">
+                    <p className="font-medium">{app.title}</p>
+                    <ul className="text-sm">
                         {app.items.map(i => <li key={i}>• {i}</li>)}
                     </ul>
                 </div>
@@ -244,15 +313,11 @@ function ApplicationPanel({ product }: { product: Product }) {
 
 function FaqAccordion({ title, content }: { title: string; content: string }) {
     const [open, setOpen] = useState(false)
-
     return (
         <div className="border-b">
-            <button
-                onClick={() => setOpen(!open)}
-                className="w-full text-left flex justify-between items-center py-4 font-medium"
-            >
+            <button onClick={() => setOpen(!open)} className="w-full flex justify-between py-4 font-medium">
                 {title}
-                <ChevronDown className={`transition ${open ? 'rotate-180' : ''}`} />
+                <ChevronDown className={open ? 'rotate-180' : ''} />
             </button>
             {open && <p className="pb-4 text-sm text-gray-600">{content}</p>}
         </div>
