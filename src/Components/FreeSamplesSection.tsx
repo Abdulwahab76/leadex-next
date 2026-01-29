@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { JSX } from "react";
 
 export default function FreeSamplesSection(): JSX.Element {
@@ -35,12 +36,14 @@ export default function FreeSamplesSection(): JSX.Element {
                             </li>
                         </ul>
 
-                        <button
+                        <Link href='/contact'> <button
                             className=" w-fit rounded-full bg-white px-5 py-2.5 cursor-pointer text-xs font-normal text-black shadow-2xl transition hover:bg-gray-100"
                             aria-label="Get free samples"
                         >
                             Get samples
+
                         </button>
+                        </Link>
                     </div>
 
                     {/* RIGHT IMAGES */}

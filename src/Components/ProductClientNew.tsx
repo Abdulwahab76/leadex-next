@@ -7,6 +7,7 @@ import { ChevronDown, Star, X } from 'lucide-react'
 import { Product } from './ProductClient'
 import ProductSlider from './ProductSlider'
 import FeaturesSection from './FeatureSection'
+import FreeSamplesSection from './FreeSamplesSection'
 
 type PanelType = 'description' | 'specification' | 'application' | null
 
@@ -84,8 +85,9 @@ export default function ProductClientNew({
             </section>
 
             {/* REQUEST A QUOTE */}
-            <section className="wrapper">
-                <RequestQuote />
+            <section className=" py-5">
+                <FreeSamplesSection />
+
             </section>
 
             {/* FAQ */}
@@ -124,7 +126,7 @@ function CustomerReviews() {
 
 
     return (
-        <div className=" pt-10">
+        <div className=" pt-10 border-b border-gray-300 pb-5">
             <h2 className="text-xl font-medium mb-8">Customer Reviews</h2>
 
 
@@ -199,9 +201,6 @@ function CustomerReviews() {
 
                     {/* CONTENT */}
                     <div className="flex-1 my-4 lg:my-0">
-
-                        {/* NAME */}
-
                         {/* STARS + META */}
                         <div className="flex items-center gap-4 mb-2 justify-start lg:justify-between">
 
@@ -236,23 +235,6 @@ function CustomerReviews() {
     )
 }
 
-function RequestQuote() {
-    return (
-        <div className="border-t border-gray-200 pt-4 ">
-            <h2 className="text-xl font-medium mb-4">Request a Quote</h2>
-            <p className="text-sm text-black mb-6">
-                Need bulk pricing or project-specific quantities? Request a custom quote.
-            </p>
-
-            <Link
-                href="/contact"
-                className="inline-block border  bg-primary-600 text-white px-6 py-3 text-sm font-medium    transition"
-            >
-                Request a Quote
-            </Link>
-        </div>
-    )
-}
 
 
 function SlideItem({ label, onClick }: { label: string; onClick: () => void }) {
