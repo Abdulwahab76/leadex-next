@@ -196,7 +196,7 @@ export default function Header() {
                 {/* CTA */}
                 <div className="hidden md:flex">
                     <Link
-                        href="/find-dealer"
+                        href="/contact"
                         className="bg-primary-600 w-27.5 hover:bg-primary-400 text-white font-light py-2.5   text-xs rounded-full transition text-center "
                     >
                         Free Samples
