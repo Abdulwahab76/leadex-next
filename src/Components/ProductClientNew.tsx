@@ -66,7 +66,7 @@ export default function ProductClientNew({
                             Order Now
                         </Link>
 
-                        <div className="pt-6 border-t divide-y">
+                        <div className="pt-6  divide-y">
                             <h3 className="text-2xl font-medium pb-6">Product Details</h3>
                             <SlideItem label="Description" onClick={() => setActivePanel('description')} />
                             <SlideItem label="Specification" onClick={() => setActivePanel('specification')} />
@@ -239,7 +239,7 @@ function CustomerReviews() {
 
 function SlideItem({ label, onClick }: { label: string; onClick: () => void }) {
     return (
-        <button onClick={onClick} className="w-full flex justify-between py-4 text-sm font-medium">
+        <button onClick={onClick} className="cursor-pointer w-full flex justify-between py-4 text-sm font-medium">
             {label}
             <ChevronDown size={18} />
         </button>
@@ -248,10 +248,10 @@ function SlideItem({ label, onClick }: { label: string; onClick: () => void }) {
 
 function RightDrawer({ children, onClose }: { children: React.ReactNode; onClose: () => void }) {
     return (
-        <div className="fixed inset-0 z-50">
+        <div className="fixed inset-0 z-50 ">
             <div onClick={onClose} className="absolute inset-0 bg-black/40" />
-            <div className="fixed right-0 top-0 h-full w-full max-w-md bg-white p-6 overflow-y-auto">
-                <button onClick={onClose} className="absolute top-4 right-4">
+            <div className="fixed right-0 top-0 h-full w-full max-w-md bg-white p-6 overflow-y-auto animate-slideInUp lg:animate-slideIn">
+                <button onClick={onClose} className="absolute top-4 right-4 cursor-pointer">
                     <X />
                 </button>
                 {children}
