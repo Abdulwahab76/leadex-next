@@ -21,7 +21,7 @@ export default function ProductClientNew({
     const [activePanel, setActivePanel] = useState<PanelType>(null)
 
     return (
-        <div className="flex flex-col gap-y-12">
+        <div className="flex flex-col gap-y-12 pt-8">
 
             {/* MAIN PRODUCT */}
             <section className="wrapper grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
@@ -57,7 +57,7 @@ export default function ProductClientNew({
                             ))}
                             <span className="text-xs text-gray-600">10 Reviews</span>
                         </div>
-
+                        <p>{product.information.substring(0, 210)}</p>
                         <Link
                             href="https://bodenlinkshop.com/products/roofbond-flx"
                             target="_blank"
