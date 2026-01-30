@@ -21,7 +21,7 @@ export default function ProductClientNew({
     const [activePanel, setActivePanel] = useState<PanelType>(null)
 
     return (
-        <div className="flex flex-col gap-y-12 pt-8">
+        <div className="flex flex-col gap-y-12 pt-4 lg:pt-8">
 
             {/* MAIN PRODUCT */}
             <section className="wrapper grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
