@@ -8,6 +8,7 @@ import { Product } from './ProductClient'
 import ProductSlider from './ProductSlider'
 import FeaturesSection from './FeatureSection'
 import FreeSamplesSection from './FreeSamplesSection'
+import LeadaxFlashingPage from './productPage'
 
 type PanelType = 'description' | 'specification' | 'application' | null
 
@@ -24,10 +25,10 @@ export default function ProductClientNew({
         <div className="flex flex-col gap-y-12 pt-4 lg:pt-8">
 
             {/* MAIN PRODUCT */}
-            <section className="wrapper grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+            <section className="wrapper grid grid-cols-1 lg:grid-cols-2 gap-8  items-start">
 
                 {/* LEFT IMAGES */}
-                <div className="hidden lg:block space-y-8">
+                {/* <div className="hidden lg:block space-y-8">
                     {slideImages.map((img, i) => (
                         <Image
                             key={i}
@@ -39,11 +40,12 @@ export default function ProductClientNew({
                             className="w-full object-contain"
                         />
                     ))}
-                </div>
+                </div> */}
+                <LeadaxFlashingPage imageUrls={slideImages[0]} />
 
-                <div className="lg:hidden">
+                {/* <div className="lg:hidden">
                     <ProductSlider slideImages={slideImages} />
-                </div>
+                </div> */}
 
                 {/* RIGHT */}
                 <div className="relative self-start">

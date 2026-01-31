@@ -232,7 +232,7 @@ export default async function ProductPage() {
     return (
         <main className="py-8">
             <ProductClientNew product={product} slideImages={[
-                "/images/valley-2.webp",
+                "/images/box.webp",
                 "/images/valley-1.webp",
                 "/images/valley-3.webp",
             ]} />
