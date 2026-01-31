@@ -41,7 +41,7 @@ export default function ProductClientNew({
                         />
                     ))}
                 </div> */}
-                <LeadaxFlashingPage imageUrls={slideImages[0]} />
+                <LeadaxFlashingPage imageUrls={slideImages} />
 
                 {/* <div className="lg:hidden">
                     <ProductSlider slideImages={slideImages} />

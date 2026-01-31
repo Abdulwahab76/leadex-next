@@ -1,34 +1,55 @@
+'use client';
 import Image from "next/image";
+import { useState } from "react";
 
-export default function LeadaxFlashingPage({ imageUrls }: { imageUrls?: string }) {
+type Props = {
+    imageUrls?: string[];
+};
+
+export default function LeadaxFlashingPage({ imageUrls = [] }: Props) {
+    const fallbackImage = "/products/leadax-flashing-gray.png";
+
+    const [activeIndex, setActiveIndex] = useState(0);
+    const [isChanging, setIsChanging] = useState(false);
+
+    const activeImage = imageUrls[activeIndex] || fallbackImage;
+
+    const changeImageByIndex = (index: number) => {
+        if (index === activeIndex) return;
+        if (!imageUrls[index]) return;
+
+        setIsChanging(true);
+        setTimeout(() => {
+            setActiveIndex(index);
+            setIsChanging(false);
+        }, 150);
+    };
+
     return (
         <div className="flex justify-center items-center">
-            {/* Left Side - Product Image */}
             <div className="flex flex-col items-center justify-center group">
 
-                {/* Image Wrapper */}
-                <div className="flex justify-center items-center">
-                    <div className="flex flex-col items-center group">
+                {/* Image */}
+                <Image
+                    src={activeImage}
+                    alt="Leadax Flashing Roll"
+                    width={1000}
+                    height={1100}
+                    className={`
+            w-full
+            object-contain
+            transition-all
+            duration-300
+            ease-out
+            ${isChanging ? "opacity-0 translate-y-2" : "opacity-100"}
+            group-hover:-translate-y-3
+            max-w-75
+          `}
+                />
 
-                        {/* Image */}
-                        <Image
-                            src={imageUrls || "/products/leadax-flashing-roll.jpg"}
-                            alt="Leadax Flashing Roll"
-                            width={1000}
-                            height={1100}
-                            className="
-        w-full
-        object-contain
-        transition-transform
-        duration-300
-        ease-out
-        group-hover:-translate-y-3
-      "
-                        />
-
-                        {/* Product Shadow */}
-                        <div
-                            className="
+                {/* Product Shadow */}
+                <div
+                    className="
         mt-2
         mb-6
         w-44
@@ -44,33 +65,43 @@ export default function LeadaxFlashingPage({ imageUrls }: { imageUrls?: string }
         group-hover:bg-[#E4E4E4]
      
       "
-                        />
-                    </div>
-                </div>
+                />
 
+                {/* Color Options (index-based) */}
+                <div className="flex gap-4 mt-4">
 
-                {/* Color Options */}
-                <div className="flex gap-4 mt-8">
-
-                    {/* Gray */}
+                    {/* Index 0 */}
                     <div className="relative group/color">
-                        <button className="w-5 h-5 rounded-full bg-gray-400 border-2 border-gray-600 hover:scale-110 transition-transform" />
+                        <button
+                            onClick={() => changeImageByIndex(0)}
+                            className={`
+                w-5 h-5 rounded-full bg-gray-400 border-2
+                ${activeIndex === 0 ? "border-black" : "border-gray-600"}
+                hover:scale-110 transition-transform
+              `}
+                        />
                         <span className="absolute -top-8 left-1/2 -translate-x-1/2 text-xs bg-black text-white px-2 py-1 rounded opacity-0 group-hover/color:opacity-100 transition">
                             Gray
                         </span>
                     </div>
 
-                    {/* Red */}
+                    {/* Index 1 */}
                     <div className="relative group/color">
-                        <button className="w-5 h-5 rounded-full bg-red-400 border-2 border-transparent hover:scale-110 transition-transform" />
+                        <button
+                            onClick={() => changeImageByIndex(1)}
+                            className="w-5 h-5 rounded-full bg-red-400 hover:scale-110 transition-transform"
+                        />
                         <span className="absolute -top-8 left-1/2 -translate-x-1/2 text-xs bg-black text-white px-2 py-1 rounded opacity-0 group-hover/color:opacity-100 transition">
                             Red
                         </span>
                     </div>
 
-                    {/* Dark Gray */}
+                    {/* Index 2 */}
                     <div className="relative group/color">
-                        <button className="w-5 h-5 rounded-full bg-gray-800 border-2 border-transparent hover:scale-110 transition-transform" />
+                        <button
+                            onClick={() => changeImageByIndex(2)}
+                            className="w-5 h-5 rounded-full bg-gray-800 hover:scale-110 transition-transform"
+                        />
                         <span className="absolute whitespace-nowrap -top-8 left-1/2 -translate-x-1/2 text-xs bg-black text-white px-2 py-1 rounded opacity-0 group-hover/color:opacity-100 transition">
                             Dark Gray
                         </span>
@@ -79,6 +110,5 @@ export default function LeadaxFlashingPage({ imageUrls }: { imageUrls?: string }
                 </div>
             </div>
         </div>
-
     );
 }
