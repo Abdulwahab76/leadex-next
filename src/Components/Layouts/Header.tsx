@@ -4,10 +4,12 @@ import { Earth, TextAlignJustify, X, ChevronRight, ChevronDown } from "lucide-re
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import LanguageModal from "../LanguageModal";
 
 export default function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
+    const [languageModalOpen, setLanguageModalOpen] = useState(false);
 
     const topNavLinks = [
         { href: "/shop", label: "Shop" },
@@ -36,7 +38,9 @@ export default function Header() {
                     label: "BuildCore",
                     isCategory: true,
                     items: [
-                        { label: "RoofBond™ Waterproofing", href: "/products/roofbond-flx" },
+
+                        { label: "RoofBond FLX", href: "/products/roofbond-flx" },
+                        { label: "RoofBond™ Waterproofing", href: "/products/roofbond-waterproofing" },
                         { label: "FrameFlash™ Waterproof & Sealing", href: "/products/frameflash" },
                         { label: "ThermaSnap Super Seal", href: "/products/thermasnap" },
                     ]
@@ -83,19 +87,24 @@ export default function Header() {
                     className="max-w-350 mx-auto w-10/12 justify-end flex items-center"
                 >
                     <ul className="flex justify-center items-center space-x-3">
-                        {topNavLinks.map(({ href, label, icon }) => (
-                            <li key={href}>
-                                <Link
-                                    href={href}
-                                    className="hover:text-blue-500 flex items-center text-xs"
-                                    aria-label={icon ? label : undefined}
-                                >
-                                    {icon && <span aria-hidden="true">{icon}</span>}
-                                    {!icon && label}
-                                    {icon && <span className="sr-only">{label}</span>}
-                                </Link>
-                            </li>
-                        ))}
+                        <li>
+                            <Link
+                                href="/shop"
+                                className="hover:text-blue-500 text-xs"
+                            >
+                                Shop
+                            </Link>
+                        </li>
+                        <li>
+                            <button
+                                onClick={() => setLanguageModalOpen(true)}
+                                className="hover:text-blue-500 flex items-center text-xs"
+                                aria-label="Select language"
+                            >
+                                <Earth size={16} />
+                            </button>
+                        </li>
+
                     </ul>
                 </nav>
             </div>
@@ -197,9 +206,9 @@ export default function Header() {
                 <div className="hidden md:flex">
                     <Link
                         href="/contact"
-                        className="bg-primary-600 w-27.5 hover:bg-primary-400 text-white font-light py-2.5   text-xs rounded-full transition text-center "
+                        className="bg-primary-600 w-30   text-white font-light py-2.5   text-xs rounded-full transition text-center "
                     >
-                        Free Samples
+                        Request a quote
                     </Link>
                 </div>
 
@@ -290,15 +299,20 @@ export default function Header() {
                         <li className="pt-4">
                             <Link
                                 href="/find-dealer"
-                                className="bg-primary-600 w-27.5 hover:bg-primary-400 text-white font-light py-2.5   text-xs rounded-full transition  "
+                                className="bg-primary-600 w-30  text-white font-light py-2.5   text-xs rounded-full transition  "
                                 onClick={() => setMobileMenuOpen(false)}
                             >
-                                Free Samples
+                                Request a quote
                             </Link>
                         </li>
                     </ul>
                 </nav>
             )}
+            <LanguageModal
+                open={languageModalOpen}
+                onClose={() => setLanguageModalOpen(false)}
+            />
+
         </header>
     );
 }
