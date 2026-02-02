@@ -55,7 +55,7 @@ export default function Footer() {
 
                     {/* Brand */}
                     <div>
-                        <Image src='/images/Bodenlink.png' width={150} height={150} alt="logo" className="invert-100" />
+                        <Image src='/images/Bodenlink.png' width={150} height={150} alt="logo" />
 
                         <p className="mt-4 text-sm leading-relaxed">
                             Protection. Performance. Perfected
