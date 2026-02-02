@@ -22,16 +22,22 @@ export default function FreeSamplesSection(): JSX.Element {
                         <ul className=" *:text-xs space-y-0 text-lg text-white">
                             <li className="flex items-start gap-3">
                                 <span className="text-green-800">✓</span>
-                                <span>No strings attached. You're not tied down to anything.</span>
+                                <span>No Commitment required.</span>
                             </li>
                             <li className="flex items-start gap-3">
                                 <span className="text-green-800">✓</span>
-                                <span>Free delivery, everywhere in the world.</span>
+                                <span>Delivery Avaible in the US and Canada.</span>
                             </li>
                             <li className="flex items-start gap-3">
                                 <span className="text-green-800">✓</span>
                                 <span>
-                                    Samples of our lead replacement and roofing membrane.
+                                    Samples of all our products.
+                                </span>
+                            </li>
+                            <li className="flex items-start gap-3">
+                                <span className="text-green-800">✓</span>
+                                <span>
+                                    Shipping fee applies.
                                 </span>
                             </li>
                         </ul>

@@ -55,10 +55,10 @@ export default function Footer() {
 
                     {/* Brand */}
                     <div>
-                        <Image src='/images/Bodenlink.png' width={150} height={150} alt="logo" />
+                        <Image src='/images/Bodenlink.png' width={150} height={150} alt="logo" className="invert-100" />
 
                         <p className="mt-4 text-sm leading-relaxed">
-                            We Propect, We Perform, We Innovate
+                            Protection. Performance. Perfected
                         </p>
                     </div>
 

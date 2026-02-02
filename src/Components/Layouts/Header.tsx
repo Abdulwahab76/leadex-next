@@ -11,10 +11,6 @@ export default function Header() {
     const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
     const [languageModalOpen, setLanguageModalOpen] = useState(false);
 
-    const topNavLinks = [
-        { href: "/shop", label: "Shop" },
-        { href: "/language", label: "Language", icon: <Earth size={16} /> },
-    ];
 
     const mainNavLinks = [
         {
@@ -25,10 +21,29 @@ export default function Header() {
         {
             label: "Solutions",
             submenu: [
-                { label: "Roofing Waterproofing Systems", href: "/solutions/roofing-waterproofing-systems" },
-                { label: "Fire Protection & Fireproofing", href: "/solutions/flashing-protection-fireproofing" },
-                { label: "Butyl Waterproofing & Sealing", href: "/solutions/butyle-Waterproofing-sealing" },
-                { label: "Automotive Noise & Vibration Control", href: "/solutions/automotive-noise-vibration-control" },
+                {
+                    label: "Construction",
+                    isCategory: true,
+                    items: [
+                        { label: "Roofing Waterproofing Systems", href: "/solutions/roofing-waterproofing-systems" },
+                        { label: "Fire Protection & Fireproofing", href: "/solutions/flashing-protection-fireproofing" },
+                        { label: "Butyl Waterproofing & Sealing", href: "/solutions/butyle-Waterproofing-sealing" },
+                    ]
+                },
+                {
+                    label: "Automotive",
+                    isCategory: true,
+                    items: [
+                        { label: "Automotive Noise & Vibration Control", href: "/solutions/automotive-noise-vibration-control" },
+                    ]
+                },
+                {
+                    label: "HouseHold",
+                    isCategory: true,
+                    items: [
+                        // { label: "Automotive Noise & Vibration Control", href: "/solutions/automotive-noise-vibration-control" },
+                    ]
+                },
             ],
         },
         {
@@ -66,9 +81,9 @@ export default function Header() {
         {
             label: "Resources",
             submenu: [
-                { label: "Insights", href: "/resources/insights" },
+                { label: "Insights", href: "https://bodenlinkshop.com/blogs/blogs" },
                 { label: "Installation Guides", href: "/resources/installation-guides" },
-                { label: "Technical Library", href: "/resources/technical-library" },
+                { label: "Technical Library", href: "https://www.soprema.us/documentationcenter/document/search?q=__empty__&type=Product%20Data%20Sheets" },
                 { label: "Case Studies", href: "/resources/case-studies" },
                 { label: "Videos", href: "/resources/videos" },
             ],

@@ -1,3 +1,4 @@
+import FeaturesSection from "@/Components/FeatureSection";
 import ContactForm from "./contactForm";
 import type { Metadata } from "next";
 
@@ -30,7 +31,25 @@ export default function ContactPage() {
                     }),
                 }}
             />
-
+            <FeaturesSection
+                features={[
+                    {
+                        title: "Sustainability",
+                        description: "Reducing waste through circular materials.",
+                        icon: "/icons/circular.webp",
+                    },
+                    {
+                        title: "High quality",
+                        description: "Certified and tested for professional use.",
+                        icon: "/icons/award.webp",
+                    },
+                    {
+                        title: "Innovation",
+                        description: "Constantly improving our solutions.",
+                        icon: "/icons/easy.webp",
+                    },
+                ]}
+            />
             <section className="wrapper py-8">
                 <h1 className="text-3xl font-bold mb-8">Contact Us</h1>
 

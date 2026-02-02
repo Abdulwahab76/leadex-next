@@ -1,4 +1,4 @@
-import DocumentsForm from "@/Components/DocumentsForm"
+// import DocumentsForm from "@/Components/DocumentsForm"
 import FreeSamplesSection from "@/Components/FreeSamplesSection"
 import ValleySection from "@/Components/VallySection"
 import VideoGridSection from "@/Components/VideoGridSection"
@@ -112,7 +112,7 @@ const Solution = () => {
                         { id: "4", type: "video" },
                     ]}
                 />
-                <DocumentsForm />
+                {/* <DocumentsForm /> */}
                 <FreeSamplesSection />
 
             </div>

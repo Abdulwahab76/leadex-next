@@ -9,35 +9,78 @@ import Image from "next/image";
 export default function Home() {
   return (
     <main  >
-      <section className="relative h-[82.5vh] lg:h-[74vh] w-full  flex justify-center items-center">
+      <section className="relative h-[90vh] w-full flex items-center">
         {/* Background Image */}
         <Image
-          src="/slider-bg.webp"
+          src="/images/hero.jpeg"
           alt="Sustainable roofing"
           fill
           priority
           className="object-cover"
         />
 
-        {/* Overlay (optional dark layer for readability) */}
+        {/* Optional dark overlay (recommended for readability like reference image) */}
+        <div className="absolute inset-0 bg-black/35" />
 
         {/* Content */}
-        <div className=" relative z-10 flex h-full pt-14 lg:pt-30  wrapper flex-col   gap-y-3   text-white">
-          <h1 className="max-w-2xl text-[27px] leading-11 font-bold text-shadow-[3px_2px_5px_#000000] md:text-4xl">
-            The revolutionary sustainable roofing
-            and lead replacement
+        <div className="relative z-10 wrapper w-full     text-white text-center">
+          <h1
+            className="
+        max-w-3xl
+        font-extrabold
+        text-[28px]
+        leading-tight
+        md:text-4xl
+        lg:text-5xl
+        xl:text-6xl
+        drop-shadow-[3px_3px_6px_rgba(0,0,0,0.85)]
+        text-center
+        mx-auto
+      "
+          >
+            THE FUTURE OF HIGH PERFORMANCE MATERIALS
+
           </h1>
 
-          <p className="  font-normal text-2xl lg:text-lg lg:font-light tracking-wider">
+          <p
+            className="
+        mt-3
+        
+        text-sm
+        sm:text-base
+        lg:text-lg
+        font-light
+        tracking-wide
+        drop-shadow-[2px_2px_4px_rgba(0,0,0,0.8)]
+      "
+          >
             Circular waterproofing products that are easy to apply
           </p>
 
-          <button className="bg-primary-600 w-27.5 mt-1 hover:bg-primary-400 text-white font-light py-2.5   text-xs rounded-full transition  "
+          <button
+            className="
+        mt-6
+        inline-flex
+        items-center
+        justify-center
+        rounded-full
+        bg-primary-600
+        px-6
+        py-3
+        text-xs
+      font-normal
+        tracking-wider
+        transition
+        hover:bg-primary-500
+        shadow-lg
+    cursor-pointer
+      "
           >
             Free Samples
           </button>
         </div>
       </section>
+
       <GetInspiredSection />
       {/* <FeaturesSection /> */}
       <ProductsSection />

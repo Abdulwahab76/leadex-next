@@ -37,7 +37,7 @@ export default function LanguageModal({ open, onClose }: Props) {
             />
 
             {/* Modal */}
-            <div className="relative bg-white w-[90%] max-w-130 rounded-2xl px-20 py-10 shadow-xl">
+            <div className="relative bg-white w-[90%] max-w-130 rounded-2xl px-4 py-4 lg:px-20 lg:py-10 shadow-xl">
                 {/* Close */}
                 <button
                     onClick={onClose}
@@ -47,7 +47,7 @@ export default function LanguageModal({ open, onClose }: Props) {
                 </button>
 
                 {/* Title */}
-                <h2 className="text-2xl font-bold text-center mb-6">
+                <h2 className="text-3xl font-bold text-center mb-6">
                     Choose your country
                 </h2>
 
