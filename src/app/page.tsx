@@ -1,85 +1,134 @@
-import FeaturesSection from "@/Components/FeatureSection";
+// import FeaturesSection from "@/Components/FeatureSection";
 import FreeSamplesSection from "@/Components/FreeSamplesSection";
 import GetInspiredSection from "@/Components/GetInspiredSection";
-import OurStoryCard from "@/Components/OurStoryCard";
+// import OurStoryCard from "@/Components/OurStoryCard";
 import PartnersLogos from "@/Components/PartnersLogos";
 import ProductsSection from "@/Components/ProductsSection";
 import Image from "next/image";
+import { montserratHero } from "@/app/font";
 
 export default function Home() {
   return (
-    <main  >
-      <section className="relative h-[90vh] w-full flex items-center">
+    <main>
+      <section className={`relative h-[90vh] w-full flex items-center justify-center overflow-hidden     ${montserratHero.className}
+` }>
+
         {/* Background Image */}
         <Image
           src="/images/hero.jpeg"
-          alt="Sustainable roofing"
+          alt="High performance materials"
           fill
           priority
           className="object-cover"
         />
 
-        {/* Optional dark overlay (recommended for readability like reference image) */}
-        <div className="absolute inset-0 bg-black/35" />
+        {/* Dark Overlay – reference accurate */}
+        <div className="absolute inset-0 bg-black/45" />
 
         {/* Content */}
-        <div className="relative z-10 wrapper w-full     text-white text-center">
+        <div className="relative z-10 w-full flex flex-col items-center text-white text-center translate-y-[2vh] px-4">
+
+          {/* Heading */}
           <h1
             className="
-        max-w-3xl
-        font-extrabold
-        text-[28px]
-        leading-tight
-        md:text-4xl
-        lg:text-5xl
-        xl:text-6xl
-        drop-shadow-[3px_3px_6px_rgba(0,0,0,0.85)]
-        text-center
-        mx-auto
-      "
+    max-w-225
+    font-extrabold
+    uppercase
+    tracking-normal
+    leading-[1.06]
+    text-[32px]
+    md:text-[42px]
+    lg:text-[54px]
+    xl:text-[60px]
+    [text-shadow:0_2px_4px_rgba(0,0,0,0.55),0_8px_16px_rgba(0,0,0,0.75)]
+  "
           >
-            THE FUTURE OF HIGH PERFORMANCE MATERIALS
-
+            THE FUTURE OF<br className="hidden sm:block" />
+            HIGH-PERFORMANCE MATERIALS
           </h1>
 
+
+
+          {/* Paragraph */}
           <p
-            className="
-        mt-3
-        
-        text-sm
-        sm:text-base
-        lg:text-lg
-        font-light
-        tracking-wide
-        drop-shadow-[2px_2px_4px_rgba(0,0,0,0.8)]
-      "
+            className={`     
+
+      mt-4
+      max-w-140
+      text-[12px]
+        font-normal
+      uppercase
+      tracking-[0.12em]
+      drop-shadow-[0_2px_6px_rgba(0,0,0,0.7)]
+     ` }
           >
-            Circular waterproofing products that are easy to apply
+            Delivering superior protection for buildings and infrastructure.
           </p>
 
-          <button
+          {/* Buttons */}
+          <div
             className="
-        mt-6
-        inline-flex
-        items-center
-        justify-center
-        rounded-full
-        bg-primary-600
-        px-6
-        py-3
-        text-xs
-      font-normal
-        tracking-wider
-        transition
-        hover:bg-primary-500
-        shadow-lg
-    cursor-pointer
-      "
+      mt-4
+      flex
+      flex-col
+      sm:flex-row
+      lg:gap-7
+      gap-4
+      w-full
+      sm:w-auto
+      items-center
+      justify-center
+    "
           >
-            Free Samples
-          </button>
+            {/* Free Sample */}
+            <button
+              className="
+    w-full
+    sm:w-auto
+    min-w-60
+     px-10
+    py-3.5
+    text-[12px]
+    font-bold
+    uppercase
+    tracking-widest
+     transition
+    shadow-[-4px_8px_18px_rgba(0,0,0,0.45)]
+  bg-[#2a63a0]
+  "
+            >
+              Free Sample
+            </button>
+
+
+            {/* Request a Quote */}
+            <button
+              className="
+        w-full
+        sm:w-auto
+        min-w-60
+         border
+        border-white/70
+        bg-white/10
+        px-10
+        py-3.5
+        text-[12px]
+        font-bold
+        uppercase
+            tracking-widest
+
+        backdrop-blur-sm
+        transition
+        hover:bg-white/20
+      "
+            >
+              Request a Quote
+            </button>
+          </div>
+
         </div>
       </section>
+
 
       <GetInspiredSection />
       {/* <FeaturesSection /> */}
