@@ -83,7 +83,7 @@ export default function Header() {
             submenu: [
                 { label: "Insights", href: "https://bodenlinkshop.com/blogs/blogs" },
                 { label: "Installation Guides", href: "/resources/installation-guides" },
-                { label: "Technical Library", href: "https://www.soprema.us/documentationcenter/document/search?q=__empty__&type=Product%20Data%20Sheets" },
+                { label: "Technical Library", href: "/technical-library" },
                 { label: "Case Studies", href: "/resources/case-studies" },
                 { label: "Videos", href: "/resources/videos" },
             ],
@@ -227,7 +227,8 @@ export default function Header() {
                     </Link>
                 </div>
 
-                <Earth className="md:hidden text-gray-600" />
+                <Earth onClick={() => setLanguageModalOpen(true)}
+                    className="md:hidden text-gray-600" />
             </div>
 
             {/* Mobile Menu - Updated for nested structure */}
@@ -255,7 +256,7 @@ export default function Header() {
                                         </button>
 
                                         <div
-                                            className={`overflow-hidden transition-all duration-300 ${openSubmenu === item.label ? "max-h-[600px]" : "max-h-0"
+                                            className={`overflow-hidden transition-all duration-300 ${openSubmenu === item.label ? "max-h-150" : "max-h-0"
                                                 }`}
                                         >
                                             <ul className="pl-4 space-y-1">
@@ -311,13 +312,15 @@ export default function Header() {
                             </li>
                         ))}
 
-                        <li className="pt-4">
+                        <li className="pt-4 w-full">
                             <Link
-                                href="/find-dealer"
-                                className="bg-primary-600 w-30  text-white font-light py-2.5   text-xs rounded-full transition  "
+                                href="/contact"
                                 onClick={() => setMobileMenuOpen(false)}
                             >
-                                Request a quote
+                                <button className="bg-primary-600 w-full text-white font-light py-2.5   text-xs rounded-full transition  "
+                                >
+                                    Request a quote
+                                </button>
                             </Link>
                         </li>
                     </ul>

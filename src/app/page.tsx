@@ -6,6 +6,7 @@ import PartnersLogos from "@/Components/PartnersLogos";
 import ProductsSection from "@/Components/ProductsSection";
 import Image from "next/image";
 import { montserratHero } from "@/app/font";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -23,7 +24,7 @@ export default function Home() {
         />
 
         {/* Dark Overlay – reference accurate */}
-        <div className="absolute inset-0 bg-black/45" />
+        <div className="absolute inset-0 bg-black/10" />
 
         {/* Content */}
         <div className="relative z-10 w-full flex flex-col items-center text-white text-center translate-y-[2vh] px-4">
@@ -40,10 +41,10 @@ export default function Home() {
     md:text-[42px]
     lg:text-[54px]
     xl:text-[60px]
-    [text-shadow:0_2px_4px_rgba(0,0,0,0.55),0_8px_16px_rgba(0,0,0,0.75)]
+    [text-shadow:0_2px_4px_rgba(0,0,0,0.55),0_8px_18px_rgba(0,0,0,0.75)]
   "
           >
-            THE FUTURE OF<br className="hidden sm:block" />
+            THE FUTURE OF <br className="hidden sm:block" />
             HIGH-PERFORMANCE MATERIALS
           </h1>
 
@@ -81,8 +82,9 @@ export default function Home() {
     "
           >
             {/* Free Sample */}
-            <button
-              className="
+            <Link href='/contact'>
+              <button
+                className="
     w-full
     sm:w-auto
     min-w-60
@@ -95,15 +97,17 @@ export default function Home() {
      transition
     shadow-[-4px_8px_18px_rgba(0,0,0,0.45)]
   bg-[#2a63a0]
+  cursor-pointer
   "
-            >
-              Free Sample
-            </button>
-
+              >
+                Free Sample
+              </button>
+            </Link>
 
             {/* Request a Quote */}
-            <button
-              className="
+            <Link href='/contact'>
+              <button
+                className="
         w-full
         sm:w-auto
         min-w-60
@@ -120,10 +124,12 @@ export default function Home() {
         backdrop-blur-sm
         transition
         hover:bg-white/20
+        cursor-pointer
       "
-            >
-              Request a Quote
-            </button>
+              >
+                Request a Quote
+              </button>
+            </Link>
           </div>
 
         </div>
