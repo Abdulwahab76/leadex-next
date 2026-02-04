@@ -105,12 +105,12 @@ export default function TechnicalLibrary() {
                 </div>
 
                 {/* Cards Grid */}
-                <div className="mt-8 grid grid-cols-2 gap-6 md:grid-cols-2">
+                <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
                     {/* Card */}
                     {technicalLibraryCards.map((item, ind) => (
                         <div key={ind} className="grid grid-cols-1 gap-6 md:grid-cols-1">
                             <div className="flex h-full gap-y-8 flex-col rounded-lg border border-gray-200 bg-white p-5">
-                                <div className="flex gap-3">
+                                <div className="flex gap-3 flex-wrap lg:flex-nowrap">
                                     <File size={44} className="text-gray-600 font-light" />
                                     <div>
                                         <h3 className="text-lg font-medium text-gray-900">
