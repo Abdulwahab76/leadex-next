@@ -69,7 +69,7 @@ function BlogEdit() {
   }
 
   return (
-    <div className="wrapper mt-10! p-5 shadow-md rounded-md">
+    <div className="">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl">Blog Page</h2>
         <EditButton onClick={handleEdit} />
@@ -110,7 +110,7 @@ function BlogEdit() {
             <form className="space-y-4" onSubmit={handleSubmit}>
               <div>
                 <label className="block text-sm font-medium mb-1">
-                Title <span className="text-red-500">*</span>
+                  Title <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -123,7 +123,7 @@ function BlogEdit() {
               </div>
               <div>
                 <label className="block text-sm font-medium mb-1">
-                Intro <span className="text-red-500">*</span>
+                  Intro <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"

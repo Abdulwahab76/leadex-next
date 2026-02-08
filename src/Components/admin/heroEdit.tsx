@@ -135,10 +135,11 @@ function HeroEdit() {
   }
 
   return (
-    <div className="wrapper mt-10! p-5 shadow-md rounded-md">
+    <div className="">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl">Hero Section</h2>
         <EditButton onClick={handleEdit} />
+        {/* <button className="bg-primary-500">Edit</button> */}
       </div>
       {loading ? (
         <div className="py-10 text-center text-gray-400">Loading...</div>
@@ -205,135 +206,146 @@ function HeroEdit() {
 
       {isModalOpen && (
         <div
-          className="fixed inset-0 bg-black/40 flex items-center justify-center z-9999"
+          className="fixed inset-0 bg-black/40 flex items-center justify-center z-[9999]"
           onClick={closeModal}
         >
           <div
-            className="bg-white rounded-lg shadow-lg p-8 max-w-[400px] w-[90%] relative"
+            className="bg-white rounded-lg shadow-lg w-[95%] max-w-3xl max-h-[90vh] flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
-            <button
-              onClick={closeModal}
-              disabled={saving}
-              className="absolute top-3 right-3 text-gray-500 hover:text-red-500 text-xl font-bold cursor-pointer disabled:opacity-50"
-              aria-label="Close"
-            >
-              <FontAwesomeIcon icon={faClose} />
-            </button>
-            <h3 className="text-xl font-semibold mb-4">Edit Hero Section</h3>
-            <form className="space-y-4" onSubmit={handleSubmit}>
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Hero Title <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  className="w-full border rounded px-3 py-2"
+            {/* ---------- Header ---------- */}
+            <div className="sticky top-0 bg-white z-10 border-b px-6 py-4 flex items-center justify-between">
+              <h3 className="text-xl font-semibold">Edit Landing Page</h3>
+              <button
+                onClick={closeModal}
+                disabled={saving}
+                className="text-gray-500 hover:text-red-500 text-xl font-bold disabled:opacity-50"
+                aria-label="Close"
+              >
+                <FontAwesomeIcon icon={faClose} />
+              </button>
+            </div>
+
+            {/* ---------- Scrollable Content ---------- */}
+            <div className="overflow-y-auto px-6 py-6">
+              <form
+                className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                onSubmit={handleSubmit}
+              >
+                {/* ===== HERO SECTION ===== */}
+                <h3 className="md:col-span-2 text-lg font-semibold">
+                  Hero Section
+                </h3>
+
+                <Input
+                  label="Hero Title"
                   value={heroTitle}
-                  onChange={(e) => setHeroTitle(e.target.value)}
-                  required
-                  disabled={saving}
+                  onChange={setHeroTitle}
+                  saving={saving}
                 />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Hero Para <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  className="w-full border rounded px-3 py-2"
+
+                <Input
+                  label="Hero Para"
                   value={heroPara}
-                  onChange={(e) => setHeroPara(e.target.value)}
-                  required
-                  disabled={saving}
+                  onChange={setHeroPara}
+                  saving={saving}
                 />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Image URL <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  className="w-full border rounded px-3 py-2"
-                  value={heroImage}
-                  onChange={(e) => setHeroImage(e.target.value)}
-                  required
-                  disabled={saving}
-                />
-              </div>
-              <h3 className="text-xl font-semibold mb-4">
-                Edit After Hero Section
-              </h3>
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Title <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  className="w-full border rounded px-3 py-2"
+
+                <div className="md:col-span-2">
+                  <Input
+                    label="Image URL"
+                    value={heroImage}
+                    onChange={setHeroImage}
+                    saving={saving}
+                  />
+                </div>
+
+                {/* ===== AFTER HERO ===== */}
+                <h3 className="md:col-span-2 text-lg font-semibold">
+                  After Hero Section
+                </h3>
+
+                <Input
+                  label="Title"
                   value={afterHeroTitle}
-                  onChange={(e) => setAfterHeroTitle(e.target.value)}
-                  required
-                  disabled={saving}
+                  onChange={setAfterHeroTitle}
+                  saving={saving}
                 />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Para <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  className="w-full border rounded px-3 py-2"
+
+                <Input
+                  label="Para"
                   value={afterHeroPara}
-                  onChange={(e) => setAfterHeroPara(e.target.value)}
-                  required
-                  disabled={saving}
+                  onChange={setAfterHeroPara}
+                  saving={saving}
                 />
-              </div>
 
-              <h3 className="text-xl font-semibold mb-4">
-                Edit Our Story Section
-              </h3>
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Title <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  className="w-full border rounded px-3 py-2"
+                {/* ===== OUR STORY ===== */}
+                <h3 className="md:col-span-2 text-lg font-semibold">
+                  Our Story Section
+                </h3>
+
+                <Input
+                  label="Title"
                   value={ourStoryTitle}
-                  onChange={(e) => setOurStoryTitle(e.target.value)}
-                  required
-                  disabled={saving}
+                  onChange={setOurStoryTitle}
+                  saving={saving}
                 />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Para <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  className="w-full border rounded px-3 py-2"
-                  value={ourStoryPara}
-                  onChange={(e) => setOurStoryPara(e.target.value)}
-                  required
-                  disabled={saving}
-                />
-              </div>
 
+                <Input
+                  label="Para"
+                  value={ourStoryPara}
+                  onChange={setOurStoryPara}
+                  saving={saving}
+                />
+              </form>
+            </div>
+
+            {/* ---------- Footer ---------- */}
+            <div className="sticky bottom-0 bg-white border-t px-6 py-4">
               <button
                 type="submit"
+                form="modal-form"
                 disabled={saving}
-                className="w-full bg-primary text-white py-2 rounded font-semibold hover:bg-(--btn-hover-bg) transition cursor-pointer disabled:opacity-60"
+                onClick={handleSubmit}
+                className="w-full bg-primary-500 text-white py-2 rounded font-semibold disabled:opacity-60"
               >
-                {saving ? "Saving..." : "Save"}
+                {saving ? "Saving..." : "Save Changes"}
               </button>
-            </form>
+            </div>
           </div>
         </div>
       )}
+
     </div>
   );
 }
 
 export default HeroEdit;
+
+function Input({
+  label,
+  value,
+  onChange,
+  saving,
+}: {
+  label: string;
+  value: string;
+  onChange: (val: string) => void;
+  saving: boolean;
+}) {
+  return (
+    <div>
+      <label className="block text-sm font-medium mb-1">
+        {label} <span className="text-red-500">*</span>
+      </label>
+      <input
+        type="text"
+        className="w-full border rounded px-3 py-2"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        required
+        disabled={saving}
+      />
+    </div>
+  );
+}

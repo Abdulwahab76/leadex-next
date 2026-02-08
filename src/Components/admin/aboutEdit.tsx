@@ -120,7 +120,7 @@ function AboutEditDynamic() {
   };
 
   return (
-    <div className="wrapper mt-10 p-5 shadow-md rounded-md">
+    <div className=" ">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl">About Page</h2>
         <EditButton onClick={handleEdit} />

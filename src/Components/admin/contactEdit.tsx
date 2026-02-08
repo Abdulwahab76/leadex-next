@@ -67,7 +67,7 @@ function ContactEdit() {
   }
 
   return (
-    <div className="wrapper mt-10! p-5 shadow-md rounded-md">
+    <div className=" ">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl">Contact Page</h2>
         <EditButton onClick={handleEdit} />

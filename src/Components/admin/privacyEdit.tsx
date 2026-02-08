@@ -289,7 +289,7 @@ function PrivacyEdit() {
   }
 
   return (
-    <div className="wrapper mt-10! p-5 shadow-md rounded-md">
+    <div className="">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl">Privacy Page</h2>
         <EditButton onClick={handleEdit} />
@@ -538,8 +538,8 @@ function PrivacyEdit() {
                       ? "Adding..."
                       : "Saving..."
                     : isNewQuestion
-                    ? "Add"
-                    : "Save"}
+                      ? "Add"
+                      : "Save"}
                 </button>
                 {!isNewQuestion && (
                   <button

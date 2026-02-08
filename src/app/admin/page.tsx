@@ -30,49 +30,88 @@ export default function DashboardPage() {
     });
 
     return () => unsubscribe();
-  }, [auth, router]);
+  }, [router]);
 
   if (loading)
     return (
-      <div className="min-h-screen min-w-screen flex justify-center items-center">
-        <h2 className="text-center text-4xl animate-pulse">Loading...</h2>
+      <div className="min-h-screen w-full flex items-center justify-center bg-gray-50">
+        <div className="flex flex-col items-center gap-4">
+          <div className="h-10 w-10 rounded-full border-4 border-primary border-t-transparent animate-spin" />
+          <h2 className="text-lg text-gray-600 tracking-wide">
+            Loading admin dashboard…
+          </h2>
+        </div>
       </div>
     );
 
   return (
-    <div className="mb-20">
-      <div className="flex justify-end">
-        <div className="flex ">
+    <div className="wrapper pb-20">
+      {/* ---------- Top Action Bar ---------- */}
+      <div className="sticky top-0 z-30   ">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-end gap-3">
           <Link
             href="/admin/blog"
-            className="block bg-primary text-white px-4 py-2 rounded-md w-max ml-auto mt-4 mr-4 hover:bg-(--btn-hover-bg) transition-all ease-in-out duration-200"
+            className="bg-primary-500 text-white px-4 py-2 rounded-md hover:bg-primary-600 transition"
           >
             Blogs
           </Link>
+
           <button
             onClick={triggerDeploy}
-            className="block bg-blue-500 text-white px-4 py-2 rounded-md w-max ml-auto mt-4 mr-4 hover:bg-blue-800 transition-all ease-in-out duration-200 cursor-pointer"
+            disabled={deployLoading}
+            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition disabled:opacity-60"
           >
-            {deployLoading ? "Loading..." : "Save Changes"}
+            {deployLoading ? "Saving…" : "Save Changes"}
           </button>
+
           <Link
             href="/admin/forgot-password"
-            className="block bg-primary text-white px-4 py-2 rounded-md w-max ml-auto mt-4 mr-4 hover:bg-(--btn-hover-bg) transition-all ease-in-out duration-200"
+            className="bg-gray-700 text-white px-4 py-2 rounded-md hover:bg-gray-900 transition"
           >
             Reset Password
           </Link>
         </div>
       </div>
-      <h2 className="text-4xl text-center mt-10">Landing Page</h2>
-      <HeroEdit />
-      <h2 className="text-4xl text-center mt-10">Privacy Page</h2>
-      <PrivacyEdit />
-      <h2 className="text-4xl text-center mt-10">About Page</h2>
-      <AboutEdit />
-      <h2 className="text-4xl text-center mt-10">Contact Page</h2>
-      <ContactEdit />
-      <h2 className="text-4xl text-center mt-10">Blog Page</h2>
-      <BlogEdit />
+
+      {/* ---------- Main Content ---------- */}
+      <div className=" ">
+        <AdminSection title="Landing Page">
+          <HeroEdit />
+        </AdminSection>
+
+        <AdminSection title="Privacy Page">
+          <PrivacyEdit />
+        </AdminSection>
+
+        <AdminSection title="About Page">
+          <AboutEdit />
+        </AdminSection>
+
+        <AdminSection title="Contact Page">
+          <ContactEdit />
+        </AdminSection>
+
+        <AdminSection title="Blog Page">
+          <BlogEdit />
+        </AdminSection>
+      </div>
     </div>
+  );
+}
+
+function AdminSection({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section className="mt-12">
+      <h2 className="text-2xl font-semibold mb-4 text-center border-b py-4">{title}</h2>
+      <div className="     w-full ">
+        {children}
+      </div>
+    </section>
   );
 }
