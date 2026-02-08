@@ -1,5 +1,5 @@
 "use client";
-import EditButton from "@/components/common/editButton";
+import EditButton from "@/Components/common/editButton";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { doc, getDoc, updateDoc } from "firebase/firestore";

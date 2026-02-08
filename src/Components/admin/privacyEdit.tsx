@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import EditButton from "../common/editButton";
+import EditButton from "@/Components/common/editButton";
 import {
   collection,
   doc,

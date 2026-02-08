@@ -4,14 +4,14 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../../firebase/firebaseConfig";
-import HeroEdit from "@/components/admin/heroEdit";
-import NavbarEdit from "@/components/admin/navbarEdit";
-import PrivacyEdit from "@/components/admin/privacyEdit";
-import AboutEdit from "@/components/admin/aboutEdit";
+import HeroEdit from "@/Components/admin/heroEdit";
+// import NavbarEdit from "@/components/admin/navbarEdit";
+import PrivacyEdit from "@/Components/admin/privacyEdit";
+import AboutEdit from "@/Components/admin/aboutEdit";
 import Link from "next/link";
 import { useDeploy } from "@/hooks/useDeploy";
-import ContactEdit from "@/components/admin/contactEdit";
-import BlogEdit from "@/components/admin/blogEdit";
+import ContactEdit from "@/Components/admin/contactEdit";
+import BlogEdit from "@/Components/admin/blogEdit";
 
 const deployHookUrl = process.env.NEXT_PUBLIC_VERCEL_DEPLOY_LINK;
 
