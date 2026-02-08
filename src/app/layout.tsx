@@ -4,6 +4,7 @@ import Header from "@/Components/Layouts/Header";
 import Footer from "@/Components/Layouts/Footer";
 import localFont from 'next/font/local'
 import { Open_Sans } from 'next/font/google'
+import { Toaster } from "react-hot-toast";
 
 
 const NeoSans = localFont({
@@ -55,6 +56,7 @@ export default function RootLayout({
 
         <Header />
         {children}
+        <Toaster position="top-right" />
         <Footer />
       </body>
     </html>
