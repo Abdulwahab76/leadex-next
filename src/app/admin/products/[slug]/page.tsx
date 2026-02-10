@@ -1,5 +1,7 @@
 // "use client";
 
+import { exp } from "firebase/firestore/pipelines";
+
 // import { useEffect, useState } from "react";
 // import { usePathname } from "next/navigation";
 // import {
@@ -273,3 +275,13 @@
 // }
 
 // export default Page;
+export default function Page() {
+    return (
+        <div className="wrapper font-inria mt-20">
+            <h2 className="font-bold text-[52px] capitalize mt-[52px]">
+                Edit Product
+            </h2>
+            <p className="mt-5">Product editing form goes here...</p>
+        </div>
+    );
+}

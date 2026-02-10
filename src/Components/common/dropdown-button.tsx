@@ -8,66 +8,38 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu";
-import { faEdit, faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { deleteDoc, doc } from "firebase/firestore";
-import { useRouter } from "next/navigation";
-import { db } from "../../../firebase/firebaseConfig";
-import toast from "react-hot-toast";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { Product } from "@/hooks/useFetchAllProducts";
 
 interface Props {
-    slug: string;
-    id: string;
+    product: Product;
+    onEdit: (product: Product) => void;
+    onDelete: (id: string) => void;
 }
 
-export function DropdownButton({ slug, id }: Props) {
-    const router = useRouter();
-
-    const handleDeleteBlog = async (id: string) => {
-        const ask = confirm("Are you sure you want to delete this blog?");
-        if (!ask) return;
-
-        const toastId = toast.loading("Deleting...");
-
-        try {
-            await deleteDoc(doc(db, "blogs", id));
-            toast.success("Blog deleted successfully.", { id: toastId });
-            router.push("/admin/blog");
-        } catch (error) {
-            toast.error("Failed to delete blog.", { id: toastId });
-            console.error(error);
-        }
-    };
-
+export function DropdownButton({ product, onEdit, onDelete }: Props) {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="font-bold text-lg">
-                    ...
+                    ⋯
                 </Button>
             </DropdownMenuTrigger>
 
-            <DropdownMenuContent className="w-20" align="start">
+            <DropdownMenuContent className="w-32" align="end">
                 <DropdownMenuGroup>
                     <DropdownMenuItem
-                        className="cursor-pointer"
-                        onClick={() => router.push(`/admin/blog/${slug}`)}
+                        className="cursor-pointer flex gap-2"
+                        onClick={() => onEdit(product)}
                     >
                         <FontAwesomeIcon icon={faEdit} />
                         Edit
                     </DropdownMenuItem>
 
                     <DropdownMenuItem
-                        className="cursor-pointer"
-                        onClick={() => router.push(`/blog/${slug}`)}
-                    >
-                        <FontAwesomeIcon icon={faEye} />
-                        View
-                    </DropdownMenuItem>
-
-                    <DropdownMenuItem
-                        className="text-red-500 cursor-pointer"
-                        onClick={() => handleDeleteBlog(id)}
+                        className="text-red-500 cursor-pointer flex gap-2"
+                        onClick={() => onDelete(product.id)}
                     >
                         <FontAwesomeIcon icon={faTrash} />
                         Delete

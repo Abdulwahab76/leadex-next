@@ -1,172 +1,209 @@
-"use client";
+'use client';
+
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import Link from "next/link";
+
 import {
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableHeader,
-  TableRow,
+  TableRow
 } from "@/Components/ui/table";
+
 import { DropdownButton } from "@/Components/common/dropdown-button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { Switch } from "@/Components/ui/switch";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import {
-  collection,
-  doc,
-  getDocs,
-  orderBy,
-  query,
-  updateDoc,
-} from "firebase/firestore";
+
 import { auth, db } from "../../../../firebase/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
-import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
+import {
+  collection,
+  getDocs,
+  query,
+  updateDoc,
+  doc,
+  deleteDoc,
+  serverTimestamp,
+  addDoc
+} from "firebase/firestore";
 
-function page() {
-  const [blogs, setBlogs] = useState<any[]>([]);
+import { Product } from "@/hooks/useFetchAllProducts";
+import { ProductModal } from "@/Components/productModal";
+
+export default function AdminProductsPage() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [authLoading, setAuthLoading] = useState(true);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [editProduct, setEditProduct] = useState<Product | null>(null);
+
   const router = useRouter();
 
+  /* ---------------- AUTH ---------------- */
   useEffect(() => {
-    async function fetchBlogs() {
-      const q = query(collection(db, "blogs"), orderBy("createdAt", "desc"));
-      const snapshot = await getDocs(q);
+    const unsub = onAuthStateChanged(auth, (user) => {
+      if (!user) router.replace("/admin/login");
+      else setAuthLoading(false);
+    });
+    return () => unsub();
+  }, [router]);
 
-      const list: any[] = snapshot.docs.map((doc) => {
-        const data = doc.data();
+  /* ---------------- FETCH PRODUCTS ---------------- */
+  async function fetchProducts() {
+    try {
+      setLoading(true);
+      const snapshot = await getDocs(query(collection(db, "products")));
+
+      const list: Product[] = snapshot.docs.map((docSnap) => {
+        const d = docSnap.data() as any;
         return {
-          id: doc.id,
-          title: data.title,
-          slug: data.slug,
-          description: data.description,
-          body: data.body,
-          keywords: data.keywords || [],
-          imageUrl: data.imageUrl || "",
-          videoUrl: data.videoUrl || "",
-          YTVideoUrl: data.YTVideoUrl || "",
-          active: data.active ?? false,
-          type: data.type,
-          createdAt: data.createdAt,
+          id: docSnap.id,
+          name: d.name || "",
+          slug: d.slug || "",
+          category: d.category || "",
+          short_desc: d.short_desc || "",
+          description: d.description || "",
+
+          specifications: d.specifications || [],
+          Application: d.Application || {},
+          product_features: d.product_features || [],
+          faqs: d.faqs || [],
+          colors: d.colors || {},
+          free_samples: d.free_samples || { title: "", checklist: [] },
+
+          active: d.active ?? true,
         };
       });
 
-      setBlogs(list);
-    }
-
-    fetchBlogs();
-  }, []);
-
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        router.replace("/admin/login");
-      } else {
-        setLoading(false);
-      }
-    });
-
-    return () => unsubscribe();
-  }, [auth, router]);
-
-  async function handleActiveBlog(id: string, value: boolean) {
-    const toastId = toast.loading("Updating Status...");
-
-    try {
-      await updateDoc(doc(db, "blogs", id), {
-        active: value,
-      });
-
-      setBlogs((prev) =>
-        prev.map((b) => (b.id === id ? { ...b, active: value } : b))
-      );
-
-      toast.success("Blog Status Updated", { id: toastId });
+      setProducts(list);
     } catch (err) {
-      toast.error("Error updating blog status", { id: toastId });
       console.error(err);
+      toast.error("Failed to load products");
+    } finally {
+      setLoading(false);
     }
   }
 
-  if (loading)
+  useEffect(() => {
+    if (!authLoading) fetchProducts();
+  }, [authLoading]);
+
+  /* ---------------- DELETE ---------------- */
+  async function handleDelete(id: string) {
+    if (!confirm("Delete this product?")) return;
+
+    const toastId = toast.loading("Deleting...");
+    try {
+      await deleteDoc(doc(db, "products", id));
+      setProducts((p) => p.filter((x) => x.id !== id));
+      toast.success("Deleted", { id: toastId });
+    } catch (e) {
+      console.error(e);
+      toast.error("Delete failed", { id: toastId });
+    }
+  }
+
+  if (authLoading)
     return (
-      <div className="min-h-screen min-w-screen flex justify-center items-center">
-        <h2 className="text-center text-4xl animate-pulse">Loading...</h2>
+      <div className="min-h-screen flex items-center justify-center">
+        <h2 className="text-3xl animate-pulse">Checking Auth...</h2>
       </div>
     );
 
   return (
-    <div className="wrapper font-inria">
-      <div className="flex items-center justify-between mt-[52px]">
-        <h2 className="font-bold text-[52px] capitalize">Product Manage</h2>
-        <Link
-          href="/admin/blog/new"
-          className="flex items-center gap-2 justify-center bg-primary text-white px-4 py-2 rounded-md w-max ml-auto mt-4 hover:bg-(--btn-hover-bg) transition-all ease-in-out duration-200"
+    <div className="wrapper py-10 font-inria">
+      {/* HEADER */}
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-4xl font-bold">Product Management</h1>
+        <button
+          onClick={() => {
+            setEditProduct(null);
+            setShowModal(true);
+          }}
+          className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-md"
         >
-          <FontAwesomeIcon icon={faPlus} className="w-3" />
           Add Product
-        </Link>
+        </button>
+
       </div>
 
-      <Table className="border my-6 relative">
-        <TableHeader>
-          <TableRow>
-            <TableHead className="">Title</TableHead>
-            <TableHead className="text-center">Tags</TableHead>
-            <TableHead className="text-center">Status</TableHead>
-            <TableHead className="text-center whitespace-nowrap">
-              URL Type
-            </TableHead>
-            <TableHead className="text-right">Actions</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {blogs.length > 0 ? (
-            blogs.map((blog) => (
-              <TableRow key={blog.id}>
-                <TableCell className="font-medium">{blog.title}</TableCell>
-                <TableCell className="flex items-center gap-2 justify-center flex-wrap">
-                  {blog.keywords.map((tag: string, i: number) => (
-                    <span
-                      className="bg-green-100 px-2 py-1 text-green-700 rounded-full border font-medium text-xs"
-                      key={i}
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </TableCell>
-                <TableCell className="text-right">
-                  <Switch
-                    id="blog-mode"
-                    checked={blog.active}
-                    onCheckedChange={(val) =>
-                      handleActiveBlog(blog.id ? blog.id : "", val)
-                    }
-                  />
-                </TableCell>
-                <TableCell className="text-right">
-                  {blog.type}
-                </TableCell>
-                <TableCell className="text-right">
-                  <DropdownButton slug={blog.slug} id={blog.id || ""} />
+      {/* TABLE */}
+      {loading ? (
+        <div className="text-center py-20 text-2xl animate-pulse">
+          Loading products...
+        </div>
+      ) : (
+        <Table className="border">
+          <TableHeader>
+            <TableRow>
+              <TableHead>Name</TableHead>
+              <TableHead className="text-center">Category</TableHead>
+              <TableHead className="text-right">Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+
+          <TableBody>
+            {products.length ? (
+              products.map((p) => (
+                <TableRow key={p.id} >
+                  <TableCell>{p.name}</TableCell>
+                  <TableCell className="text-center">{p.category}</TableCell>
+                  <TableCell className="flex justify-end gap-2">
+                    <TableCell className="flex justify-start gap-2">
+                      <DropdownButton
+                        product={p}
+                        onEdit={(product) => {
+                          setEditProduct(product);
+                          setShowModal(true);
+                        }}
+                        onDelete={handleDelete} // already defined in your component
+                      />
+                    </TableCell>
+
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={3} className="text-center">
+                  No products found
                 </TableCell>
               </TableRow>
-            ))
-          ) : (
-            <TableRow>
-              <TableCell colSpan={5} className="text-center">
-                No Blogs Found
-              </TableCell>
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
+            )}
+          </TableBody>
+        </Table>
+      )}
+
+      {showModal && (
+        <ProductModal
+          mode={editProduct ? "edit" : "add"}
+          product={editProduct ?? undefined}
+          onClose={() => {
+            setShowModal(false);
+            setEditProduct(null);
+          }}
+          onSuccess={(savedProduct) => {
+            setProducts((prev) => {
+              if (editProduct) {
+                // UPDATE in list
+                return prev.map((p) =>
+                  p.id === savedProduct.id ? savedProduct : p
+                );
+              }
+              // ADD to list
+              return [savedProduct, ...prev];
+            });
+          }}
+        />
+      )}
+
     </div>
   );
 }
 
-export default page;
+

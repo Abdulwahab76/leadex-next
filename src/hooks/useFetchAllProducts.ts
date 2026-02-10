@@ -13,7 +13,7 @@ export interface Product {
   description: string;
   category: string;
 
-  specifications?: {
+  specifications: {
     title: string;
     value: string;
   }[];

@@ -201,7 +201,7 @@
 //             />
 //           </div>
 //         )}
-        
+
 //         {/* Active */}
 //         <div className="flex items-center gap-2">
 //           <p className="font-bold">Active</p>
@@ -221,3 +221,13 @@
 // }
 
 // export default Page;
+export default function Page() {
+    return (
+        <div className="wrapper font-inria">
+            <h2 className="font-bold text-[52px] capitalize mt-[52px]">
+                New Product
+            </h2>
+            {/* Form will go here */}
+        </div>
+    );
+}
