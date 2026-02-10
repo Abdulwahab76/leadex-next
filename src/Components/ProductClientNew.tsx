@@ -1,116 +1,128 @@
 'use client'
 
-import { useState } from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { ChevronDown, Star, X } from 'lucide-react'
-import { Product } from './ProductClient'
-import ProductSlider from './ProductSlider'
+import { useMemo, useState } from 'react'
+import { ChevronDown, X, Star } from 'lucide-react'
+import { useFetchAllProducts, Product } from '@/hooks/useFetchAllProducts'
+import LeadaxFlashingPage from './productPage'
 import FeaturesSection from './FeatureSection'
 import FreeSamplesSection from './FreeSamplesSection'
-import LeadaxFlashingPage from './productPage'
 
 type PanelType = 'description' | 'specification' | 'application' | null
 
 export default function ProductClientNew({
-    product,
-    slideImages,
+    slug,
+    slideImages
 }: {
-    product: Product
+    slug: string
     slideImages: string[]
 }) {
+    const { products, loading, error } = useFetchAllProducts()
     const [activePanel, setActivePanel] = useState<PanelType>(null)
+
+    const product = products.find(p => p.id === slug)
+
+    if (loading) return <ProductSkeleton />
+    if (error) return <div className="wrapper">Failed to load product</div>
+    if (!product) return <div className="wrapper">Product not found</div>
 
     return (
         <div className="flex flex-col gap-y-12 pt-4 lg:pt-8">
 
             {/* MAIN PRODUCT */}
             <section className="wrapper grid grid-cols-1 lg:grid-cols-2 gap-8  items-start">
+                <LeadaxFlashingPage colorImages={product.colors} />
 
-                {/* LEFT IMAGES */}
-                {/* <div className="hidden lg:block space-y-8">
-                    {slideImages.map((img, i) => (
-                        <Image
-                            key={i}
-                            src={img}
-                            alt={`${product.title} ${i + 1}`}
-                            width={900}
-                            height={1100}
-                            priority={i === 0}
-                            className="w-full object-contain"
-                        />
-                    ))}
-                </div> */}
-                <LeadaxFlashingPage imageUrls={slideImages} />
+                <div className="sticky top-24 space-y-4">
+                    <h1 className="text-3xl font-medium">{product.name}</h1>
 
-                {/* <div className="lg:hidden">
-                    <ProductSlider slideImages={slideImages} />
-                </div> */}
+                    <div className="flex gap-1">
+                        {[...Array(5)].map((_, i) => (
+                            <Star key={i} size={14} className="text-amber-500 fill-amber-500" />
+                        ))}
+                        <span className="text-xs text-gray-600">1 Reviews</span>
 
-                {/* RIGHT */}
-                <div className="relative self-start">
-                    <div className="sticky top-24 flex flex-col gap-4">
+                    </div>
 
-                        <h1 className="text-2xl lg:text-3xl font-medium">{product.title}</h1>
+                    <p>{product.short_desc}</p>
 
-                        <div className="flex items-center gap-2">
-                            {Array.from({ length: 5 }).map((_, i) => (
-                                <Star key={i} size={14} className="text-amber-500 fill-amber-500" />
-                            ))}
-                            <span className="text-xs text-gray-600">10 Reviews</span>
-                        </div>
-                        <p>{product.information.substring(0, 210)}</p>
-                        <Link
-                            href="https://bodenlinkshop.com/products/roofbond-flx"
-                            target="_blank"
-                            className="bg-primary-600 text-white text-center py-3 font-medium border border-primary-600 hover:bg-white hover:text-primary-600 transition"
-                        >
-                            Order Now
-                        </Link>
-
-                        <div className="pt-6  divide-y">
-                            <h3 className="text-2xl font-medium pb-6">Product Details</h3>
-                            <SlideItem label="Description" onClick={() => setActivePanel('description')} />
-                            <SlideItem label="Specification" onClick={() => setActivePanel('specification')} />
-                            <SlideItem label="Application" onClick={() => setActivePanel('application')} />
-                        </div>
+                    <div className="divide-y pt-6">
+                        <SlideItem label="Description" onClick={() => setActivePanel('description')} />
+                        <SlideItem label="Specification" onClick={() => setActivePanel('specification')} />
+                        <SlideItem label="Application" onClick={() => setActivePanel('application')} />
                     </div>
                 </div>
             </section>
 
             {/* FEATURES */}
-            <FeaturesSection />
-
-            {/* CUSTOMER REVIEWS */}
+            <FeaturesSection features={product.features} />
             <section className="wrapper">
                 <CustomerReviews />
             </section>
 
-            {/* REQUEST A QUOTE */}
-            <section className=" py-5">
-                <FreeSamplesSection />
-
-            </section>
 
             {/* FAQ */}
-            <section className="wrapper max-w-3xl">
-                <h2 className="text-xl font-medium mb-6">FAQ</h2>
-                {product.features.map((f, i) => (
-                    <FaqAccordion key={i} title={f.title} content={f.content} />
-                ))}
+            {product.faqs && (
+                <section className="wrapper max-w-3xl">
+                    <h2 className="text-xl font-medium mb-6">FAQ</h2>
+                    {product.faqs.map((f, i) => (
+                        <FaqAccordion key={i} title={f.question} content={f.answer} />
+                    ))}
+                </section>
+            )}
+            {/* REQUEST A QUOTE */}
+            <section className=" pt-5">
+                <FreeSamplesSection freeSample={product.free_samples}/>
             </section>
-
             {/* DRAWER */}
             {activePanel && (
                 <RightDrawer onClose={() => setActivePanel(null)}>
-                    {activePanel === 'description' && <DescriptionPanel product={product} />}
-                    {activePanel === 'specification' && <SpecificationPanel product={product} />}
-                    {activePanel === 'application' && <ApplicationPanel product={product} />}
+                    {activePanel === 'description' && (
+                        <>
+                            <h2 className='font-medium text-xl mb-4'>Description</h2>
+                            <p className="text-sm">{product.description}</p>
+                        </>
+                    )}
+
+                    {activePanel === 'specification' && (
+                        <>
+                            <h2 className='font-medium text-xl mb-4'>Specification</h2>
+                            <ul className="space-y-2">
+                                {product.specifications?.map(s => (
+                                    <li key={s.title} className="flex justify-between text-sm">
+                                        <span>{s.title}</span>
+                                        <span className="font-medium">{s.value}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </>
+                    )}
+
+                    {activePanel === 'application' &&
+                        product.Application && (
+                            <div>
+                                {/* Application heading */}
+                                <h2 className="font-medium text-xl mb-4">Application</h2>
+
+                                {/* Application content */}
+                                {Object.entries(product.Application).map(([title, items]) => (
+                                    <div key={title} className="mb-4">
+                                        <p className="font-medium">{title}</p>
+                                        <ul className="text-sm">
+                                            {items?.map(i => (
+                                                <li key={i}>• {i}</li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+
                 </RightDrawer>
             )}
         </div>
     )
 }
+
 
 
 function CustomerReviews() {
@@ -241,19 +253,19 @@ function CustomerReviews() {
 
 function SlideItem({ label, onClick }: { label: string; onClick: () => void }) {
     return (
-        <button onClick={onClick} className="cursor-pointer w-full flex justify-between py-4 text-sm font-medium">
+        <button onClick={onClick} className="w-full flex justify-between py-4 font-medium">
             {label}
             <ChevronDown size={18} />
         </button>
     )
 }
 
-function RightDrawer({ children, onClose }: { children: React.ReactNode; onClose: () => void }) {
+function RightDrawer({ children, onClose, title }: any) {
     return (
-        <div className="fixed inset-0 z-50 ">
+        <div className="fixed inset-0 z-50">
             <div onClick={onClose} className="absolute inset-0 bg-black/40" />
             <div className="fixed right-0 top-0 h-full w-full max-w-md bg-white p-6 overflow-y-auto animate-slideInUp lg:animate-slideIn">
-                <button onClick={onClose} className="absolute top-4 right-4 cursor-pointer">
+                <button onClick={onClose} className="absolute top-4 right-4">
                     <X />
                 </button>
                 {children}
@@ -262,48 +274,8 @@ function RightDrawer({ children, onClose }: { children: React.ReactNode; onClose
     )
 }
 
-function DescriptionPanel({ product }: { product: Product }) {
-    return (
-        <>
-            <h2 className="text-lg font-semibold mb-4">Description</h2>
-            <p className="text-sm mb-4">{product.information}</p>
-        </>
-    )
-}
+function FaqAccordion({ title, content }: any) {
 
-function SpecificationPanel({ product }: { product: Product }) {
-    return (
-        <>
-            <h2 className="text-lg font-semibold mb-4">Specification</h2>
-            <ul className="space-y-2 text-sm">
-                {product.physicalProperties.map(p => (
-                    <li key={p.label} className="flex justify-between">
-                        <span>{p.label}</span>
-                        <span className="font-medium">{p.value}</span>
-                    </li>
-                ))}
-            </ul>
-        </>
-    )
-}
-
-function ApplicationPanel({ product }: { product: Product }) {
-    return (
-        <>
-            <h2 className="text-lg font-semibold mb-4">Application</h2>
-            {product.idealApplications.map(app => (
-                <div key={app.title} className="mb-4">
-                    <p className="font-medium">{app.title}</p>
-                    <ul className="text-sm">
-                        {app.items.map(i => <li key={i}>• {i}</li>)}
-                    </ul>
-                </div>
-            ))}
-        </>
-    )
-}
-
-function FaqAccordion({ title, content }: { title: string; content: string }) {
     const [open, setOpen] = useState(false)
     return (
         <div className="border-b">
@@ -312,6 +284,19 @@ function FaqAccordion({ title, content }: { title: string; content: string }) {
                 <ChevronDown className={open ? 'rotate-180' : ''} />
             </button>
             {open && <p className="pb-4 text-sm text-gray-600">{content}</p>}
+        </div>
+    )
+}
+
+function ProductSkeleton() {
+    return (
+        <div className="wrapper grid lg:grid-cols-2 gap-10 animate-pulse">
+            <div className="h-105 bg-gray-200 rounded" />
+            <div className="space-y-4">
+                <div className="h-6 bg-gray-200 w-2/3" />
+                <div className="h-4 bg-gray-200 w-full" />
+                <div className="h-4 bg-gray-200 w-5/6" />
+            </div>
         </div>
     )
 }

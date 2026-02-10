@@ -1,17 +1,47 @@
 import { useEffect, useState, useCallback } from "react";
-import {
-  collection,
-  getDocs,
-  QueryDocumentSnapshot,
-  DocumentData,
-} from "firebase/firestore";
-import { db } from "../../firebase/firebaseConfig"; // adjust path if needed
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../firebase/firebaseConfig";
 
-// 🔴 You SHOULD replace this with a real Product interface
+/* ✅ Real product shape (current Firestore truth) */
 export interface Product {
   id: string;
-  [key: string]: any;
+
+  name: string;
+  slug?: string; // optional (not in Firestore yet)
+
+  short_desc: string;
+  description: string;
+  category: string;
+
+  specifications?: {
+    title: string;
+    value: string;
+  }[];
+
+  Application?: {
+    "Roof Nodes"?: string[];
+    "Penetrations"?: string[];
+    "Repairs"?: string[];
+  };
+
+  /* 🔥 READY FOR NEXT DATA (optional, safe) */
+  features?: {
+    title: string;
+    descp: string;
+  }[];
+
+  faqs?: {
+    question: string;
+    answer: string;
+  }[];
+  colors: Record<string, string[]>
+  free_samples: {
+    title: string;
+    checklist: string[];
+    img?: string;
+  }
 }
+
 
 interface UseFetchAllProductsResult {
   products: Product[];
@@ -22,7 +52,7 @@ interface UseFetchAllProductsResult {
 
 export const useFetchAllProducts = (): UseFetchAllProductsResult => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   const fetchProducts = useCallback(async () => {
@@ -30,14 +60,26 @@ export const useFetchAllProducts = (): UseFetchAllProductsResult => {
     setError(null);
 
     try {
-      const querySnapshot = await getDocs(collection(db, "products"));
+      const snapshot = await getDocs(collection(db, "products"));
 
-      const fetchedProducts = querySnapshot.docs.map(
-        (doc: QueryDocumentSnapshot<DocumentData>) => ({
+      const fetchedProducts: Product[] = snapshot.docs.map((doc) => {
+        const data = doc.data();
+
+        return {
           id: doc.id,
-          ...doc.data(),
-        })
-      );
+          name: data.name,
+          slug: data.slug,
+          short_desc: data.short_desc,
+          description: data.description,
+          category: data.category,
+          specifications: data.specifications ?? [],
+          Application: data.Application ?? {},
+          faqs: data.faqs ?? [],
+          features: data.product_features ?? [],
+          colors: data.colors ?? [],
+          free_samples: data.free_samples ?? [],
+        };
+      });
 
       setProducts(fetchedProducts);
     } catch (err) {

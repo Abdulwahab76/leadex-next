@@ -3,21 +3,20 @@ import Image from "next/image";
 import { useState } from "react";
 
 type Props = {
-    imageUrls?: string[];
+    colorImages?: Record<string, string[]>; // e.g., { Gray: ["url1", "url2"], Red: ["url3"] }
 };
 
-export default function LeadaxFlashingPage({ imageUrls = [] }: Props) {
-    const fallbackImage = "/products/leadax-flashing-gray.png";
-
+export default function LeadaxFlashingPage({ colorImages = {} }: Props) {
+    const colors = Object.keys(colorImages);
+    const [activeColor, setActiveColor] = useState(colors[0] || "");
     const [activeIndex, setActiveIndex] = useState(0);
     const [isChanging, setIsChanging] = useState(false);
 
-    const activeImage = imageUrls[activeIndex] || fallbackImage;
+    const activeImage =
+        colorImages[activeColor]?.[activeIndex] || "/products/leadax-flashing-gray.png";
 
     const changeImageByIndex = (index: number) => {
-        if (index === activeIndex) return;
-        if (!imageUrls[index]) return;
-
+        if (!colorImages[activeColor]?.[index]) return;
         setIsChanging(true);
         setTimeout(() => {
             setActiveIndex(index);
@@ -25,89 +24,59 @@ export default function LeadaxFlashingPage({ imageUrls = [] }: Props) {
         }, 150);
     };
 
+    const changeColor = (color: string) => {
+        setActiveColor(color);
+        setActiveIndex(0); // reset to first image of new color
+    };
+
     return (
         <div className="flex justify-center items-center">
             <div className="flex flex-col items-center justify-center group">
 
-                {/* Image */}
-                <Image
-                    src={activeImage}
-                    alt="Leadax Flashing Roll"
-                    width={1000}
-                    height={1100}
-                    className={`
-            w-full
-            object-contain
-            transition-all
-            duration-300
-            ease-out
-            ${isChanging ? "opacity-0 translate-y-2" : "opacity-100"}
-            group-hover:-translate-y-3
-            max-w-75
-          `}
-                />
+                {/* Product Image */}
+                <div className="relative w-full   ">
+                    <Image
+                        src={activeImage}
+                        alt={activeColor}
+                        width={300}
+                        height={300}
+                        className={`object-contain transition-all duration-300 ease-out
+                            ${isChanging ? "opacity-0 translate-y-2" : "opacity-100"}
+                            group-hover:-translate-y-3
+                        `}
+                        priority
+                    />
+                </div>
 
-                {/* Product Shadow */}
+                {/* Shadow under image */}
                 <div
                     className="
-        mt-2
-        mb-6
-        w-44
-        h-13
-        bg-[#b9b9b9]
-        rounded-full
-        blur-[10px]
-        transform
-        scale-y-75
-    
-        transition-all
-        duration-300
-        group-hover:bg-[#E4E4E4]
-     
-      "
+                        mt-2 mb-6 w-44 h-16 bg-[#b9b9b9]
+                        rounded-full blur-md transform scale-y-75
+                        transition-all duration-300 group-hover:bg-[#E4E4E4]
+                    "
                 />
 
-                {/* Color Options (index-based) */}
+                {/* Color Options */}
                 <div className="flex gap-4 mt-4">
-
-                    {/* Index 0 */}
-                    <div className="relative group/color">
-                        <button
-                            onClick={() => changeImageByIndex(0)}
-                            className={`
-                w-5 h-5 rounded-full bg-gray-400 border-2
-                ${activeIndex === 0 ? "border-black" : "border-gray-600"}
-                hover:scale-110 transition-transform
-              `}
-                        />
-                        <span className="absolute -top-8 left-1/2 -translate-x-1/2 text-xs bg-black text-white px-2 py-1 rounded opacity-0 group-hover/color:opacity-100 transition">
-                            Gray
-                        </span>
-                    </div>
-
-                    {/* Index 1 */}
-                    <div className="relative group/color">
-                        <button
-                            onClick={() => changeImageByIndex(1)}
-                            className="w-5 h-5 rounded-full bg-red-400 hover:scale-110 transition-transform"
-                        />
-                        <span className="absolute -top-8 left-1/2 -translate-x-1/2 text-xs bg-black text-white px-2 py-1 rounded opacity-0 group-hover/color:opacity-100 transition">
-                            Red
-                        </span>
-                    </div>
-
-                    {/* Index 2 */}
-                    <div className="relative group/color">
-                        <button
-                            onClick={() => changeImageByIndex(2)}
-                            className="w-5 h-5 rounded-full bg-gray-800 hover:scale-110 transition-transform"
-                        />
-                        <span className="absolute whitespace-nowrap -top-8 left-1/2 -translate-x-1/2 text-xs bg-black text-white px-2 py-1 rounded opacity-0 group-hover/color:opacity-100 transition">
-                            Dark Gray
-                        </span>
-                    </div>
-
+                    {colors.map(color => (
+                        <div key={color} className="relative group/color">
+                            <button
+                                onClick={() => changeColor(color)}
+                                className={`w-6 h-6 rounded-full border-2
+                                    ${activeColor === color ? "border-black" : "border-gray-400"}
+                                    hover:scale-110 transition-transform
+                                `}
+                                style={{ backgroundColor: color.toLowerCase() }}
+                            />
+                            <span className="absolute -top-8 left-1/2 -translate-x-1/2 text-xs bg-black text-white px-2 py-1 rounded opacity-0 group-hover/color:opacity-100 transition">
+                                {color}
+                            </span>
+                        </div>
+                    ))}
                 </div>
+
+
             </div>
         </div>
     );
