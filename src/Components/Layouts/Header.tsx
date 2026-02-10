@@ -8,31 +8,35 @@ import LanguageModal from "../LanguageModal";
 import { useFetchAllProducts } from "@/hooks/useFetchAllProducts";
 import { useFetchAllSolutions } from "@/hooks/useFetchAllSolutions";
 
+type SubMenuItem = {
+    label: string;
+    href?: string;
+};
+
+type NavLink = {
+    label: string;
+    href?: string;
+    submenu?: SubMenuItem[];
+};
+
+
 export default function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
     const [languageModalOpen, setLanguageModalOpen] = useState(false);
 
 
-    const [mainNavLinks, setMainNavLinks] = useState([
+    const [mainNavLinks, setMainNavLinks] = useState<NavLink[]>([
         {
             label: "About",
             href: "/about",
         },
-
         {
             label: "Solutions",
-            submenu: [
-
-            ],
         },
         {
             label: "Products",
-            submenu: [
-
-            ],
         },
-
         {
             label: "Resources",
             submenu: [
@@ -49,6 +53,7 @@ export default function Header() {
         },
     ]);
 
+
     const { products } = useFetchAllProducts();
     const { solutions } = useFetchAllSolutions();
 
@@ -56,8 +61,8 @@ export default function Header() {
     useEffect(() => {
         if (!products.length && !solutions.length) return;
 
-        setMainNavLinks((prev) =>
-            prev.map((link) => {
+        setMainNavLinks((prev: NavLink[]) =>
+            prev.map((link): NavLink => {
                 if (link.label === "Products") {
                     return {
                         ...link,
@@ -82,6 +87,7 @@ export default function Header() {
             })
         );
     }, [products, solutions]);
+
 
 
     const buildCategoryMenu = (
