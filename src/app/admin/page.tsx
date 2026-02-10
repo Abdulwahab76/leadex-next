@@ -50,10 +50,10 @@ export default function DashboardPage() {
       <div className="sticky top-0 z-30   ">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-end gap-3">
           <Link
-            href="/admin/blog"
+            href="/admin/products"
             className="bg-primary-500 text-white px-4 py-2 rounded-md hover:bg-primary-600 transition"
           >
-            Blogs
+            Products
           </Link>
 
           <button

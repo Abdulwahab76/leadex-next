@@ -5,7 +5,6 @@ import GetInspiredSection from "@/Components/GetInspiredSection";
 import PartnersLogos from "@/Components/PartnersLogos";
 import ProductsSection from "@/Components/ProductsSection";
 import Image from "next/image";
-import { montserratHero } from "@/app/font";
 import Link from "next/link";
 import HeroSection from "@/Components/HeroSection";
 
