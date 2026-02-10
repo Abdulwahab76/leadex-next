@@ -170,39 +170,8 @@ function HeroEdit() {
         </>
       )}
 
-      <h2 className="text-2xl">After Hero Section</h2>
 
-      {loading ? (
-        <div className="py-10 text-center text-gray-400">Loading...</div>
-      ) : (
-        <>
-          <div className="grid grid-cols-2 gap-1 mt-4">
-            <p className="text-primary">Title :</p>
-            <p>{afterHeroTitle}</p>
-          </div>
-          <div className="grid grid-cols-2 gap-1 mt-4">
-            <p className="text-primary">Para :</p>
-            <p>{afterHeroPara}</p>
-          </div>
-        </>
-      )}
 
-      <h2 className="text-2xl">Our Story Section</h2>
-
-      {loading ? (
-        <div className="py-10 text-center text-gray-400">Loading...</div>
-      ) : (
-        <>
-          <div className="grid grid-cols-2 gap-1 mt-4">
-            <p className="text-primary">Title :</p>
-            <p>{ourStoryTitle}</p>
-          </div>
-          <div className="grid grid-cols-2 gap-1 mt-4">
-            <p className="text-primary">Para :</p>
-            <p>{ourStoryPara}</p>
-          </div>
-        </>
-      )}
 
       {isModalOpen && (
         <div
@@ -259,44 +228,6 @@ function HeroEdit() {
                     saving={saving}
                   />
                 </div>
-
-                {/* ===== AFTER HERO ===== */}
-                <h3 className="md:col-span-2 text-lg font-semibold">
-                  After Hero Section
-                </h3>
-
-                <Input
-                  label="Title"
-                  value={afterHeroTitle}
-                  onChange={setAfterHeroTitle}
-                  saving={saving}
-                />
-
-                <Input
-                  label="Para"
-                  value={afterHeroPara}
-                  onChange={setAfterHeroPara}
-                  saving={saving}
-                />
-
-                {/* ===== OUR STORY ===== */}
-                <h3 className="md:col-span-2 text-lg font-semibold">
-                  Our Story Section
-                </h3>
-
-                <Input
-                  label="Title"
-                  value={ourStoryTitle}
-                  onChange={setOurStoryTitle}
-                  saving={saving}
-                />
-
-                <Input
-                  label="Para"
-                  value={ourStoryPara}
-                  onChange={setOurStoryPara}
-                  saving={saving}
-                />
               </form>
             </div>
 

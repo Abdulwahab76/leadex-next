@@ -6,11 +6,11 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { DropdownButton } from "@/components/common/dropdown-button";
+} from "@/Components/ui/table";
+import { DropdownButton } from "@/Components/common/dropdown-button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { Switch } from "@/components/ui/switch";
+import { Switch } from "@/Components/ui/switch";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import {
@@ -22,13 +22,12 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { auth, db } from "../../../../firebase/firebaseConfig";
-import { Blog } from "@/types/types";
 import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 function page() {
-  const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [blogs, setBlogs] = useState<any[]>([]);
   const router = useRouter();
 
   useEffect(() => {
@@ -36,7 +35,7 @@ function page() {
       const q = query(collection(db, "blogs"), orderBy("createdAt", "desc"));
       const snapshot = await getDocs(q);
 
-      const list: Blog[] = snapshot.docs.map((doc) => {
+      const list: any[] = snapshot.docs.map((doc) => {
         const data = doc.data();
         return {
           id: doc.id,
@@ -103,13 +102,13 @@ function page() {
   return (
     <div className="wrapper font-inria">
       <div className="flex items-center justify-between mt-[52px]">
-        <h2 className="font-bold text-[52px] capitalize">Blog Posts</h2>
+        <h2 className="font-bold text-[52px] capitalize">Product Manage</h2>
         <Link
           href="/admin/blog/new"
           className="flex items-center gap-2 justify-center bg-primary text-white px-4 py-2 rounded-md w-max ml-auto mt-4 hover:bg-(--btn-hover-bg) transition-all ease-in-out duration-200"
         >
           <FontAwesomeIcon icon={faPlus} className="w-3" />
-          New Post
+          Add Product
         </Link>
       </div>
 

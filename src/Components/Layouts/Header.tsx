@@ -3,8 +3,10 @@
 import { Earth, TextAlignJustify, X, ChevronRight, ChevronDown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LanguageModal from "../LanguageModal";
+import { useFetchAllProducts } from "@/hooks/useFetchAllProducts";
+import { useFetchAllSolutions } from "@/hooks/useFetchAllSolutions";
 
 export default function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -12,7 +14,7 @@ export default function Header() {
     const [languageModalOpen, setLanguageModalOpen] = useState(false);
 
 
-    const mainNavLinks = [
+    const [mainNavLinks, setMainNavLinks] = useState([
         {
             label: "About",
             href: "/about",
@@ -21,60 +23,13 @@ export default function Header() {
         {
             label: "Solutions",
             submenu: [
-                {
-                    label: "Construction",
-                    isCategory: true,
-                    items: [
-                        { label: "Roofing Waterproofing Systems", href: "/solutions/roofing-waterproofing-systems" },
-                        { label: "Fire Protection & Fireproofing", href: "/solutions/flashing-protection-fireproofing" },
-                        { label: "Butyl Waterproofing & Sealing", href: "/solutions/butyle-Waterproofing-sealing" },
-                    ]
-                },
-                {
-                    label: "Automotive",
-                    isCategory: true,
-                    items: [
-                        { label: "Automotive Noise & Vibration Control", href: "/solutions/automotive-noise-vibration-control" },
-                    ]
-                },
-                {
-                    label: "HouseHold",
-                    isCategory: true,
-                    items: [
-                        // { label: "Automotive Noise & Vibration Control", href: "/solutions/automotive-noise-vibration-control" },
-                    ]
-                },
+
             ],
         },
         {
             label: "Products",
             submenu: [
-                {
-                    label: "BuildCore",
-                    isCategory: true,
-                    items: [
 
-                        { label: "RoofBond FLX", href: "/products/roofbond-flx" },
-                        { label: "RoofBond™ Waterproofing", href: "/products/roofbond-waterproofing" },
-                        { label: "FrameFlash™ Waterproof & Sealing", href: "/products/frameflash" },
-                        { label: "ThermaSnap Super Seal", href: "/products/thermasnap" },
-                    ]
-                },
-                {
-                    label: "AutoShield",
-                    isCategory: true,
-                    items: [
-                        { label: "AutoShield™ NVH Control", href: "/products/autoshield/nvh-control" },
-                    ]
-                },
-                {
-                    label: "Domevo",
-                    isCategory: true,
-                    items: [
-                        { label: "Domevo SafeKitchen", href: "/products/domevo/safekitchen" },
-                    ]
-                },
-                { label: "All Products →", href: "/products", highlight: true },
             ],
         },
 
@@ -92,7 +47,63 @@ export default function Header() {
             label: "Contact Us",
             href: "/contact",
         },
-    ];
+    ]);
+
+    const { products } = useFetchAllProducts();
+    const { solutions } = useFetchAllSolutions();
+
+
+    useEffect(() => {
+        if (!products.length && !solutions.length) return;
+
+        setMainNavLinks((prev) =>
+            prev.map((link) => {
+                if (link.label === "Products") {
+                    return {
+                        ...link,
+                        submenu: [
+                            ...buildCategoryMenu(products, "products"),
+                            {
+                                label: "All Products →",
+                                href: "/products",
+                            },
+                        ],
+                    };
+                }
+
+                if (link.label === "Solutions") {
+                    return {
+                        ...link,
+                        submenu: buildCategoryMenu(solutions, "solutions"),
+                    };
+                }
+
+                return link;
+            })
+        );
+    }, [products, solutions]);
+
+
+    const buildCategoryMenu = (
+        items: any[],
+        basePath: string
+    ) => {
+        const categories = Array.from(
+            new Set(items.map((i) => i.category).filter(Boolean))
+        );
+
+        return categories.map((category) => ({
+            label: category,
+            isCategory: true,
+            items: items
+                .filter((i) => i.category === category)
+                .map((i) => ({
+                    label: i.name,
+                    href: `/${basePath}/${i.slug ?? i.id}`,
+                })),
+        }));
+    };
+
 
     return (
         <header className="sticky top-0 z-50 bg-white">
@@ -174,10 +185,9 @@ export default function Header() {
                                         transition-all duration-200 ease-out"
                                     >
                                         <ul className="py-2">
-                                            {item.submenu.map((sub: any) => (
+                                            {item.submenu?.map((sub: any) => (
                                                 <li key={sub.label}>
                                                     {sub.isCategory ? (
-                                                        // Category with nested items
                                                         <div className="px-4 py-2">
                                                             <div className="font-semibold text-xs text-gray-800 mb-1">
                                                                 {sub.label}
@@ -196,12 +206,9 @@ export default function Header() {
                                                             </ul>
                                                         </div>
                                                     ) : (
-                                                        // Regular link
                                                         <Link
                                                             href={sub.href}
-                                                            className={`block px-4 py-2 text-xs hover:bg-gray-100 ${sub.highlight
-                                                                ? "font-semibold text-primary-600"
-                                                                : ""
+                                                            className={`block px-4 py-2 text-xs hover:bg-gray-100 ${sub.highlight ? "font-semibold text-primary-600" : ""
                                                                 }`}
                                                         >
                                                             {sub.label}
@@ -209,6 +216,7 @@ export default function Header() {
                                                     )}
                                                 </li>
                                             ))}
+
                                         </ul>
                                     </div>
                                 )}

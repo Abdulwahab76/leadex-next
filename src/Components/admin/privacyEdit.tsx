@@ -432,7 +432,7 @@ function PrivacyEdit() {
               <button
                 type="submit"
                 disabled={saving}
-                className="w-full bg-primary text-white py-2 rounded font-semibold hover:bg-(--btn-hover-bg) transition cursor-pointer disabled:opacity-60"
+                className="w-full bg-primary-500 text-white py-2 rounded font-semibold hover:bg-(--btn-hover-bg) transition cursor-pointer disabled:opacity-60"
               >
                 {saving ? "Saving..." : "Save"}
               </button>
