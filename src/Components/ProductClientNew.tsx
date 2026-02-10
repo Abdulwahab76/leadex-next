@@ -11,18 +11,16 @@ type PanelType = 'description' | 'specification' | 'application' | null
 
 export default function ProductClientNew({
     slug,
-    slideImages
+    products
 }: {
     slug: string
-    slideImages: string[]
+    products: Product[]
 }) {
-    const { products, loading, error } = useFetchAllProducts()
+    // const { products, loading, error } = useFetchAllProducts()
     const [activePanel, setActivePanel] = useState<PanelType>(null)
 
     const product = products.find(p => p.id === slug)
 
-    if (loading) return <ProductSkeleton />
-    if (error) return <div className="wrapper">Failed to load product</div>
     if (!product) return <div className="wrapper">Product not found</div>
 
     return (
@@ -71,7 +69,7 @@ export default function ProductClientNew({
             )}
             {/* REQUEST A QUOTE */}
             <section className=" pt-5">
-                <FreeSamplesSection freeSample={product.free_samples}/>
+                <FreeSamplesSection freeSample={product.free_samples} />
             </section>
             {/* DRAWER */}
             {activePanel && (

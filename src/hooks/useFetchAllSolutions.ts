@@ -5,41 +5,53 @@ import {
   QueryDocumentSnapshot,
   DocumentData,
 } from "firebase/firestore";
-import { db } from "../../firebase/firebaseConfig"; // adjust path if needed
+import { db } from "../../firebase/firebaseConfig";
 
-// 🔴 You SHOULD replace this with a real Product interface
-export interface Product {
-  id: string;
-  [key: string]: any;
+export interface SolutionSection {
+  descp: string;
+  title: string;
+  imgs: string[];
 }
 
-interface UseFetchAllsolutionsResult {
-  solutions: Product[];
+export interface Solution {
+  id: string;
+  background_image: string;
+  category: string;
+  contentHeading: string;
+  contentImg: string;
+  contentPara: string;
+  heroPara: string;
+  name: string;
+  solutionSections: Record<string, SolutionSection>;
+}
+
+interface UseFetchAllSolutionsResult {
+  solutions: Solution[];
   loading: boolean;
   error: string | null;
   refetch: () => Promise<void>;
 }
 
-export const useFetchAllSolutions = (): UseFetchAllsolutionsResult => {
-  const [solutions, setsolutions] = useState<Product[]>([]);
+export const useFetchAllSolutions = (): UseFetchAllSolutionsResult => {
+  const [solutions, setSolutions] = useState<Solution[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchsolutions = useCallback(async () => {
+  const fetchSolutions = useCallback(async () => {
     setLoading(true);
     setError(null);
 
     try {
       const querySnapshot = await getDocs(collection(db, "solutions"));
 
-      const fetchedsolutions = querySnapshot.docs.map(
+      const fetchedSolutions: Solution[] = querySnapshot.docs.map(
         (doc: QueryDocumentSnapshot<DocumentData>) => ({
           id: doc.id,
           ...doc.data(),
-        })
+        } as Solution)
       );
 
-      setsolutions(fetchedsolutions);
+      setSolutions(fetchedSolutions);
     } catch (err) {
       console.error("Error fetching solutions:", err);
       setError("Failed to fetch solutions");
@@ -49,13 +61,13 @@ export const useFetchAllSolutions = (): UseFetchAllsolutionsResult => {
   }, []);
 
   useEffect(() => {
-    fetchsolutions();
-  }, [fetchsolutions]);
+    fetchSolutions();
+  }, [fetchSolutions]);
 
   return {
     solutions,
     loading,
     error,
-    refetch: fetchsolutions,
+    refetch: fetchSolutions,
   };
 };

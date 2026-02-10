@@ -4,15 +4,28 @@ import Link from "next/link";
 
 interface FreeSample {
     title: string;
-    checklist: string[];
+    checklist?: string[];
     img?: string;
 }
 
 interface Props {
-    freeSample: FreeSample;
+    freeSample?: FreeSample;
 }
 
+// Default checklist to show if freeSample.checklist is missing
+const DEFAULT_CHECKLIST = [
+    "No Commitment required.",
+    "Delivery Available in the US and Canada.",
+    "Samples of all our products.",
+    "Shipping fee applies."
+];
+
 export default function FreeSamplesSection({ freeSample }: Props) {
+    // Use the checklist from freeSample, fallback to default
+    const checklist = freeSample?.checklist && freeSample.checklist.length > 0
+        ? freeSample.checklist
+        : DEFAULT_CHECKLIST;
+
     return (
         <section
             aria-labelledby="samples-heading"
@@ -26,11 +39,11 @@ export default function FreeSamplesSection({ freeSample }: Props) {
                             id="samples-heading"
                             className="text-2xl font-medium tracking-tight text-white sm:text-4xl"
                         >
-                            {freeSample?.title}
+                            {freeSample?.title || "Get Free Samples"}
                         </h2>
 
-                        <ul className="space-y-0 text-xs  text-white">
-                            {freeSample?.checklist.map((item, idx) => (
+                        <ul className="space-y-0 text-xs text-white">
+                            {checklist.map((item, idx) => (
                                 <li key={idx} className="flex items-start gap-3">
                                     <span className="text-green-800">✓</span>
                                     <span>{item}</span>
@@ -50,10 +63,10 @@ export default function FreeSamplesSection({ freeSample }: Props) {
 
                     {/* RIGHT IMAGE */}
                     <div className="relative flex justify-center lg:justify-end">
-                        <div className="relative  h-64 w-64 sm:h-80 sm:w-80 lg:h-96 lg:w-11/12">
+                        <div className="relative h-64 w-64 sm:h-80 sm:w-80 lg:h-96 lg:w-11/12">
                             <div className="absolute -top-7 left-1/2 transform -translate-x-1/2 w-full h-full">
                                 <Image
-                                    src="/images/Sampledoos.webp"
+                                    src={freeSample?.img || "/images/Sampledoos.webp"}
                                     alt="Leadax sample products"
                                     width={440}
                                     height={440}
