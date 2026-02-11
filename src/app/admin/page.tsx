@@ -11,7 +11,7 @@ import AboutEdit from "@/Components/admin/aboutEdit";
 import Link from "next/link";
 import { useDeploy } from "@/hooks/useDeploy";
 import ContactEdit from "@/Components/admin/contactEdit";
-import BlogEdit from "@/Components/admin/blogEdit";
+// import BlogEdit from "@/Components/admin/blogEdit";
 
 const deployHookUrl = process.env.NEXT_PUBLIC_VERCEL_DEPLOY_LINK;
 
@@ -49,7 +49,7 @@ export default function DashboardPage() {
       {/* ---------- Top Action Bar ---------- */}
       <div className="sticky top-0 z-30   ">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-end gap-3">
-        <Link
+          <Link
             href="/admin/solutions"
             className="bg-primary-500 text-white px-4 py-2 rounded-md hover:bg-primary-600 transition"
           >
@@ -97,9 +97,7 @@ export default function DashboardPage() {
           <ContactEdit />
         </AdminSection>
 
-        <AdminSection title="Blog Page">
-          <BlogEdit />
-        </AdminSection>
+
       </div>
     </div>
   );

@@ -48,3 +48,6 @@ export const deleteSolution = async (id: string) => {
     const docRef = doc(db, "solutions", id);
     return await deleteDoc(docRef);
 };
+
+// Fetch the privacy content from Firestore
+

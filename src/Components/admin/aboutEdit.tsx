@@ -31,6 +31,8 @@ function AboutEditDynamic() {
           setTitle(data.aboutTitle || "");
           setIntro(data.aboutIntro || "");
           setSections(data.sections || []);
+          console.log(data);
+
         } else {
           toast.error("No such document!");
         }
@@ -138,7 +140,7 @@ function AboutEditDynamic() {
             <p className="text-primary">About Para :</p>
             <p>{intro}</p>
           </div>
-          {sections.map((section, index) => (
+          {sections?.map((section, index) => (
             <div key={index} className="border p-4 rounded relative">
               <button
                 onClick={() => removeSection(index)}
@@ -149,11 +151,12 @@ function AboutEditDynamic() {
               <h3 className="font-semibold mb-2">
                 {section.title || "Untitled Section"}
               </h3>
-              {section.paragraphs.map((para, pIndex) => (
+              <p>{section.paragraphs}</p>
+              {/* {section?.paragraphs.map((para, pIndex) => (
                 <p key={pIndex} className="mb-5">
                   {para}
                 </p>
-              ))}
+              ))} */}
             </div>
           ))}
         </div>
@@ -267,7 +270,7 @@ function AboutEditDynamic() {
               <button
                 type="submit"
                 disabled={saving}
-                className="w-full bg-primary text-white py-2 rounded font-semibold hover:bg-(--btn-hover-bg) transition cursor-pointer disabled:opacity-60"
+                className="w-full bg-primary-600 text-white py-2 rounded font-semibold "
               >
                 {saving ? "Saving..." : "Save"}
               </button>

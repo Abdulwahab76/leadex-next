@@ -1,73 +1,75 @@
+import { getPrivacyContent } from "@/lib/mainPages";
 
-export const metadata = {
-    title: "BodenLink Privacy Policy",
-    description:
-        "Learn how BodenLink collects, uses, and protects your personal data. Transparency and security for professional roofing solutions.",
-};
+export default async function PrivacyPage() {
+    const data = await getPrivacyContent();
 
-export default function PrivacyPolicyPage() {
+    if (!data || !data.intro) return <div className="p-6">Privacy policy not found</div>;
+
+    // Split text by line breaks for potential lists
+    const lines = data.intro.split("\n").filter(Boolean);
+
+    // Regex to detect email
+    const emailRegex = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i;
+
     return (
-        <section
-            aria-labelledby="privacy-policy-heading"
-            className="min-h-full wrapper py-10"
-        >
-            <div className="mb-6">
-                <h1 id="privacy-policy-heading" className="text-2xl font-medium">
-                    Privacy Policy
-                </h1>
-            </div>
+        <section className="wrapper py-10 space-y-4 text-sm text-gray-700">
+            <h1 className="text-2xl font-medium">{data.title || "Privacy Policy"}</h1>
+            {data.lastUpdated && (
+                <p className="text-xs text-gray-500">Last updated: {data.lastUpdated}</p>
+            )}
 
-            <article className="w-full space-y-4 text-sm text-gray-700">
-                <p>Effective Date: January 23, 2026</p>
-                <p>
-                    BodenLink (“we,” “our,” or “us”) is committed to protecting your
-                    privacy. This Privacy Policy explains how we collect, use, and
-                    safeguard your information when you visit our website or use our
-                    products and services.
-                </p>
+            {lines.map((line, idx) => {
+                // Check if line looks like a list item (starts with - or * or number)
+                const isListItem = /^(\s*[-*]\s|\d+\.\s)/.test(line);
 
-                <h2 className="font-medium mt-4">1. Information We Collect</h2>
-                <ul className="list-disc pl-5 space-y-2">
-                    <li>
-                        <strong>Personal Information:</strong> Name, email address, phone
-                        number, and company details when you contact us or register for
-                        updates.
-                    </li>
-                    <li>
-                        <strong>Technical Data:</strong> IP address, browser type,
-                        operating system, and website usage analytics.
-                    </li>
-                    <li>
-                        <strong>Transactional Data:</strong> Details of inquiries, product
-                        orders, and communication with our support team.
-                    </li>
-                </ul>
+                if (isListItem) {
+                    return (
+                        <ul key={idx} className="list-disc pl-5 space-y-1">
+                            {lines.slice(idx).map((item, i) => {
+                                const cleanItem = item.replace(/^(\s*[-*]\s|\d+\.\s)/, "");
+                                const parts = cleanItem.split(emailRegex);
+                                const matchEmail = cleanItem.match(emailRegex);
 
-                <h2 className="font-medium mt-4">2. How We Use Your Information</h2>
-                <ul className="list-disc pl-5 space-y-2">
-                    <li>Responding to inquiries and requests.</li>
-                    <li>Providing updates, newsletters, and promotional materials.</li>
-                    <li>Improving our products, services, and website.</li>
-                </ul>
+                                return (
+                                    <li key={i} className="leading-relaxed">
+                                        {/* Bold text before : */}
+                                        {parts[0].includes(":") ? (
+                                            <>
+                                                <strong>{parts[0].split(":")[0]}:</strong>{" "}
+                                                {parts[0].split(":")[1]}{" "}
+                                            </>
+                                        ) : (
+                                            parts[0]
+                                        )}
+                                        {/* Email if exists */}
+                                        {matchEmail && <strong>{matchEmail[0]}</strong>}
+                                        {/* Remaining text after email */}
+                                        {parts[1]}
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    );
+                }
 
-                <h2 className="font-medium mt-4">3. Data Protection</h2>
-                <p>
-                    We implement appropriate security measures to protect your data from
-                    unauthorized access, alteration, or disclosure.
-                </p>
+                // Regular paragraph: bold before ":" and bold email
+                const colonSplit = line.split(":");
+                const emailMatch = line.match(emailRegex);
 
-                <h2 className="font-medium mt-4">4. Sharing Information</h2>
-                <p>
-                    We do not sell or rent your personal information. We may share
-                    information with trusted partners to provide services on our behalf.
-                </p>
-
-                <h2 className="font-medium mt-4">5. Your Rights</h2>
-                <p>
-                    You may request access, correction, or deletion of your personal
-                    information by contacting us at <strong>privacy@bodenlink.com</strong>.
-                </p>
-            </article>
+                return (
+                    <p key={idx} className="leading-relaxed">
+                        {colonSplit.length > 1 ? (
+                            <>
+                                <strong>{colonSplit[0]}:</strong>
+                                {colonSplit.slice(1).join(":")}
+                            </>
+                        ) : (
+                            line
+                        )}
+                        {emailMatch && <strong>{emailMatch[0]}</strong>}
+                    </p>
+                );
+            })}
         </section>
     );
 }
