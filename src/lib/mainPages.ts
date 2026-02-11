@@ -46,3 +46,30 @@ export const getAboutContent = async (): Promise<AboutContent | null> => {
         return null;
     }
 };
+
+
+export interface Section {
+    title: string;
+    paragraphs: string[];
+}
+
+export interface TermsContent {
+    termsTitle: string;
+    termsIntro: string;
+    sections: Section[];
+    date: string;
+}
+
+export const getTermsContent = async (): Promise<TermsContent | null> => {
+    try {
+        const docRef = doc(db, "landingPage", "landingPageTerms");
+        const snap = await getDoc(docRef);
+
+        if (!snap.exists()) return null;
+
+        return snap.data() as TermsContent;
+    } catch (error) {
+        console.error("Error fetching Terms content:", error);
+        return null;
+    }
+};

@@ -11,6 +11,7 @@ import AboutEdit from "@/Components/admin/aboutEdit";
 import Link from "next/link";
 import { useDeploy } from "@/hooks/useDeploy";
 import ContactEdit from "@/Components/admin/contactEdit";
+import TermsEdit from "@/Components/admin/TermsEdit";
 // import BlogEdit from "@/Components/admin/blogEdit";
 
 const deployHookUrl = process.env.NEXT_PUBLIC_VERCEL_DEPLOY_LINK;
@@ -92,7 +93,9 @@ export default function DashboardPage() {
         <AdminSection title="About Page">
           <AboutEdit />
         </AdminSection>
-
+        <AdminSection title="Terms Page">
+          <TermsEdit />
+        </AdminSection>
         <AdminSection title="Contact Page">
           <ContactEdit />
         </AdminSection>
