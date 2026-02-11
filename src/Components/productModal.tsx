@@ -320,7 +320,6 @@ export function ProductModal({
     );
 }
 
-/* ================= IMAGE LIST EDITOR ================= */
 
 function ColorImageEditor({
     color,
@@ -351,7 +350,7 @@ function ColorImageEditor({
                         onAdd(url);
                         setUrl("");
                     }}
-                    className="bg-green-600 text-white px-3 rounded"
+                    className="bg-primary-600 text-white px-3 rounded"
                 >
                     Add
                 </button>

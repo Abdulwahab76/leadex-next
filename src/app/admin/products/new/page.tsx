@@ -1,5 +1,7 @@
 // "use client";
 
+import ProductForm from "@/Components/ProductForm";
+
 // import { useState } from "react";
 // import RichTextEditor from "@/components/common/rich-text-editor";
 // import TagInput from "@/components/common/tag-input";
@@ -221,13 +223,7 @@
 // }
 
 // export default Page;
-export default function Page() {
-    return (
-        <div className="wrapper font-inria">
-            <h2 className="font-bold text-[52px] capitalize mt-[52px]">
-                New Product
-            </h2>
-            {/* Form will go here */}
-        </div>
-    );
+
+export default function NewProductPage() {
+    return <ProductForm mode="add" />;
 }

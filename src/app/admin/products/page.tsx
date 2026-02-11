@@ -121,10 +121,11 @@ export default function AdminProductsPage() {
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-4xl font-bold">Product Management</h1>
         <button
-          onClick={() => {
-            setEditProduct(null);
-            setShowModal(true);
-          }}
+          // onClick={() => {
+          //   setEditProduct(null);
+          //   setShowModal(true);
+          // }}
+          onClick={() => router.push("/admin/products/new")}
           className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-md"
         >
           Add Product

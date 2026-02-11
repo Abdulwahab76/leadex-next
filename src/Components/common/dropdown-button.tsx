@@ -11,6 +11,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Product } from "@/hooks/useFetchAllProducts";
+import { useRouter } from "next/navigation";
 
 interface Props {
     product: Product;
@@ -19,6 +20,8 @@ interface Props {
 }
 
 export function DropdownButton({ product, onEdit, onDelete }: Props) {
+    const router = useRouter();
+
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -31,7 +34,8 @@ export function DropdownButton({ product, onEdit, onDelete }: Props) {
                 <DropdownMenuGroup>
                     <DropdownMenuItem
                         className="cursor-pointer flex gap-2"
-                        onClick={() => onEdit(product)}
+                        // onClick={() => onEdit(product)}
+                        onClick={() => router.push(`/admin/products/${product.id}/edit`)}
                     >
                         <FontAwesomeIcon icon={faEdit} />
                         Edit

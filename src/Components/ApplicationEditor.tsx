@@ -33,7 +33,7 @@ export function ApplicationEditor({ title, items, onChange }: Props) {
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && addItem()}
                 />
-                <button onClick={addItem} className="bg-green-600 text-white px-3 rounded">
+                <button onClick={addItem} className="bg-primary-600 text-white px-3 rounded">
                     Add
                 </button>
             </div>
