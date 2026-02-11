@@ -29,6 +29,8 @@ export default async function SolutionPage({ params }: SolutionPageProps) {
                 heroPara: data.heroPara ?? "",
                 name: data.name ?? "",
                 solutionSections: data.solutionSections ?? {},
+                videos: data.videos ?? {}, // 👈 handle videos field
+
             };
         } else {
             console.error("Solution not found:", slug);

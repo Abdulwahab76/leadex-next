@@ -23,7 +23,9 @@ export interface Solution {
   heroPara: string;
   name: string;
   solutionSections: Record<string, SolutionSection>;
+  videos?: Record<string, string>; // 👈 add this
 }
+
 
 interface UseFetchAllSolutionsResult {
   solutions: Solution[];

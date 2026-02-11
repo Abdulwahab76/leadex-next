@@ -2,7 +2,7 @@
 
 interface VideoItem {
     id: string;
-    title?: string;
+    url?: string;
     type: "video" | "error";
 }
 
@@ -23,7 +23,7 @@ export default function VideoGridSection({ items }: VideoGridSectionProps) {
                             {/* Placeholder for now */}
                             {item.type === "video" ? (
                                 <div className="w-full h-full bg-black flex items-center justify-center text-white text-sm">
-                                    Video Placeholder
+                                    {item.url}
                                 </div>
                             ) : (
                                 <div className="w-full h-full bg-black flex flex-col items-center justify-center text-white">
