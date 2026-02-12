@@ -169,12 +169,20 @@ export default function Header() {
                         {mainNavLinks.map((item) => (
                             <li key={item.label} className="relative group">
                                 {item.href ? (
-                                    <Link
-                                        href={item.href}
-                                        className="flex items-center gap-1 text-xs hover:text-primary-500"
-                                    >
-                                        {item.label}
-                                    </Link>
+                                    <div className="flex items-center gap-x-1">
+                                        <Link
+                                            href={item.href}
+                                            className="flex items-center gap-1 text-xs hover:text-primary-500"
+                                        >
+                                            {item.label}
+                                        </Link>
+                                        {item.submenu && <span className="flex items-center gap-1 cursor-pointer text-xs hover:text-primary-500">
+                                            <ChevronDown
+                                                size={14}
+                                                className="transition-transform duration-200"
+                                            />
+                                        </span>}
+                                    </div>
                                 ) : (
                                     <span className="flex items-center gap-1 cursor-pointer text-xs hover:text-primary-500">
                                         {item.label}
@@ -200,6 +208,7 @@ export default function Header() {
                                                             <div className="font-semibold text-xs text-gray-800 mb-1">
                                                                 {sub.label}
                                                             </div>
+
                                                             <ul className="pl-3 space-y-1">
                                                                 {sub.items.map((nestedItem: any) => (
                                                                     <li key={nestedItem.label}>
