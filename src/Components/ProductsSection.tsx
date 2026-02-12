@@ -22,9 +22,9 @@ export default function ProductsSection({
             aria-labelledby="products-heading"
             className="bg-light-background py-20 pb-28"
         >
-            <div className="mx-auto max-w-350 w-11/12 px-2 lg:px-0 lg:w-10/12">
+            <div className="wrapper">
                 {/* Heading */}
-                <div className="mb-16 flex justify-between items-center">
+                <div className="mb-16 flex justify-between items-center flex-wrap">
                     <div className="max-w-2xl">
                         <h3 className="text-2xl lg:text-3xl font-medium text-gray-900">
                             {heading ?? "Our Products"}

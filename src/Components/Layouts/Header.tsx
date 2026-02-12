@@ -33,9 +33,11 @@ export default function Header() {
         },
         {
             label: "Solutions",
+            href: "/solutions",
         },
         {
             label: "Products",
+            href: "/products",
         },
         {
             label: "Resources",

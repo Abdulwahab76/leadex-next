@@ -49,7 +49,7 @@ function Card({ solution }: { solution: Solution }) {
             <div className="relative h-52 w-full">
                 <Image
                     src={solution.background_image || "/placeholder.png"}
-                    alt={solution.name}
+                    alt={solution.name ?? 'Solution image'}
                     fill
                     className="object-cover"
                 />
