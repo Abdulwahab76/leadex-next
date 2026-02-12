@@ -125,32 +125,48 @@ function LandingPageHeroCMS() {
       </div>
 
       {loading ? (
-        <p className="py-6 text-gray-400">Loading...</p>
+        <div className="py-10 text-center text-gray-400">Loading...</div>
       ) : (
-        <div className="mt-6 space-y-2 text-sm">
-          <p><b>Title:</b> {title}</p>
-          <p><b>Paragraph:</b> {para}</p>
-          <p><b>Background Image URL:</b> {backgroundImage}</p>
+        <div className="grid grid-cols-2 gap-x-6 gap-y-2 mt-4">
+          <p className="text-primary font-medium">Title:</p>
+          <p>{title}</p>
 
-          <p><b>Product Heading:</b> {productHeading}</p>
-          <p><b>Product Paragraph:</b> {productPara}</p>
+          <p className="text-primary font-medium">Paragraph:</p>
+          <p>{para}</p>
 
-          <p><b>Solution Heading:</b> {solutionHeading}</p>
-          <p><b>Distributor Heading:</b> {distributorHeading}</p>
-          <p><b>Partner Heading:</b> {partnerHeading}</p>
+          <p className="text-primary font-medium">Background Image:</p>
+          <p>{backgroundImage}</p>
+
+          <p className="text-primary font-medium">Product Heading:</p>
+          <p>{productHeading}</p>
+
+          <p className="text-primary font-medium">Product Paragraph:</p>
+          <p>{productPara}</p>
+
+          <p className="text-primary font-medium">Solution Heading:</p>
+          <p>{solutionHeading}</p>
+
+          <p className="text-primary font-medium">Distributor Heading:</p>
+          <p>{distributorHeading}</p>
+
+          <p className="text-primary font-medium">Partner Heading:</p>
+          <p>{partnerHeading}</p>
 
           {companyLogos.length > 0 && (
-            <div>
-              <b>Company Logos:</b>
-              <ul className="list-disc list-inside">
-                {companyLogos.map((logo, index) => (
-                  <li key={index}>{logo}</li>
-                ))}
-              </ul>
-            </div>
+            <>
+              <p className="text-primary font-medium">Company Logos:</p>
+              <div>
+                <ul className="list-disc list-inside">
+                  {companyLogos.map((logo, index) => (
+                    <li key={index}>{logo}</li>
+                  ))}
+                </ul>
+              </div>
+            </>
           )}
         </div>
       )}
+
       {/* MODAL */}
       {isModalOpen && (
         <div
