@@ -129,10 +129,28 @@ function LandingPageHeroCMS() {
       ) : (
         <div className="mt-6 space-y-2 text-sm">
           <p><b>Title:</b> {title}</p>
+          <p><b>Paragraph:</b> {para}</p>
+          <p><b>Background Image URL:</b> {backgroundImage}</p>
+
           <p><b>Product Heading:</b> {productHeading}</p>
+          <p><b>Product Paragraph:</b> {productPara}</p>
+
+          <p><b>Solution Heading:</b> {solutionHeading}</p>
+          <p><b>Distributor Heading:</b> {distributorHeading}</p>
+          <p><b>Partner Heading:</b> {partnerHeading}</p>
+
+          {companyLogos.length > 0 && (
+            <div>
+              <b>Company Logos:</b>
+              <ul className="list-disc list-inside">
+                {companyLogos.map((logo, index) => (
+                  <li key={index}>{logo}</li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       )}
-
       {/* MODAL */}
       {isModalOpen && (
         <div
