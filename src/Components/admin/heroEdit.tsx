@@ -14,7 +14,6 @@ function LandingPageHeroCMS() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
-  // 🔹 ALL FIELDS FROM landingPageHero
   const [title, setTitle] = useState("");
   const [para, setPara] = useState("");
   const [backgroundImage, setBackgroundImage] = useState("");
@@ -24,8 +23,11 @@ function LandingPageHeroCMS() {
   const [solutionHeading, setSolutionHeading] = useState("");
   const [distributorHeading, setDistributorHeading] = useState("");
   const [partnerHeading, setPartnerHeading] = useState("");
-  const [companyLogos, setCompanyLogos] = useState<string[]>([]);
 
+  const [distributorLogos, setDistributorLogos] = useState<string[]>([]);
+  const [partnerLogos, setPartnerLogos] = useState<string[]>([]);
+
+  /* ================= FETCH ================= */
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,12 +49,11 @@ function LandingPageHeroCMS() {
           setSolutionHeading(data.SolutionHeading || "");
           setDistributorHeading(data.distributorHeading || "");
           setPartnerHeading(data.partnerHeading || "");
-          setCompanyLogos(data.companyLogos || []);
-        } else {
-          toast.error("Landing page hero document not found");
+
+          setDistributorLogos(data.distributorLogos || []);
+          setPartnerLogos(data.partnerLogos || []);
         }
       } catch (error: any) {
-        console.error("Fetch error:", error);
         toast.error("Failed to fetch landing page data");
       } finally {
         setLoading(false);
@@ -62,6 +63,7 @@ function LandingPageHeroCMS() {
     fetchData();
   }, []);
 
+  /* ================= SAVE ================= */
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -88,7 +90,9 @@ function LandingPageHeroCMS() {
           SolutionHeading: solutionHeading.trim(),
           distributorHeading: distributorHeading.trim(),
           partnerHeading: partnerHeading.trim(),
-          companyLogos: companyLogos.filter((logo) => logo.trim() !== ""),
+
+          distributorLogos: distributorLogos.filter((l) => l.trim() !== ""),
+          partnerLogos: partnerLogos.filter((l) => l.trim() !== ""),
 
           updatedAt: new Date(),
         },
@@ -98,25 +102,60 @@ function LandingPageHeroCMS() {
       toast.success("Landing page hero updated successfully!");
       setIsModalOpen(false);
     } catch (error: any) {
-      console.error("Update error:", error);
-      toast.error(error?.message || "Update failed");
+      toast.error("Update failed");
     } finally {
       setSaving(false);
     }
   };
 
+  /* ================= LOGO HANDLERS ================= */
 
-  const addLogo = () => setCompanyLogos([...companyLogos, ""]);
-
-  const updateLogo = (index: number, value: string) => {
-    const updated = [...companyLogos];
-    updated[index] = value;
-    setCompanyLogos(updated);
+  const updateLogo = (
+    index: number,
+    value: string,
+    type: "distributor" | "partner"
+  ) => {
+    if (type === "distributor") {
+      const updated = [...distributorLogos];
+      updated[index] = value;
+      setDistributorLogos(updated);
+    } else {
+      const updated = [...partnerLogos];
+      updated[index] = value;
+      setPartnerLogos(updated);
+    }
   };
 
-  const removeLogo = (index: number) => {
-    setCompanyLogos(companyLogos.filter((_, i) => i !== index));
+  const addLogo = (type: "distributor" | "partner") => {
+    if (type === "distributor") {
+      setDistributorLogos([...distributorLogos, ""]);
+    } else {
+      setPartnerLogos([...partnerLogos, ""]);
+    }
   };
+
+  const removeLogo = (
+    index: number,
+    type: "distributor" | "partner"
+  ) => {
+    if (type === "distributor") {
+      setDistributorLogos(distributorLogos.filter((_, i) => i !== index));
+    } else {
+      setPartnerLogos(partnerLogos.filter((_, i) => i !== index));
+    }
+  };
+
+  const LogoPreview = ({ url }: { url: string }) => {
+    if (!url) return null;
+
+    return (
+      <div className="relative w-24 h-24 border rounded overflow-hidden mt-2">
+        <Image src={url} alt="logo" fill className="object-contain" />
+      </div>
+    );
+  };
+
+  /* ================= UI ================= */
 
   return (
     <div>
@@ -125,48 +164,28 @@ function LandingPageHeroCMS() {
         <EditButton onClick={() => setIsModalOpen(true)} />
       </div>
 
-      {loading ? (
-        <div className="py-10 text-center text-gray-400">Loading...</div>
-      ) : (
-        <div className="grid grid-cols-2 gap-x-6 gap-y-2 mt-4">
-          <p className="text-primary font-medium">Title:</p>
+      {/* PREVIEW SECTION */}
+      {!loading && (
+        <div className="grid grid-cols-2 gap-4 mt-4">
+          <p className="font-medium text-primary">Title:</p>
           <p>{title}</p>
 
-          <p className="text-primary font-medium">Paragraph:</p>
-          <p>{para}</p>
+          <p className="font-medium text-primary">Background:</p>
+          <Image src={backgroundImage} width={200} height={120} alt="bg" />
 
-          <p className="text-primary font-medium">Background Image:</p>
-          {/* <p>{backgroundImage}</p> */}
-          <Image src={backgroundImage} width={200} height={200} alt="bg" />
+          <p className="font-medium text-primary">Distributor Logos:</p>
+          <div className="flex gap-3 flex-wrap mb-4">
+            {distributorLogos.map((logo, i) => (
+              <Image key={i} src={logo} width={80} height={80} alt="dist" />
+            ))}
+          </div>
 
-          <p className="text-primary font-medium">Product Heading:</p>
-          <p>{productHeading}</p>
-
-          <p className="text-primary font-medium">Product Paragraph:</p>
-          <p>{productPara}</p>
-
-          <p className="text-primary font-medium">Solution Heading:</p>
-          <p>{solutionHeading}</p>
-
-          <p className="text-primary font-medium">Distributor Heading:</p>
-          <p>{distributorHeading}</p>
-
-          <p className="text-primary font-medium">Partner Heading:</p>
-          <p>{partnerHeading}</p>
-
-          {companyLogos.length > 0 && (
-            <>
-              <p className="text-primary font-medium">Company Logos:</p>
-              <div className="">
-                <ul className=" grid grid-cols-2 gap-3">
-                  {companyLogos.map((logo, index) => (
-                    <Image key={logo} src={logo} width={100} height={100} alt="logo" />
-
-                  ))}
-                </ul>
-              </div>
-            </>
-          )}
+          <p className="font-medium text-primary">Partner Logos:</p>
+          <div className="flex gap-3 flex-wrap">
+            {partnerLogos.map((logo, i) => (
+              <Image key={i} src={logo} width={80} height={80} alt="partner" />
+            ))}
+          </div>
         </div>
       )}
 
@@ -177,69 +196,46 @@ function LandingPageHeroCMS() {
           onClick={() => !saving && setIsModalOpen(false)}
         >
           <div
-            className="bg-white w-[95%] max-w-4xl max-h-[90vh] overflow-y-auto rounded-lg"
+            className="bg-white w-[95%] max-w-4xl max-h-[90vh] overflow-y-auto rounded-lg p-6"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Header */}
-            <div className="flex justify-between items-center border-b px-6 py-4">
-              <h3 className="text-lg font-semibold">
-                Edit Landing Page Hero
-              </h3>
-              <button onClick={() => setIsModalOpen(false)} disabled={saving}>
-                <FontAwesomeIcon icon={faClose} />
-              </button>
-            </div>
+            <h3 className="text-lg font-semibold mb-6">
+              Edit Landing Page Hero
+            </h3>
 
-            <form onSubmit={handleSubmit} className="p-6 space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
 
-              {/* HERO */}
               <Input label="Hero Title" value={title} onChange={setTitle} saving={saving} />
               <Input label="Hero Paragraph" value={para} onChange={setPara} saving={saving} />
               <Input label="Background Image URL" value={backgroundImage} onChange={setBackgroundImage} saving={saving} />
+              <LogoPreview url={backgroundImage} />
 
-              {/* HEADINGS */}
-              <Input label="Product Heading" value={productHeading} onChange={setProductHeading} saving={saving} />
-              <Input label="Product Paragraph" value={productPara} onChange={setProductPara} saving={saving} />
-              <Input label="Solution Heading" value={solutionHeading} onChange={setSolutionHeading} saving={saving} />
-              <Input label="Distributor Heading" value={distributorHeading} onChange={setDistributorHeading} saving={saving} />
-              <Input label="Partner Heading" value={partnerHeading} onChange={setPartnerHeading} saving={saving} />
+              {/* Distributor Logos */}
+              <LogoEditor
+                title="Distributor Logos"
+                logos={distributorLogos}
+                type="distributor"
+                addLogo={addLogo}
+                updateLogo={updateLogo}
+                removeLogo={removeLogo}
+                saving={saving}
+              />
 
-              {/* COMPANY LOGOS */}
-              <div>
-                <label className="block font-medium mb-2">Company Logos</label>
-
-                {companyLogos.map((logo, index) => (
-                  <div key={index} className="flex gap-2 mb-2">
-                    <input
-                      type="text"
-                      value={logo}
-                      onChange={(e) => updateLogo(index, e.target.value)}
-                      className="w-full border rounded px-3 py-2"
-                      disabled={saving}
-                    />
-                    <button
-                      type="button"
-                      onClick={() => removeLogo(index)}
-                      className="text-red-500"
-                    >
-                      Remove
-                    </button>
-                  </div>
-                ))}
-
-                <button
-                  type="button"
-                  onClick={addLogo}
-                  className="text-primary-500 font-medium"
-                >
-                  + Add Logo
-                </button>
-              </div>
+              {/* Partner Logos */}
+              <LogoEditor
+                title="Partner Logos"
+                logos={partnerLogos}
+                type="partner"
+                addLogo={addLogo}
+                updateLogo={updateLogo}
+                removeLogo={removeLogo}
+                saving={saving}
+              />
 
               <button
                 type="submit"
                 disabled={saving}
-                className="w-full bg-primary-500 text-white py-2 rounded mt-6"
+                className="w-full bg-primary-500 text-white py-2 rounded"
               >
                 {saving ? "Saving..." : "Save Changes"}
               </button>
@@ -253,22 +249,17 @@ function LandingPageHeroCMS() {
 
 export default LandingPageHeroCMS;
 
+/* ================= SMALL COMPONENTS ================= */
+
 function Input({
   label,
   value,
   onChange,
   saving,
-}: {
-  label: string;
-  value: string;
-  onChange: (val: string) => void;
-  saving: boolean;
-}) {
+}: any) {
   return (
     <div>
-      <label className="block text-sm font-medium mb-1">
-        {label}
-      </label>
+      <label className="block font-medium mb-1">{label}</label>
       <input
         type="text"
         value={value}
@@ -276,6 +267,59 @@ function Input({
         disabled={saving}
         className="w-full border rounded px-3 py-2"
       />
+    </div>
+  );
+}
+
+function LogoEditor({
+  title,
+  logos,
+  type,
+  addLogo,
+  updateLogo,
+  removeLogo,
+  saving,
+}: any) {
+  return (
+    <div>
+      <label className="block font-medium mb-2">{title}</label>
+
+      {logos.map((logo: string, index: number) => (
+        <div key={index} className="mb-4">
+          <div className="flex gap-2">
+            <input
+              type="text"
+              value={logo}
+              onChange={(e) =>
+                updateLogo(index, e.target.value, type)
+              }
+              className="w-full border rounded px-3 py-2"
+              disabled={saving}
+            />
+            <button
+              type="button"
+              onClick={() => removeLogo(index, type)}
+              className="text-red-500"
+            >
+              Remove
+            </button>
+          </div>
+
+          {logo && (
+            <div className="relative w-24 h-24 border rounded mt-2">
+              <Image src={logo} alt="logo" fill className="object-contain" />
+            </div>
+          )}
+        </div>
+      ))}
+
+      <button
+        type="button"
+        onClick={() => addLogo(type)}
+        className="text-primary-500 font-medium"
+      >
+        + Add Logo
+      </button>
     </div>
   );
 }

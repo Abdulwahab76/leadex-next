@@ -87,8 +87,10 @@ export interface LandingPageHero {
     distributorHeading: string;
     partnerHeading: string;
 
-    companyLogos: string[];
+    distributorLogos: string[];   // ✅ NEW
+    partnerLogos: string[];       // ✅ NEW
 }
+
 
 
 export const getLandingPageHero = async (): Promise<LandingPageHero | null> => {
