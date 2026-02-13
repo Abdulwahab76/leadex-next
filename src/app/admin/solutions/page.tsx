@@ -3,8 +3,18 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { getAllSolutions, deleteSolution } from "@/lib/solutionService";
-import { Solution } from "@/hooks/useFetchAllSolutions";
-
+import { Button } from "@/Components/ui/button";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuGroup,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/Components/ui/dropdown-menu";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { Solution } from "@/hooks/useFetchAllSolutions"; // ✅ change import
+import { useRouter } from "next/navigation";
 export default function SolutionsAdminPage() {
     const [solutions, setSolutions] = useState<Solution[]>([]);
     const [loading, setLoading] = useState(true);
@@ -54,24 +64,55 @@ export default function SolutionsAdminPage() {
                         <tr key={solution.id} className="border-t">
                             <td className="p-3">{solution.name}</td>
                             <td className="p-3">{solution.category}</td>
-                            <td className="p-3 flex gap-3">
-                                <Link
-                                    href={`/admin/solutions/${solution.id}/edit`}
-                                    className="text-blue-600"
-                                >
-                                    Edit
-                                </Link>
-                                <button
-                                    onClick={() => handleDelete(solution.id)}
-                                    className="text-red-600"
-                                >
-                                    Delete
-                                </button>
+                            <td className="p-3">
+                                <SolutionDropdownButton
+                                    solution={solution}
+                                    onDelete={handleDelete}
+                                />
                             </td>
+
                         </tr>
                     ))}
                 </tbody>
             </table>
         </div>
+    );
+}
+
+interface Props {
+    solution: Solution; // ✅ changed
+    onDelete: (id: string) => void; // no need for onEdit if using router
+}
+export function SolutionDropdownButton({ solution, onDelete }: Props) {
+    const router = useRouter();
+
+    return (
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="font-bold text-lg">
+                    ⋯
+                </Button>
+            </DropdownMenuTrigger>
+
+            <DropdownMenuContent className="w-32" align="end">
+                <DropdownMenuGroup>
+                    <DropdownMenuItem
+                        className="cursor-pointer flex gap-2"
+                        onClick={() => router.push(`/admin/solutions/${solution.id}/edit`)}
+                    >
+                        <FontAwesomeIcon icon={faEdit} />
+                        Edit
+                    </DropdownMenuItem>
+
+                    <DropdownMenuItem
+                        className="text-red-500 cursor-pointer flex gap-2"
+                        onClick={() => onDelete(solution.id)}
+                    >
+                        <FontAwesomeIcon icon={faTrash} />
+                        Delete
+                    </DropdownMenuItem>
+                </DropdownMenuGroup>
+            </DropdownMenuContent>
+        </DropdownMenu>
     );
 }

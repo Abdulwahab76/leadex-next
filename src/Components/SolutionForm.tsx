@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Solution, SolutionSection } from "@/hooks/useFetchAllSolutions";
 
 interface Props {
@@ -23,6 +24,30 @@ export default function SolutionForm({ initialData, onSubmit }: Props) {
         videos: initialData?.videos || {},
     });
 
+    // ----------------------------
+    // IMAGE PREVIEW COMPONENT
+    // ----------------------------
+
+    const ImagePreview = ({ url }: { url: string }) => {
+        if (!url) return null;
+
+        return (
+            <div className="relative w-full h-48 rounded-lg overflow-hidden border mt-3">
+                <Image
+                    src={url}
+                    alt="Preview"
+                    fill
+                    className="object-cover"
+                    sizes="100vw"
+                />
+            </div>
+        );
+    };
+
+    // ----------------------------
+    // HANDLERS
+    // ----------------------------
+
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
@@ -32,10 +57,6 @@ export default function SolutionForm({ initialData, onSubmit }: Props) {
         }));
     };
 
-    // ----------------------------
-    // SECTION HANDLING
-    // ----------------------------
-
     const addSection = () => {
         const key = `solution${Object.keys(form.solutionSections).length + 1}`;
 
@@ -43,11 +64,7 @@ export default function SolutionForm({ initialData, onSubmit }: Props) {
             ...prev,
             solutionSections: {
                 ...prev.solutionSections,
-                [key]: {
-                    title: "",
-                    descp: "",
-                    imgs: [],
-                },
+                [key]: { title: "", descp: "", imgs: [] },
             },
         }));
     };
@@ -70,10 +87,7 @@ export default function SolutionForm({ initialData, onSubmit }: Props) {
     };
 
     const addImageToSection = (key: string) => {
-        updateSection(key, "imgs", [
-            ...form.solutionSections[key].imgs,
-            "",
-        ]);
+        updateSection(key, "imgs", [...form.solutionSections[key].imgs, ""]);
     };
 
     const updateImage = (key: string, index: number, value: string) => {
@@ -91,139 +105,135 @@ export default function SolutionForm({ initialData, onSubmit }: Props) {
         }));
     };
 
-    // ----------------------------
-    // VIDEO HANDLING
-    // ----------------------------
-
     const addVideo = () => {
         const key = `video${Object.keys(form.videos || {}).length + 1}`;
 
         setForm((prev) => ({
             ...prev,
-            videos: {
-                ...prev.videos,
-                [key]: "",
-            },
+            videos: { ...prev.videos, [key]: "" },
         }));
     };
 
     const updateVideo = (key: string, value: string) => {
         setForm((prev) => ({
             ...prev,
-            videos: {
-                ...prev.videos,
-                [key]: value,
-            },
+            videos: { ...prev.videos, [key]: value },
         }));
     };
-
-    // ----------------------------
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
-
         await onSubmit(form);
-
         setLoading(false);
     };
 
+    // ----------------------------
+    // UI
+    // ----------------------------
+
     return (
-        <form onSubmit={handleSubmit} className="space-y-10 max-w-4xl">
+        <form
+            onSubmit={handleSubmit}
+            className="max-w-5xl mx-auto bg-white p-8 rounded-xl shadow-sm space-y-12"
+        >
+            {/* BASIC INFO */}
+            <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                    <label className="font-semibold">Solution Name</label>
+                    <input
+                        name="name"
+                        value={form.name}
+                        onChange={handleChange}
+                        className="border rounded-lg p-3 w-full mt-2"
+                    />
+                </div>
 
-            {/* BASIC FIELDS */}
-
-            <div>
-                <label className="font-medium">Solution Name</label>
-                <input
-                    name="name"
-                    value={form.name}
-                    onChange={handleChange}
-                    className="border w-full p-2"
-                />
+                <div>
+                    <label className="font-semibold">Category</label>
+                    <input
+                        name="category"
+                        value={form.category}
+                        onChange={handleChange}
+                        className="border rounded-lg p-3 w-full mt-2"
+                    />
+                </div>
             </div>
 
+            {/* HERO IMAGE */}
             <div>
-                <label className="font-medium">Category</label>
-                <input
-                    name="category"
-                    value={form.category}
-                    onChange={handleChange}
-                    className="border w-full p-2"
-                />
-            </div>
-
-            <div>
-                <label className="font-medium">Background Image URL</label>
+                <label className="font-semibold">Background Image URL</label>
                 <input
                     name="background_image"
                     value={form.background_image}
                     onChange={handleChange}
-                    className="border w-full p-2"
+                    className="border rounded-lg p-3 w-full mt-2"
                 />
+                <ImagePreview url={form.background_image} />
             </div>
-            {/* Hero Paragraph */}
-            <div className="flex flex-col gap-2">
-                <label className="font-medium">Hero sub Heading</label>
+
+            {/* HERO TEXT */}
+            <div>
+                <label className="font-semibold">Hero Sub Heading</label>
                 <textarea
                     name="heroPara"
                     value={form.heroPara}
                     onChange={handleChange}
                     rows={4}
-                    className="border rounded p-3"
+                    className="border rounded-lg p-3 w-full mt-2"
                 />
             </div>
 
-            {/* Content Heading */}
-            <div className="flex flex-col gap-2">
-                <label className="font-medium">Content Heading *</label>
-                <input
-                    name="contentHeading"
-                    value={form.contentHeading}
-                    onChange={handleChange}
-                    required
-                    className="border rounded p-3"
-                />
+            {/* CONTENT SECTION */}
+            <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                    <label className="font-semibold">Content Heading</label>
+                    <input
+                        name="contentHeading"
+                        value={form.contentHeading}
+                        onChange={handleChange}
+                        className="border rounded-lg p-3 w-full mt-2"
+                    />
+                </div>
+
+                <div>
+                    <label className="font-semibold">Content Image URL</label>
+                    <input
+                        name="contentImg"
+                        value={form.contentImg}
+                        onChange={handleChange}
+                        className="border rounded-lg p-3 w-full mt-2"
+                    />
+                    <ImagePreview url={form.contentImg} />
+                </div>
             </div>
 
-            {/* Content Paragraph */}
-            <div className="flex flex-col gap-2">
-                <label className="font-medium">Content Paragraph</label>
+            <div>
+                <label className="font-semibold">Content Paragraph</label>
                 <textarea
                     name="contentPara"
                     value={form.contentPara}
                     onChange={handleChange}
                     rows={4}
-                    className="border rounded p-3"
+                    className="border rounded-lg p-3 w-full mt-2"
                 />
             </div>
 
-            {/* Content Image */}
-            <div className="flex flex-col gap-2">
-                <label className="font-medium">Content Image URL</label>
-                <input
-                    name="contentImg"
-                    value={form.contentImg}
-                    onChange={handleChange}
-                    className="border rounded p-3"
-                />
-            </div>
-            {/* ---------------------------- */}
             {/* SECTIONS */}
-            {/* ---------------------------- */}
-
-            <div className="border-t pt-6">
-                <h2 className="text-xl font-bold mb-4">Solution Sections</h2>
+            <div>
+                <h2 className="text-xl font-bold mb-6">Solution Sections</h2>
 
                 {Object.entries(form.solutionSections).map(([key, section]) => (
-                    <div key={key} className="border p-4 mb-6 space-y-4 bg-gray-50">
-
-                        <div className="flex justify-between">
+                    <div
+                        key={key}
+                        className="border rounded-xl p-6 mb-8 bg-gray-50 space-y-4"
+                    >
+                        <div className="flex justify-between items-center">
                             <h3 className="font-semibold">{key}</h3>
                             <button
                                 type="button"
                                 onClick={() => removeSection(key)}
-                                className="text-red-600"
+                                className="text-red-600 text-sm"
                             >
                                 Remove
                             </button>
@@ -235,7 +245,7 @@ export default function SolutionForm({ initialData, onSubmit }: Props) {
                             onChange={(e) =>
                                 updateSection(key, "title", e.target.value)
                             }
-                            className="border w-full p-2"
+                            className="border p-3 rounded w-full"
                         />
 
                         <textarea
@@ -244,28 +254,32 @@ export default function SolutionForm({ initialData, onSubmit }: Props) {
                             onChange={(e) =>
                                 updateSection(key, "descp", e.target.value)
                             }
-                            className="border w-full p-2"
+                            className="border p-3 rounded w-full"
                         />
 
                         <div>
-                            <p className="font-medium">Images</p>
+                            <p className="font-medium mb-3">Images</p>
 
-                            {section.imgs.map((img, index) => (
-                                <input
-                                    key={index}
-                                    placeholder="Image URL"
-                                    value={img}
-                                    onChange={(e) =>
-                                        updateImage(key, index, e.target.value)
-                                    }
-                                    className="border w-full p-2 mb-2"
-                                />
-                            ))}
+                            <div className="grid md:grid-cols-2 gap-4">
+                                {section.imgs.map((img, index) => (
+                                    <div key={index}>
+                                        <input
+                                            placeholder="Image URL"
+                                            value={img}
+                                            onChange={(e) =>
+                                                updateImage(key, index, e.target.value)
+                                            }
+                                            className="border p-2 rounded w-full"
+                                        />
+                                        <ImagePreview url={img} />
+                                    </div>
+                                ))}
+                            </div>
 
                             <button
                                 type="button"
                                 onClick={() => addImageToSection(key)}
-                                className="text-blue-600"
+                                className="text-blue-600 text-sm mt-3"
                             >
                                 + Add Image
                             </button>
@@ -276,17 +290,14 @@ export default function SolutionForm({ initialData, onSubmit }: Props) {
                 <button
                     type="button"
                     onClick={addSection}
-                    className="bg-blue-600 text-white px-4 py-2 rounded"
+                    className="bg-blue-600 text-white px-4 py-2 rounded-lg"
                 >
                     + Add Section
                 </button>
             </div>
 
-            {/* ---------------------------- */}
             {/* VIDEOS */}
-            {/* ---------------------------- */}
-
-            <div className="border-t pt-6">
+            <div>
                 <h2 className="text-xl font-bold mb-4">Videos</h2>
 
                 {form.videos &&
@@ -296,28 +307,29 @@ export default function SolutionForm({ initialData, onSubmit }: Props) {
                             placeholder="Video URL"
                             value={value}
                             onChange={(e) => updateVideo(key, e.target.value)}
-                            className="border w-full p-2 mb-2"
+                            className="border p-3 rounded w-full mb-3"
                         />
                     ))}
 
                 <button
                     type="button"
                     onClick={addVideo}
-                    className="bg-primary-600 text-white px-4 py-2 rounded"
+                    className="bg-primary-600 text-white px-4 py-2 rounded-lg"
                 >
                     + Add Video
                 </button>
             </div>
 
             {/* SUBMIT */}
-
-            <button
-                type="submit"
-                disabled={loading}
-                className="bg-primary-600 text-white px-6 py-3 rounded"
-            >
-                {loading ? "Saving..." : "Save Solution"}
-            </button>
+            <div className="pt-6 border-t">
+                <button
+                    type="submit"
+                    disabled={loading}
+                    className="bg-primary-600 text-white px-6 py-3 rounded-lg"
+                >
+                    {loading ? "Saving..." : "Save Solution"}
+                </button>
+            </div>
         </form>
     );
 }

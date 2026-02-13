@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import {
@@ -359,7 +360,7 @@ export default function ProductForm({
                         })
                     }
                 />
-
+                <Image src={form.free_samples.img ?? '/webp'} width={200} height={200} alt="free" />
                 {/* CHECKLIST */}
                 <label className="font-medium mb-1">Checklist</label>
 
@@ -461,7 +462,8 @@ function ColorImageEditor({
         <div className="border rounded p-3 mb-3">
             <h4 className="font-medium capitalize mb-2">{color}</h4>
 
-            <div className="flex gap-2 mb-2">
+            {/* Add Image Input */}
+            <div className="flex gap-2 mb-3">
                 <input
                     className="border p-2 rounded flex-1"
                     placeholder="Image URL"
@@ -480,19 +482,29 @@ function ColorImageEditor({
                 </button>
             </div>
 
-            <ul className="text-sm space-y-1">
+            {/* Image Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                 {images.map((img, i) => (
-                    <li key={i} className="flex justify-between items-center">
-                        <span className="truncate">{img}</span>
+                    <div key={i} className="relative border rounded overflow-hidden group">
+                        <div className="relative w-full h-28">
+                            <Image
+                                src={img}
+                                alt="Color Image"
+                                fill
+                                className="object-cover"
+                                sizes="150px"
+                            />
+                        </div>
+
                         <button
                             onClick={() => onRemove(i)}
-                            className="text-red-500 text-xs"
+                            className="absolute top-1 right-1 bg-black/60 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition"
                         >
-                            Remove
+                            ✕
                         </button>
-                    </li>
+                    </div>
                 ))}
-            </ul>
+            </div>
         </div>
     );
 }

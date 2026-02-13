@@ -17,10 +17,11 @@ export default async function EditProductPage({ params }: Props) {
         return <div className="p-6">Product not found</div>;
     }
 
-    const product = {
+    const product = JSON.parse(JSON.stringify({
         id: snap.id,
         ...snap.data(),
-    } as Product;
+    }));
+
 
     return <ProductForm mode="edit" initialProduct={product} />;
 

@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import EditButton from "@/Components/common/editButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
+import Image from "next/image";
 
 function LandingPageHeroCMS() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -135,7 +136,8 @@ function LandingPageHeroCMS() {
           <p>{para}</p>
 
           <p className="text-primary font-medium">Background Image:</p>
-          <p>{backgroundImage}</p>
+          {/* <p>{backgroundImage}</p> */}
+          <Image src={backgroundImage} width={200} height={200} alt="bg" />
 
           <p className="text-primary font-medium">Product Heading:</p>
           <p>{productHeading}</p>
@@ -155,10 +157,11 @@ function LandingPageHeroCMS() {
           {companyLogos.length > 0 && (
             <>
               <p className="text-primary font-medium">Company Logos:</p>
-              <div>
-                <ul className="list-disc list-inside">
+              <div className="">
+                <ul className=" grid grid-cols-2 gap-3">
                   {companyLogos.map((logo, index) => (
-                    <li key={index}>{logo}</li>
+                    <Image key={logo} src={logo} width={100} height={100} alt="logo" />
+
                   ))}
                 </ul>
               </div>
