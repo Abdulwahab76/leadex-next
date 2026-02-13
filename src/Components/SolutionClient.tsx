@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import ValleySection from "@/Components/VallySection";
 import FreeSamplesSection from "@/Components/FreeSamplesSection";
 import VideoGridSection from "@/Components/VideoGridSection";
@@ -25,11 +24,9 @@ const SolutionClient: React.FC<SolutionClientProps> = ({
             <section className="relative pt-20 md:py-0 h-[90vh] lg:h-[calc(100vh-140px)] w-full flex justify-center items-center">
 
                 {isValidImage(solution.background_image) && (
-                    <Image
+                    <img
                         src={solution.background_image.trim()}
                         alt={solution.name}
-                        fill
-                        priority
                         className="object-cover"
                     />
                 )}
@@ -57,10 +54,9 @@ const SolutionClient: React.FC<SolutionClientProps> = ({
 
                     {isValidImage(solution.contentImg) && (
                         <div className="relative w-full aspect-video mt-20">
-                            <Image
+                            <img
                                 src={solution.contentImg.trim()}
                                 alt={solution.contentHeading}
-                                fill
                                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 900px"
                             />
                         </div>

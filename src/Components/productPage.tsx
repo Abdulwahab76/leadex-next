@@ -1,32 +1,46 @@
 'use client';
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 type Props = {
     colorImages?: Record<string, string[]>; // e.g., { Gray: ["url1", "url2"], Red: ["url3"] }
+    slideInterval?: number; // optional, default 3000ms
 };
 
-export default function LeadaxFlashingPage({ colorImages = {} }: Props) {
+export default function LeadaxFlashingPage({ colorImages = {}, slideInterval = 3000 }: Props) {
     const colors = Object.keys(colorImages);
     const [activeColor, setActiveColor] = useState(colors[0] || "");
     const [activeIndex, setActiveIndex] = useState(0);
     const [isChanging, setIsChanging] = useState(false);
 
+    const slideRef = useRef<NodeJS.Timeout | null>(null);
+
     const activeImage =
         colorImages[activeColor]?.[activeIndex] || "/products/leadax-flashing-gray.png";
 
-    const changeImageByIndex = (index: number) => {
-        if (!colorImages[activeColor]?.[index]) return;
-        setIsChanging(true);
-        setTimeout(() => {
-            setActiveIndex(index);
-            setIsChanging(false);
-        }, 150);
-    };
+    // Auto-slide logic
+    useEffect(() => {
+        const images = colorImages[activeColor] || [];
+        if (images.length <= 1) return; // no need to slide if only 1 image
 
+        slideRef.current = setInterval(() => {
+            setIsChanging(true);
+            setTimeout(() => {
+                setActiveIndex((prev) => (prev + 1) % images.length);
+                setIsChanging(false);
+            }, 200);
+        }, slideInterval);
+
+        return () => {
+            if (slideRef.current) clearInterval(slideRef.current);
+        };
+    }, [activeColor, colorImages, slideInterval]);
+
+    // Change color manually
     const changeColor = (color: string) => {
+        if (slideRef.current) clearInterval(slideRef.current); // clear previous interval
         setActiveColor(color);
-        setActiveIndex(0); // reset to first image of new color
+        setActiveIndex(0); // reset to first image
     };
 
     return (
@@ -34,16 +48,16 @@ export default function LeadaxFlashingPage({ colorImages = {} }: Props) {
             <div className="flex flex-col items-center justify-center group">
 
                 {/* Product Image */}
-                <div className="relative w-full   ">
+                <div className="relative w-full max-w-xs">
                     <Image
                         src={activeImage}
                         alt={activeColor}
                         width={300}
                         height={300}
                         className={`object-contain transition-all duration-300 ease-out
-                            ${isChanging ? "opacity-0 translate-y-2" : "opacity-100"}
-                            group-hover:-translate-y-3
-                        `}
+              ${isChanging ? "opacity-0 translate-y-2" : "opacity-100"}
+              group-hover:-translate-y-3
+            `}
                         priority
                     />
                 </div>
@@ -51,10 +65,10 @@ export default function LeadaxFlashingPage({ colorImages = {} }: Props) {
                 {/* Shadow under image */}
                 <div
                     className="
-                        mt-2 mb-6 w-44 h-16 bg-[#b9b9b9]
-                        rounded-full blur-md transform scale-y-75
-                        transition-all duration-300 group-hover:bg-[#E4E4E4]
-                    "
+            mt-2 mb-6 w-44 h-16 bg-[#b9b9b9]
+            rounded-full blur-md transform scale-y-75
+            transition-all duration-300 group-hover:bg-[#E4E4E4]
+          "
                 />
 
                 {/* Color Options */}
@@ -64,9 +78,9 @@ export default function LeadaxFlashingPage({ colorImages = {} }: Props) {
                             <button
                                 onClick={() => changeColor(color)}
                                 className={`w-6 h-6 rounded-full border-2
-                                    ${activeColor === color ? "border-black" : "border-gray-400"}
-                                    hover:scale-110 transition-transform
-                                `}
+                  ${activeColor === color ? "border-black" : "border-gray-400"}
+                  hover:scale-110 transition-transform
+                `}
                                 style={{ backgroundColor: color.toLowerCase() }}
                             />
                             <span className="absolute -top-8 left-1/2 -translate-x-1/2 text-xs bg-black text-white px-2 py-1 rounded opacity-0 group-hover/color:opacity-100 transition">
@@ -75,7 +89,6 @@ export default function LeadaxFlashingPage({ colorImages = {} }: Props) {
                         </div>
                     ))}
                 </div>
-
 
             </div>
         </div>

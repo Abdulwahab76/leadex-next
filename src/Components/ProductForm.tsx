@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import {
@@ -360,7 +359,7 @@ export default function ProductForm({
                         })
                     }
                 />
-                <Image src={form.free_samples.img ?? '/webp'} width={200} height={200} alt="free" />
+                <img src={form.free_samples.img ?? '/webp'} width={200} height={200} alt="free" />
                 {/* CHECKLIST */}
                 <label className="font-medium mb-1">Checklist</label>
 
@@ -486,13 +485,11 @@ function ColorImageEditor({
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                 {images.map((img, i) => (
                     <div key={i} className="relative border rounded overflow-hidden group">
-                        <div className="relative w-full h-28">
-                            <Image
+                        <div className="relative w-full  ">
+                            <img
                                 src={img}
                                 alt="Color Image"
-                                fill
-                                className="object-cover"
-                                sizes="150px"
+                                className="object-contain"
                             />
                         </div>
 

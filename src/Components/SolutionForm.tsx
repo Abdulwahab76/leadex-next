@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { Solution, SolutionSection } from "@/hooks/useFetchAllSolutions";
 
 interface Props {
@@ -32,12 +31,11 @@ export default function SolutionForm({ initialData, onSubmit }: Props) {
         if (!url) return null;
 
         return (
-            <div className="relative w-full h-48 rounded-lg overflow-hidden border mt-3">
-                <Image
+            <div className="relative w-full  rounded-lg overflow-hidden border mt-3">
+                <img
                     src={url}
                     alt="Preview"
-                    fill
-                    className="object-cover"
+                    className="object-contain"
                     sizes="100vw"
                 />
             </div>
