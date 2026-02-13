@@ -165,29 +165,89 @@ function LandingPageHeroCMS() {
       </div>
 
       {/* PREVIEW SECTION */}
-      {!loading && (
-        <div className="grid grid-cols-2 gap-4 mt-4">
-          <p className="font-medium text-primary">Title:</p>
-          <p>{title}</p>
+      {loading ? (
+        <div className="py-10 text-center text-gray-400">Loading...</div>
+      ) : (
+        <div className="grid md:grid-cols-2 gap-10 mt-6">
 
-          <p className="font-medium text-primary">Background:</p>
-          <Image src={backgroundImage} width={200} height={120} alt="bg" />
+          {/* ================= LEFT: TEXT ================= */}
+          <div className="space-y-4">
 
-          <p className="font-medium text-primary">Distributor Logos:</p>
-          <div className="flex gap-3 flex-wrap mb-4">
-            {distributorLogos.map((logo, i) => (
-              <Image key={i} src={logo} width={80} height={80} alt="dist" />
-            ))}
+            <Field label="Title" value={title} />
+            <Field label="Paragraph" value={para} />
+            <Field label="Product Heading" value={productHeading} />
+            <Field label="Product Paragraph" value={productPara} />
+            <Field label="Solution Heading" value={solutionHeading} />
+            <Field label="Distributor Heading" value={distributorHeading} />
+            <Field label="Partner Heading" value={partnerHeading} />
+
           </div>
 
-          <p className="font-medium text-primary">Partner Logos:</p>
-          <div className="flex gap-3 flex-wrap">
-            {partnerLogos.map((logo, i) => (
-              <Image key={i} src={logo} width={80} height={80} alt="partner" />
-            ))}
+          {/* ================= RIGHT: IMAGES ================= */}
+          <div className="space-y-8">
+
+            {/* Background Image */}
+            <div>
+              <p className="text-primary font-medium mb-2">Background Image</p>
+              {backgroundImage && (
+                <div className="relative w-full h-40 rounded overflow-hidden border">
+                  <Image
+                    src={backgroundImage}
+                    alt="bg"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              )}
+            </div>
+
+            {/* Distributor Logos */}
+            {distributorLogos.length > 0 && (
+              <div>
+                <p className="text-primary font-medium mb-2">
+                  Distributor Logos
+                </p>
+                <div className="flex flex-wrap gap-4">
+                  {distributorLogos.map((logo, i) => (
+                    <div key={i} className="relative w-20 h-20 border rounded">
+                      <Image
+                        src={logo}
+                        alt="dist"
+                        fill
+                        className="object-contain p-2"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Partner Logos */}
+            {partnerLogos.length > 0 && (
+              <div>
+                <p className="text-primary font-medium mb-2">
+                  Partner Logos
+                </p>
+                <div className="flex flex-wrap gap-4">
+                  {partnerLogos.map((logo, i) => (
+                    <div key={i} className="relative w-20 h-20 border rounded">
+                      <Image
+                        src={logo}
+                        alt="partner"
+                        fill
+                        className="object-contain p-2"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
           </div>
+
         </div>
       )}
+
 
       {/* MODAL */}
       {isModalOpen && (
@@ -320,6 +380,14 @@ function LogoEditor({
       >
         + Add Logo
       </button>
+    </div>
+  );
+}
+function Field({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <p className="text-primary font-medium">{label}</p>
+      <p className="text-gray-800">{value || "-"}</p>
     </div>
   );
 }
