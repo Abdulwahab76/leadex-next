@@ -4,6 +4,7 @@ import ValleySection from "@/Components/VallySection";
 import FreeSamplesSection from "@/Components/FreeSamplesSection";
 import VideoGridSection from "@/Components/VideoGridSection";
 import { Solution, SolutionSection } from "@/hooks/useFetchAllSolutions";
+import Image from "next/image";
 
 interface SolutionClientProps {
     solution: Solution | null;
@@ -24,10 +25,11 @@ const SolutionClient: React.FC<SolutionClientProps> = ({
             <section className="relative pt-20 md:py-0 h-[90vh] lg:h-[calc(100vh-140px)] w-full flex justify-center items-center">
 
                 {isValidImage(solution.background_image) && (
-                    <img
+                    <Image
                         src={solution.background_image.trim()}
                         alt={solution.name}
                         className="object-cover"
+                        fill
                     />
                 )}
 
